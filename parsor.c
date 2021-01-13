@@ -6,20 +6,31 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/13 16:28:13 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/13 23:39:29 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static int	ft_fillres(char *line, t_map map_datas)
+static int	ft_filltexture(char *line, t_map map_datas)
+static int	ft_rgb(char *line, t_map map_datas)
+
 int ft_fillstruct(char *line)
 {
+	int i;
+	const char[] = "R"
 	t_map map_datas;
 
-	if ()
+	i = 0;
+	while(line[i] == ' ')
+		i++;
+	if (line[i] == 'R' || line[i])
+	else
+		return ;
 }
 
-int	main(void)
+int	ft_parsor(char *path)
 {
 	int fd;
 	int a;
@@ -30,7 +41,7 @@ int	main(void)
 	while (a)
 	{
 		printf("line = %s\n", line);
-		
+		ft_fillstruct
 		a = get_next_line(fd, &line);
 	}
 	close(fd);
