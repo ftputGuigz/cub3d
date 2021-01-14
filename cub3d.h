@@ -37,4 +37,6 @@ typedef struct	s_struct
 	char *ceiling_path;
 }				t_map;
 
+int	ft_parsor(char *path);
+
 #endif

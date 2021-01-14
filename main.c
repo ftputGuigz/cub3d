@@ -39,7 +39,7 @@ int main(int ac, char **av)
 	}
 	else //RAJOUTER CONDITION PATH absolu !
 	{
-		*check = ft_parsor(av[1]);
+		check = ft_parsor(av[1]);
 		if (check == -1)
 		{
 			printf("Error\n");
