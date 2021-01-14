@@ -18,32 +18,50 @@ static int	ft_rgb(char *line, t_map map_datas)
 
 int ft_fillstruct(char *line)
 {
-	int i;
-	const char[] = "R"
-	t_map map_datas;
+	int	i;
+	int	ret;
+	t_map	map_datas;
+	static int mapclearance = 0;
 
 	i = 0;
 	while(line[i] == ' ')
 		i++;
-	if (line[i] == 'R' || line[i])
-	else
-		return ;
+	if (line[i] == 'R')
+	{
+		ret = ft_fillres(line);
+		mapclearance++;
+	}
+	else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
+	{
+		ret = ft_filltexture(line);
+		mapclearance++;
+	}
+	else if (line[i] == 'F' || line[i] == 'C')
+	{
+		ret = ft_rgb(line);
+		mapclearance;
+	}
+	else 
+		ret = -1;
+
+	return (ret);
 }
 
 int	ft_parsor(char *path)
 {
 	int fd;
 	int a;
+	int ret;
 	char *line;
 
-	fd = open("map.cub", O_RDONLY);
+	fd = open(path, O_RDONLY);
 	a = get_next_line(fd, &line);
 	while (a)
 	{
 		printf("line = %s\n", line);
-		ft_fillstruct
+		ret = ft_fillstruct(line);
 		a = get_next_line(fd, &line);
 	}
 	close(fd);
-	return(0);
+	return(ret);
 }

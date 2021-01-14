@@ -21,6 +21,7 @@
 # include <string.h>
 # include <fcntl.h>
 
+# include "libft.h"
 # include "get_next_line.h"
 
 typedef struct	s_struct

@@ -10,13 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
+
 static int	ft_checkextension(char *str)
 {
 	int z;
 
 	z = ft_strlen(str);
 	if (z >= 4 && str[z - 1] == 'b' && str[z - 2] == 'u' && str[z - 3] == 'c' && str[z - 4] == '.')
-		return (1)
+		return (1);
 	else
 		return (0);
 }
@@ -27,24 +29,25 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		write(1, "Wrong number of arguments. 1 is required.", 41);
+		printf("Wrong number of arguments. 1 is required.\n");
 		return(0);
 	}
 	else if (!ft_checkextension(av[1]))
 	{
-		write(1, "Wrong type of file. Only <yourfile.cub> format is accepted.", 59);
+		printf("Wrong type of file. Only <yourfile.cub> format is accepted.\n");
 		return(0);
 	}
-	else if (av[1][0] != '/' || av[1][0] != '~' || av[1][0] != '.' || (av[1][0] != '.' && av[1][1] != '.')
-		write(1, "Please write full path of the map.", 34);
-	else
+	else //RAJOUTER CONDITION PATH absolu !
 	{
-		check = ft_parsor(av[1]);
+		*check = ft_parsor(av[1]);
 		if (check == -1)
 		{
-			write(1, "Your <*.cub> file is not valid.", 27);
+			printf("Error\n");
+			printf("Your <*.cub> file is not valid.\n");
 			return (0);
 		}
+		else
+			printf("Parsing en cours de codage :) ");
 	}
 	return (0);
 }
