@@ -3,41 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/14 22:32:38 by gpetit           ###   ########.fr        #
+#    Created: 2021/01/14 20:00:40 by gpetit            #+#    #+#              #
+#    Updated: 2021/01/14 20:16:29 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = get_next_line.a
 
 CC = clang
 
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra
 
-SRCS = main.c parsor.c
+SRCS = get_next_line.c get_next_line_utils.c get_next_line_utils2.c
 
 OBJS = $(SRCS:.c=.o)
 
-LIBGNL = ./srcs/gnl/get_next_line.a
+all : $(NAME)
 
-LIBFT = ./srcs/libft/libft.a
+$(NAME) : $(OBJS)
+	ar rc $(NAME) $(OBJS)
 
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	make -C srcs/gnl/ && make -C srcs/libft/ 
-	$(CC) $(CFLAGS) $(OBJS) $(LIBGNL) $(LIBFT)
-
-clean:
-	make clean -C srcs/gnl/ && make clean -C srcs/libft/
+clean : 
 	rm -f $(OBJS)
 
-fclean: clean
-	make fclean -C srcs/gnl/ && make fclean -C srcs/libft/
+fclean : clean
 	rm -f $(NAME)
-	
-re: fclean $(NAME)
 
-.PHONY: all re clean fclean
+re : fclean $(NAME)
+
+.PHONY : all clean fclean re

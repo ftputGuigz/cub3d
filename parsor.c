@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/13 23:39:29 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/14 22:13:12 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,60 +25,69 @@ static char *ft_fillmap(char *line, char *line_map)
 	if (!first_line)
 	{
 		first_line = 1;
-		line_map = ft_strjoin("", line);
-		tmp = line_map;
-		line_map = ft_strjoin(tmp, "-");
-		free(tmp);
+		line_map = ft_strjoin(line, "-");
 	}
 	else
 	{
-		tmp2 = line;
-		line = ft_strjoin(tmp2, "-");
+		tmp = ft_strjoin(line, "-");
+		tmp2 = line_map;
+		line_map = ft_strjoin(tmp2, tmp);
+		free(tmp);
 		free(tmp2);
-		tmp = line_map;
-		line_map = ft_strjoin(tmp, line);
 	}
+	printf("line map vaut %s\n", line_map);
 	return (line_map);
 }
 
 static int ft_fillstruct(char *line, char *line_map)
 {
 	int	i;
-	t_map	map_datas;
+	//t_map	map_datas;
 	static int mapclearance = 0;
 	static int mapbegin = 0;
 
 	i = 0;
 	if (mapclearance < 8)
 	{
-		if (line[i] == '\n')
-			return (0);
 		while(line[i] == ' ')
 			i++;
+		if (line[i] == '\n')
+			return (0);
 		if (line[i] == 'R')
 		{
 			mapclearance++;
+			return (0);
 			//return (ft_fillres(line));
 		}
 		else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		{
 			mapclearance++;
+			return(0);
 			//return (ft_filltexture(line));
 		}
 		else if (line[i] == 'F' || line[i] == 'C')
 		{
 			mapclearance++;
+			return(0);
 			//return (ft_rgb(line));
 		}
 		else 
 			return (-1);
 	}
+	printf("i = |%d|", i);
 	if (mapclearance == 8 && line[i] == '\n' && !mapbegin)
+	{
+		printf("la");
 		return (0);
+	}
 	else if (mapclearance == 8 && line[i] == '\n' && mapbegin)
+	{	
+		printf("ici");
 		return (-1);
+	}
 	else
 	{
+		printf("surtout la");
 		mapbegin = 1;
 		line_map = ft_fillmap(line, line_map);
 		return (0);
@@ -100,7 +109,6 @@ int	ft_parsor(char *path)
 	{
 		printf("line = %s\n", line);
 		ret = ft_fillstruct(line, line_map);
-		printf("line_map = %s\n", line_map);
 		free(line);
 		a = get_next_line(fd, &line);
 	}

@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:44:35 by gpetit            #+#    #+#             */
-/*   Updated: 2020/12/01 13:08:48 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:11:10 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <sys/uio.h>
 # include <unistd.h>
 # include <string.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1
+#endif
 
 int		get_next_line(int fd, char **line);
 char	*ft_strchr(const char *s, int c);

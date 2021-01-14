@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/19 16:49:20 by gpetit            #+#    #+#              #
-#    Updated: 2020/11/23 11:33:30 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/14 20:38:12 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ bonus : $(OBJS) $(OBJSBONUS)
 	$(CC) $(CFLAGS) -o $@ -c $^ -I $(HEADER)
 
 clean:
-	rm -f *.o
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)

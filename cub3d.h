@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/13 16:27:28 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/14 20:59:22 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <string.h>
 # include <fcntl.h>
 
-# include "libft.h"
-# include "get_next_line.h"
+# include "./srcs/libft/libft.h"
+# include "./srcs/gnl/get_next_line.h"
 
 typedef struct	s_struct
 {
