@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/14 20:59:22 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/15 12:40:40 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ typedef struct	s_struct
 }				t_map;
 
 int	ft_parsor(char *path);
+char **map_parsor(char *line_map);
 
 #endif

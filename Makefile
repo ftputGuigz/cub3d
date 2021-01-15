@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/14 22:32:38 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/15 12:38:45 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME = a.out
 
 CC = clang
 
-CFLAGS = 
+CFLAGS = -Wall -Werror -Wextra 
 
-SRCS = main.c parsor.c
+SRCS = main.c parsor.c map_parsor.c
 
 OBJS = $(SRCS:.c=.o)
 
