@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:44:35 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/14 20:11:10 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:04:24 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #endif
 
 int		get_next_line(int fd, char **line);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr2(const char *s, int c);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);

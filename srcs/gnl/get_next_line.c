@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:44:21 by gpetit            #+#    #+#             */
-/*   Updated: 2020/12/28 12:24:07 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:04:14 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_fork(char **stock, char **line, ssize_t by)
 		*line = ft_strdup("");
 		return (0);
 	}
-	else if (!(ft_strchr(*stock, '\n')))
+	else if (!(ft_strchr2(*stock, '\n')))
 	{
 		*line = ft_strdup(*stock);
 		free(*stock);
@@ -84,7 +84,7 @@ int	get_next_line(int fd, char **line)
 			stock[fd] = ft_strjoin(temp, buff);
 			free(temp);
 		}
-		if (ft_strchr(stock[fd], '\n'))
+		if (ft_strchr2(stock[fd], '\n'))
 			break ;
 		by = read(fd, buff, BUFFER_SIZE);
 	}

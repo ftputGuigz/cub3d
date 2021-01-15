@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:44:53 by gpetit            #+#    #+#             */
-/*   Updated: 2020/12/28 12:30:31 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/15 18:01:14 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchrgnl(const char *s, int c)
 {
 	char	*ptr;
 
