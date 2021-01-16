@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/15 18:09:08 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/16 01:10:50 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static int map_checkfirstline(char *firstline, char *underline)
 static int	primary_check(char *str)
 {
 	char autorized[] = " 012NSEW";
+	char letters[] = "NSEW";
 	static int letter = 0;
 	int i;
 
@@ -89,6 +90,10 @@ static int	primary_check(char *str)
 	while (str[i])
 	{
 		if (!ft_strchr(autorized, str[i]))
+			return (0);
+		if (ft_strchr(letters, str[i]) && !letter)
+			letter = 1;
+		if (ft_strchr(letters, str[i]) && letter)
 			return (0);
 		i++;
 	}
@@ -99,7 +104,8 @@ static int	map_checkerror(char **map, int k)
 {
 	int i;
 	int ret;
-	
+
+	i = 0;
 	if (k <= 2)
 		return (-1);
 	while (i <= k && ret != -1)
@@ -109,7 +115,7 @@ static int	map_checkerror(char **map, int k)
 		if (i == 0)
 			ret = map_checkfirstline(map[i], map[i + 1]);
 		else if (i == k)
-			ret = mapcheckmiddleline(map[i], map[i - 1], map[i + 1]);
+			ret = map_checkmiddleline(map[i], map[i - 1], map[i + 1]);
 		else
 			ret = map_checklastline(map[i], map[i - 1]);
 		i++;
