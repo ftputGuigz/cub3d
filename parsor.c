@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/16 11:42:15 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/16 19:48:02 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int ft_fillstruct(char *line, char **line_map)
 	//t_map	map_datas;
 	static int mapclearance = 0;
 	static int mapbegin = 0;
+	static int mapend = 0;
 
 	i = 0;
 	if (mapclearance < 8)
@@ -62,14 +63,33 @@ static int ft_fillstruct(char *line, char **line_map)
 		else 
 			return (-1);
 	}
-	if (mapclearance == 8 && !line[i] && !mapbegin)
-		return (0);
-	else
+	if (mapclearance == 8)
 	{
-		mapbegin = 1;
-		ft_fillmap(line, line_map);
-		return (0);
+		if (!mapbegin && !mapend)
+		{
+			if (line[i])
+			{	
+				ft_fillmap(line, line_map);
+				mapbegin = 1;
+			}
+			return (0);
+		}
+		if (mapbegin && !mapend)
+		{
+			if (line[i])
+				ft_fillmap(line, line_map);
+			else 
+				mapend = 1;
+			return (0);
+		}
+		if (mapbegin && mapend)
+		{
+			if (line[i])
+				return (-1);
+			return (0);
+		}
 	}
+	return (0);
 }
 
 int	ft_parsor(char *path)
@@ -84,18 +104,21 @@ int	ft_parsor(char *path)
 	line_map = ft_strdup("");
 	fd = open(path, O_RDONLY);
 	a = get_next_line(fd, &line);
-	while (a)
+	ret = 0;
+	map = NULL;
+	while (a && ret != -1)
 	{
 		ret = ft_fillstruct(line, &line_map); //controle le remplissage grossier et les datas (espaces etc)
 		free(line);
 		a = get_next_line(fd, &line);
 	}
 	free(line);
-	map = map_parsor(line_map); //controle les donnees de la MAP de facon detaillee
-	if (!map)
-		return (-1);
+	if (ret != -1)
+		map = map_parsor(line_map); //controle les donnees de la MAP de facon detaillee
 	free(line_map);
 	close(fd);
+	if (!map)
+		ret = -1;
 	free(map);//FREE POUR DOUBLE TABLEAU !
 	return(ret);
 }
