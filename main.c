@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:41:21 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/15 12:40:49 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/16 10:46:27 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int ac, char **av)
 			return (0);
 		}
 		else
-			printf("Parsing en cours de codage :) ");
+			printf("datas correctes");
 	}
 	return (0);
 }

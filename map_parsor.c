@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/16 01:10:50 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/16 11:44:57 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ static int	primary_check(char *str)
 	while (str[i])
 	{
 		if (!ft_strchr(autorized, str[i]))
-			return (0);
+			return (-1);
+		if (ft_strchr(letters, str[i]) && letter)
+			return (-1);
 		if (ft_strchr(letters, str[i]) && !letter)
 			letter = 1;
-		if (ft_strchr(letters, str[i]) && letter)
-			return (0);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static int	map_checkerror(char **map, int k)
@@ -108,16 +108,26 @@ static int	map_checkerror(char **map, int k)
 	i = 0;
 	if (k <= 2)
 		return (-1);
-	while (i <= k && ret != -1)
+	while (i < k && ret != -1)
 	{
-		if (!primary_check(map[i]))
+		//printf("i value when segfault %d\n", i);
+		if (primary_check(map[i]))
 			return (-1);
 		if (i == 0)
+		{	
 			ret = map_checkfirstline(map[i], map[i + 1]);
+		//	printf("BOOLEAN first line : %d\n", ret);
+		}
 		else if (i == k)
-			ret = map_checkmiddleline(map[i], map[i - 1], map[i + 1]);
-		else
+		{
 			ret = map_checklastline(map[i], map[i - 1]);
+		//	printf("BOOLEAN last line : %d\n", ret);
+		}	
+		else
+		{
+			ret = map_checkmiddleline(map[i], map[i - 1], map[i + 1]);
+		//	printf("BOOLEAN middle line : %d, line number : %d\n", ret, i);
+		}
 		i++;
 	}	
 	return(ret);
@@ -135,9 +145,8 @@ char **map_parsor(char *line_map)
 		printf("%s\n", map[k]);
 		k++;
 	}
-	if (map_checkerror(map, k))
-	{
-		return(NULL);
-	}
+	//printf("k vaut %d\n", k);           //  DEBOGAGE
+	if (map_checkerror(map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
+		map = NULL;
 	return(map);	
 }

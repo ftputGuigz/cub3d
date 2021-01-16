@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/15 17:47:03 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/16 11:42:15 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	ft_fillmap(char *line, char **line_map)
 	tmp = ft_strjoin(line, "-");
 	tmp2 = ft_strjoin(*line_map, tmp);
 	free(tmp);
-	//free(line_map);
 	*line_map = tmp2;
 }
 
@@ -87,14 +86,16 @@ int	ft_parsor(char *path)
 	a = get_next_line(fd, &line);
 	while (a)
 	{
-		ret = ft_fillstruct(line, &line_map);
+		ret = ft_fillstruct(line, &line_map); //controle le remplissage grossier et les datas (espaces etc)
 		free(line);
 		a = get_next_line(fd, &line);
 	}
 	free(line);
-	map = map_parsor(line_map);
+	map = map_parsor(line_map); //controle les donnees de la MAP de facon detaillee
+	if (!map)
+		return (-1);
 	free(line_map);
 	close(fd);
-	free(map);
+	free(map);//FREE POUR DOUBLE TABLEAU !
 	return(ret);
 }
