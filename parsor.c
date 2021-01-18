@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 17:21:49 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 21:45:20 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,17 +100,40 @@ static int	ft_fillres(char *line, t_datas *map_datas, t_flags *flags)
 	return (0);
 }
 
+static int	ft_fillstruct2(char *line, int i, char **line_map)
+{
+	static int mapbegin = 0;
+	static int mapend = 0;
+
+	if (!mapbegin && !mapend)
+	{
+		if (line[i])
+		{	
+			ft_fillmap(line, line_map);
+			mapbegin = 1;
+		}
+		return (0);
+	}
+	if (mapbegin && !mapend)
+	{
+		if (line[i])
+			ft_fillmap(line, line_map);
+		else 
+			mapend = 1;
+		return (0);
+	}
+	if (line[i])
+		return (-1);
+	return (0);
+}
+
 static int ft_fillstruct(char *line, char **line_map, t_datas *map_datas)
 {
 	int	i;
 	static t_flags flags;
 	static int mapclearance = 0;
-	static int mapbegin = 0;
-	static int mapend = 0;
 
 	i = 0;
-	if (mapclearance > 8) //PLUS DE 8 DATAS DANS LINPUT == ERREUR
-		return (-1);
 	if (mapclearance < 8)
 	{
 		while(line[i] == ' ')
@@ -136,33 +159,10 @@ static int ft_fillstruct(char *line, char **line_map, t_datas *map_datas)
 		else 
 			return (-1);
 	}
-	if (mapclearance == 8)
-	{
-		if (!mapbegin && !mapend)
-		{
-			if (line[i])
-			{	
-				ft_fillmap(line, line_map);
-				mapbegin = 1;
-			}
-			return (0);
-		}
-		if (mapbegin && !mapend)
-		{
-			if (line[i])
-				ft_fillmap(line, line_map);
-			else 
-				mapend = 1;
-			return (0);
-		}
-		if (mapbegin && mapend)
-		{
-			if (line[i])
-				return (-1);
-			return (0);
-		}
-	}
-	return (0);
+	else if (mapclearance == 8)
+		return(ft_fillstruct2(line, i, line_map));
+	else
+		return (-1);
 }
 
 int	ft_parsor(char *path, t_datas *map_datas)
@@ -190,6 +190,6 @@ int	ft_parsor(char *path, t_datas *map_datas)
 	close(fd);
 	if (!map_datas->map)
 		ret = -1;
-	free(map_datas->map);//FREE POUR DOUBLE TABLEAU !
+	//free(map_datas->map);//FREE POUR DOUBLE TABLEAU !
 	return(ret);
 }
