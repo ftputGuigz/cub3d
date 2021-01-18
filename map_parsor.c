@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/16 11:44:57 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 12:42:45 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static int	map_checkerror(char **map, int k)
 			ret = map_checkfirstline(map[i], map[i + 1]);
 		//	printf("BOOLEAN first line : %d\n", ret);
 		}
-		else if (i == k)
+		else if (i == k - 1)
 		{
 			ret = map_checklastline(map[i], map[i - 1]);
 		//	printf("BOOLEAN last line : %d\n", ret);

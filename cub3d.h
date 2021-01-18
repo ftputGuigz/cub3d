@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/15 18:00:13 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 15:01:11 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,19 @@
 # include "./srcs/libft/libft.h"
 # include "./srcs/gnl/get_next_line.h"
 
-typedef struct	s_struct
+typedef struct s_flags
+{
+	int R;
+	int NO;
+	int SO;
+	int EA;
+	int WE;
+	int sprite;
+	int F;
+	int C;
+}				t_flags;
+
+typedef struct	s_datas
 {
 	int res_x;
 	int res_y;
@@ -33,9 +45,9 @@ typedef struct	s_struct
 	char *EA_path;
 	char *WE_path; 
 	char *sprite_path;
-	char *floor_path;
-	char *ceiling_path;
-}				t_map;
+	char *F_rgb;
+	char *C_rgb;
+}				t_datas;
 
 int	ft_parsor(char *path);
 char **map_parsor(char *line_map);
