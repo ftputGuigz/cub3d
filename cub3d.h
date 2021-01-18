@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 15:01:11 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 17:13:46 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ typedef struct	s_datas
 	char *sprite_path;
 	char *F_rgb;
 	char *C_rgb;
+	char **map;
 }				t_datas;
 
-int	ft_parsor(char *path);
+int	ft_parsor(char *path, t_datas *map_datas);
 char **map_parsor(char *line_map);
 
 #endif

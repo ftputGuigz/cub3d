@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 12:42:45 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 17:11:32 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,24 +110,14 @@ static int	map_checkerror(char **map, int k)
 		return (-1);
 	while (i < k && ret != -1)
 	{
-		//printf("i value when segfault %d\n", i);
 		if (primary_check(map[i]))
 			return (-1);
 		if (i == 0)
-		{	
 			ret = map_checkfirstline(map[i], map[i + 1]);
-		//	printf("BOOLEAN first line : %d\n", ret);
-		}
 		else if (i == k - 1)
-		{
 			ret = map_checklastline(map[i], map[i - 1]);
-		//	printf("BOOLEAN last line : %d\n", ret);
-		}	
 		else
-		{
 			ret = map_checkmiddleline(map[i], map[i - 1], map[i + 1]);
-		//	printf("BOOLEAN middle line : %d, line number : %d\n", ret, i);
-		}
 		i++;
 	}	
 	return(ret);
@@ -145,7 +135,6 @@ char **map_parsor(char *line_map)
 		printf("%s\n", map[k]);
 		k++;
 	}
-	//printf("k vaut %d\n", k);           //  DEBOGAGE
 	if (map_checkerror(map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
 		map = NULL;
 	return(map);	

@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 15:59:59 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 17:21:49 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,9 @@ static int	ft_fillres(char *line, t_datas *map_datas, t_flags *flags)
 	return (0);
 }
 
-static int ft_fillstruct(char *line, char **line_map)
+static int ft_fillstruct(char *line, char **line_map, t_datas *map_datas)
 {
 	int	i;
-	t_datas	map_datas;
 	static t_flags flags;
 	static int mapclearance = 0;
 	static int mapbegin = 0;
@@ -121,12 +120,12 @@ static int ft_fillstruct(char *line, char **line_map)
 		if (line[i] == 'R')
 		{
 			mapclearance++;
-			return (ft_fillres(line, &map_datas, &flags));
+			return (ft_fillres(line, map_datas, &flags));
 		}
 		else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 		{
 			mapclearance++;
-			return (ft_filltexture(line, &map_datas, &flags));
+			return (ft_filltexture(line, map_datas, &flags));
 		}
 		else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		{
@@ -166,33 +165,31 @@ static int ft_fillstruct(char *line, char **line_map)
 	return (0);
 }
 
-int	ft_parsor(char *path)
+int	ft_parsor(char *path, t_datas *map_datas)
 {
 	int fd;
 	int a;
 	int ret;
 	char *line;
 	char *line_map;
-	char **map;
 
 	line_map = ft_strdup("");
 	fd = open(path, O_RDONLY);
 	a = get_next_line(fd,&line);
 	ret = 0;
-	map = NULL;
 	while (a && ret != -1)
 	{
-		ret = ft_fillstruct(line, &line_map); //controle le remplissage grossier et les datas (espaces etc)
+		ret = ft_fillstruct(line, &line_map, map_datas); //controle le remplissage grossier et les datas (espaces etc)
 		free(line);
 		a = get_next_line(fd, &line);
 	}
 	free(line);
 	if (ret != -1)
-		map = map_parsor(line_map); //controle les donnees de la MAP de facon detaillee
+		map_datas->map = map_parsor(line_map); //controle les donnees de la MAP de facon detaillee
 	free(line_map);
 	close(fd);
-	if (!map)
+	if (!map_datas->map)
 		ret = -1;
-	free(map);//FREE POUR DOUBLE TABLEAU !
+	free(map_datas->map);//FREE POUR DOUBLE TABLEAU !
 	return(ret);
 }

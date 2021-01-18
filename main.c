@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:41:21 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/16 10:46:27 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/18 17:12:10 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@ static int	ft_checkextension(char *str)
 		return (0);
 }
 
-int main(int ac, char **av)
+int	main2(char *av1)  //RESPO INIT PARTIE GRAPHIQUE
+{
+	t_datas map_datas;
+
+	int ret;
+	ret = ft_parsor(av1, &map_datas);
+	return (ret);
+}
+
+int main(int ac, char **av) //RESPO GESTIOn D'ERREUR
 {
 	int check;
 
@@ -39,7 +48,7 @@ int main(int ac, char **av)
 	}
 	else //RAJOUTER CONDITION PATH absolu !
 	{
-		check = ft_parsor(av[1]);
+		check = main2(av[1]);
 		if (check == -1)
 		{
 			printf("Error\n");
