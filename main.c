@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:41:21 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 17:12:10 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/19 16:58:59 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,21 @@ static int	ft_checkextension(char *str)
 		return (0);
 }
 
-int	main2(char *av1)  //RESPO INIT PARTIE GRAPHIQUE
+static int	main2(char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 {
 	t_datas map_datas;
+	
+	t_mlx mlx;
+	t_img minimap;
 
 	int ret;
+
 	ret = ft_parsor(av1, &map_datas);
+	mlx.ptr = mlx_init();
+	mlx.wdw = mlx_new_window(mlx.ptr, map_datas.res_x, map_datas.res_y, "Guigz's Cub3d");
+	minimap.img = mlx_new_image(mlx.ptr, map_datas.res_x, map_datas.res_y);
+	minimap.addr = mlx_get_data_addr(minimap.img, &minimap.bits_per_pixel, &minimap.line_length, &minimap.endian);
+	mlx_loop (mlx.ptr);
 	return (ret);
 }
 

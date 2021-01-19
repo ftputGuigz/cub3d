@@ -6,15 +6,17 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/18 20:58:30 by gpetit           ###   ########.fr        #
+#    Updated: 2021/01/19 14:30:48 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
+NAME = execub3d
 
 CC = clang
 
 CFLAGS = -Wall -Werror -Wextra 
+
+MINILIBX = -lmlx -framework OpenGL -framework AppKit
 
 SRCS = main.c parsor.c map_parsor.c 
 
@@ -28,7 +30,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C srcs/gnl/ && make -C srcs/libft/ 
-	$(CC) $(CFLAGS) $(OBJS) $(LIBGNL) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
 
 clean:
 	make clean -C srcs/gnl/ && make clean -C srcs/libft/

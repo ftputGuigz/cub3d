@@ -6,13 +6,15 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 17:13:46 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/19 16:35:45 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
+# include <mlx.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -23,6 +25,21 @@
 
 # include "./srcs/libft/libft.h"
 # include "./srcs/gnl/get_next_line.h"
+
+typedef struct s_mlx
+{
+	void *ptr;
+	void *wdw;
+}				t_mlx;
+
+typedef struct s_img
+{
+	void        *img;
+    char        *addr;
+    int         bits_per_pixel;
+    int         line_length;
+    int         endian;
+}				t_img;
 
 typedef struct s_flags
 {
