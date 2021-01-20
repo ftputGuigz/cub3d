@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/18 17:11:32 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/20 15:01:07 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,19 +123,28 @@ static int	map_checkerror(char **map, int k)
 	return(ret);
 }
 
-char **map_parsor(char *line_map)
+void	map_parsor(char *line_map, t_datas *map_datas)
 {
-	char **map;
+	static int i = 0;
+	int j;
 	int k;
 
-	k = 0 ;
-	map = ft_split(line_map, '-');
-	while (map[k])
+	k = 0;
+	map_datas->map = ft_split(line_map, '-');
+	while (map_datas->map[k])
 	{
-		printf("%s\n", map[k]);
+		printf("%s\n", map_datas->map[k]);
+		j = 0;
+		while (map_datas->map[k][j])
+			j++;
+		if (j > i)
+			i = j;
 		k++;
 	}
-	if (map_checkerror(map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
-		map = NULL;
-	return(map);	
+	map_datas->columns = i;
+	printf("colonnes = %d\n", map_datas->columns);
+	map_datas->lines = k;
+	printf("lignes = %d\n", map_datas->lines);
+	if (map_checkerror(map_datas->map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
+		map_datas->map = NULL;
 }

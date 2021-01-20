@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:35:23 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/19 14:01:45 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/20 14:52:07 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	ft_parsor(char *path, t_datas *map_datas)
 	}
 	free(line);
 	if (ret != -1)
-		map_datas->map = map_parsor(line_map); //controle les donnees de la MAP de facon detaillee
+		map_parsor(line_map, map_datas); //controle les donnees de la MAP de facon detaillee
 	free(line_map);
 	close(fd);
 	if (!map_datas->map)

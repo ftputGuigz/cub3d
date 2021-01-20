@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/19 16:35:45 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/20 15:51:12 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ typedef struct	s_datas
 	char *F_rgb;
 	char *C_rgb;
 	char **map;
+	int columns;
+	int lines;
 }				t_datas;
 
-int	ft_parsor(char *path, t_datas *map_datas);
-char **map_parsor(char *line_map);
+int		ft_parsor(char *path, t_datas *map_datas);
+void	map_parsor(char *line_map, t_datas *map_datas);
+void	ft_display(t_datas *map_datas);
 
 #endif
