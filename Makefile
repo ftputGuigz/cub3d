@@ -10,34 +10,34 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = execub3d
+NAME = cub3d
 
 CC = clang
 
 CFLAGS = -Wall -Werror -Wextra 
 
-MINILIBX = -lmlx -framework OpenGL -framework AppKit
+MINILIBX = minilibx/libmlx.a -framework OpenGL -framework AppKit
 
 SRCS = main.c parsor.c map_parsor.c display.c 
 
 OBJS = $(SRCS:.c=.o)
 
-LIBGNL = ./srcs/gnl/get_next_line.a
+LIBGNL = libft/gnl/get_next_line.a
 
-LIBFT = ./srcs/libft/libft.a
+LIBFT = libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	make -C srcs/gnl/ && make -C srcs/libft/ 
+	make -C libft/gnl/ && make -C libft/ 
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
 
 clean:
-	make clean -C srcs/gnl/ && make clean -C srcs/libft/
+	make clean -C libft/gnl/ && make clean -C libft/
 	rm -f $(OBJS)
 
 fclean: clean
-	make fclean -C srcs/gnl/ && make fclean -C srcs/libft/
+	make fclean -C libft/gnl/ && make fclean -C libft/
 	rm -f $(NAME)
 	
 re: fclean $(NAME)

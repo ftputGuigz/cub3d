@@ -29,25 +29,33 @@ static int	main2(char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 	int ret;
 
 	ret = ft_parsor(av1, &map_datas); //CHECKER SI RET = -1;
-	ft_display(&map_datas);
+	if (ret != -1)
+		ft_display(&map_datas);
 	return (ret);
 }
 
 int main(int ac, char **av) //RESPO GESTIOn D'ERREUR
 {
-	int check;
+	int	check;
+	int	fd;
 
 	if (ac != 2)
 	{
 		printf("Wrong number of arguments. 1 is required.\n");
-		return(0);
+		return (0);
 	}
-	else if (!ft_checkextension(av[1]))
+	if (!ft_checkextension(av[1]))
 	{
 		printf("Wrong type of file. Only <yourfile.cub> format is accepted.\n");
-		return(0);
+		return (0);
 	}
-	else //RAJOUTER CONDITION PATH absolu !
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Cannot find file.\n");
+		return (0);
+	}
+	close(fd);
 	{
 		check = main2(av[1]);
 		if (check == -1)

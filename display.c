@@ -20,11 +20,11 @@ void ft_mlx_pixel_put(t_img *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void ft_mlx_wall(t_img *img, int x, int y, int c1, int c2, int color)
+void ft_mlx_wall(t_img *img, float x, float y, float c1, float c2, int color)
 {
-	int a;
-	int b;
-	int tmpx;
+	float a;
+	float b;
+	float tmpx;
 
 	a = x + c1;
 	b = y + c2;
@@ -42,17 +42,17 @@ void ft_mlx_wall(t_img *img, int x, int y, int c1, int c2, int color)
 
 void	ft_minimap(t_img *minimap, t_datas *map_datas)
 {
-	int c1;
-	int c2;
-	int x;
-	int y = 0;
+	float c1;
+	float c2;
+	float x;
+	float y = 0;
 	int k = 0;
 	int i;
 
-	c1 = map_datas->res_x / map_datas->columns;
-	printf("c1 vaut %d\n", c1);
-	c2 = map_datas->res_y / map_datas->lines;
-	printf("c2 vaut %d\n", c2);
+	c1 = (float)map_datas->res_x / (float)map_datas->columns;
+	//printf("c1 vaut %f\n", c1);
+	c2 = (float)map_datas->res_y / (float)map_datas->lines;
+	//printf("c2 vaut %f\n", c2);
 	while (map_datas->map[k] && y < map_datas->res_y)
 	{
 		i = 0;
@@ -62,7 +62,7 @@ void	ft_minimap(t_img *minimap, t_datas *map_datas)
 			if (map_datas->map[k][i] == '1')
 			{
 				ft_mlx_wall(minimap, x, y, c1, c2, 0x00FF00);
-				printf("x = %d\ny = %d\n", x, y);
+				//printf("x = %f\ny = %f\n", x, y);
 			}
 			x += c1;
 			i++;

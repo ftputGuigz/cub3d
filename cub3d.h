@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include <math.h>
-# include <mlx.h>
+# include "./minilibx/mlx.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -23,8 +23,8 @@
 # include <string.h>
 # include <fcntl.h>
 
-# include "./srcs/libft/libft.h"
-# include "./srcs/gnl/get_next_line.h"
+# include "./libft/libft.h"
+# include "./libft/gnl/get_next_line.h"
 
 typedef struct s_mlx
 {
@@ -65,12 +65,16 @@ typedef struct	s_datas
 	char *F_rgb;
 	char *C_rgb;
 	char **map;
+	char start;
+	int start_flag;
+	int start_x;
+	int start_y;
 	int columns;
 	int lines;
 }				t_datas;
 
 int		ft_parsor(char *path, t_datas *map_datas);
-void	map_parsor(char *line_map, t_datas *map_datas);
+int		map_parsor(char *line_map, t_datas *map_datas);
 void	ft_display(t_datas *map_datas);
 
 #endif

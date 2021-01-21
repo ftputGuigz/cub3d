@@ -79,11 +79,12 @@ static int map_checkfirstline(char *firstline, char *underline)
 	return (0);
 }
 
-static int	primary_check(char *str)
+static int	primary_check(char *str, int k)
 {
 	char autorized[] = " 012NSEW";
 	char letters[] = "NSEW";
 	static int letter = 0;
+	static int line = 0;
 	int i;
 
 	i = 0;
@@ -97,6 +98,9 @@ static int	primary_check(char *str)
 			letter = 1;
 		i++;
 	}
+	line++;
+	if (letter != 1 && line == k)
+		return (-1);
 	return (0);
 }
 
@@ -110,7 +114,7 @@ static int	map_checkerror(char **map, int k)
 		return (-1);
 	while (i < k && ret != -1)
 	{
-		if (primary_check(map[i]))
+		if (primary_check(map[i], k - 1))
 			return (-1);
 		if (i == 0)
 			ret = map_checkfirstline(map[i], map[i + 1]);
@@ -123,14 +127,13 @@ static int	map_checkerror(char **map, int k)
 	return(ret);
 }
 
-void	map_parsor(char *line_map, t_datas *map_datas)
+static void	register_map_datas(t_datas *map_datas)
 {
 	static int i = 0;
 	int j;
 	int k;
 
 	k = 0;
-	map_datas->map = ft_split(line_map, '-');
 	while (map_datas->map[k])
 	{
 		printf("%s\n", map_datas->map[k]);
@@ -145,6 +148,18 @@ void	map_parsor(char *line_map, t_datas *map_datas)
 	printf("colonnes = %d\n", map_datas->columns);
 	map_datas->lines = k;
 	printf("lignes = %d\n", map_datas->lines);
+}
+
+int	map_parsor(char *line_map, t_datas *map_datas)
+{
+	static int k = 0;
+
+	map_datas->map = ft_split(line_map, '-');
+	while (map_datas->map[k])
+		k++;
 	if (map_checkerror(map_datas->map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
-		map_datas->map = NULL;
+		return (-1);
+	else
+		register_map_datas(map_datas);
+	return(0);
 }

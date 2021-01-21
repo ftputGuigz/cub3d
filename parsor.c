@@ -194,10 +194,8 @@ int	ft_parsor(char *path, t_datas *map_datas)
 	}
 	free(line);
 	if (ret != -1)
-		map_parsor(line_map, map_datas); //controle les donnees de la MAP de facon detaillee
+		ret = map_parsor(line_map, map_datas); //controle les donnees de la MAP de facon detaillee
 	free(line_map);
 	close(fd);
-	if (!map_datas->map)
-		ret = -1;
 	return(ret);
 }
