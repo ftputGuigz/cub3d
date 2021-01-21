@@ -66,7 +66,6 @@ typedef struct	s_datas
 	char *C_rgb;
 	char **map;
 	char start;
-	int start_flag;
 	int start_x;
 	int start_y;
 	int columns;

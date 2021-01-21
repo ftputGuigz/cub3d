@@ -132,6 +132,7 @@ static void	register_map_datas(t_datas *map_datas)
 	static int i = 0;
 	int j;
 	int k;
+	char position[] = "NSEW";
 
 	k = 0;
 	while (map_datas->map[k])
@@ -139,15 +140,26 @@ static void	register_map_datas(t_datas *map_datas)
 		printf("%s\n", map_datas->map[k]);
 		j = 0;
 		while (map_datas->map[k][j])
+		{
+			if (ft_strchr(position, map_datas->map[k][j]))
+			{
+				map_datas->start = map_datas->map[k][j];
+				map_datas->start_x = j;
+				map_datas->start_y = k;
+			}
 			j++;
+		}
 		if (j > i)
 			i = j;
 		k++;
 	}
 	map_datas->columns = i;
-	printf("colonnes = %d\n", map_datas->columns);
 	map_datas->lines = k;
 	printf("lignes = %d\n", map_datas->lines);
+	printf("colonnes = %d\n", map_datas->columns);
+	printf("direction de depart : %c\n", map_datas->start);
+	printf("position start.x = %d\n", map_datas->start_x);
+	printf("position start.y = %d\n", map_datas->start_y);
 }
 
 int	map_parsor(char *line_map, t_datas *map_datas)
