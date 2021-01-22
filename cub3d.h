@@ -68,8 +68,12 @@ typedef struct	s_datas
 	char start;
 	int start_x;
 	int start_y;
+	float fstart_x;
+	float fstart_y;
 	int columns;
 	int lines;
+	t_mlx	mlx;
+	t_img minimap;
 }				t_datas;
 
 int		ft_parsor(char *path, t_datas *map_datas);
