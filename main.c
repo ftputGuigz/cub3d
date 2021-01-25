@@ -25,12 +25,12 @@ static int	ft_checkextension(char *str)
 
 static int	main2(char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 {
-	t_datas map_datas;
+	t_datas map;
 	int ret;
 
-	ret = ft_parsor(av1, &map_datas); //CHECKER SI RET = -1;
+	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;
 	if (ret != -1)
-		ft_display(&map_datas);
+		ft_display(&map);
 	return (ret);
 }
 

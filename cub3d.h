@@ -53,6 +53,15 @@ typedef struct s_flags
 	int C;
 }				t_flags;
 
+typedef struct s_player
+{
+	char start;
+	int x;
+	int y;
+	float fx;
+	float fy;
+}				t_player;
+
 typedef struct	s_datas
 {
 	int res_x;
@@ -65,13 +74,9 @@ typedef struct	s_datas
 	char *F_rgb;
 	char *C_rgb;
 	char **map;
-	char start;
-	int start_x;
-	int start_y;
-	float fstart_x;
-	float fstart_y;
 	int columns;
 	int lines;
+	t_player player;
 	t_mlx	mlx;
 	t_img minimap;
 }				t_datas;

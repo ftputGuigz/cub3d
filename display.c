@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/23 10:44:13 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/25 12:29:48 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color)
 
 	a = x + c1;
 	b = y + c2;
-	while (y <= b)
+	while (y < b)
 	{
 		tmpx = x;
-		while (tmpx <= a)
+		while (tmpx < a)
 		{
 			ft_mlx_pixel_put(img, tmpx, y, color);
 			tmpx++;
@@ -40,7 +40,7 @@ void ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color)
 	}
 }
 
-int	ft_minimap(t_datas *map_datas)
+int	ft_minimap(t_datas *map)
 {
 	float c1;
 	float c2;
@@ -49,40 +49,40 @@ int	ft_minimap(t_datas *map_datas)
 	int k = 0;
 	int i;
 
-	map_datas->minimap.img = mlx_new_image(map_datas->mlx.ptr, map_datas->res_x, map_datas->res_y);
-	map_datas->minimap.addr = mlx_get_data_addr(map_datas->minimap.img, &map_datas->minimap.bits_per_pixel, &map_datas->minimap.line_length, &map_datas->minimap.endian);
-	c1 = (float)map_datas->res_x / (float)map_datas->columns;
-	c2 = (float)map_datas->res_y / (float)map_datas->lines;
-	while (map_datas->map[k] && y < map_datas->res_y)
+	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
+	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel, &map->minimap.line_length, &map->minimap.endian);
+	c1 = (float)map->res_x / (float)map->columns;
+	c2 = (float)map->res_y / (float)map->lines;
+	while (y <= map->res_y && map->map[k])
 	{
 		i = 0;
 		x = 0;
-		while (map_datas->map[k][i] && x < map_datas->res_x)
+		while (x <= map->res_x && map->map[k][i]) // <= peut etre responsable d'une SEGFAULT
 		{
-			if (map_datas->map[k][i] == '1')
-				ft_mlx_cube(&map_datas->minimap, x, y, c1, c2, 0x00FF00);
+			if (map->map[k][i] == '1')
+				ft_mlx_cube(&map->minimap, x, y, c1, c2, 0x00FF00);
 			x += c1;
 			i++;
 		}
 		y += c2;
 		k++;
 	}
-	ft_mlx_cube(&map_datas->minimap, map_datas->fstart_x, map_datas->fstart_y, 5, 5, 0xFF5733);
-	mlx_put_image_to_window(map_datas->mlx.ptr, map_datas->mlx.wdw, map_datas->minimap.img, 0, 0);
-	mlx_destroy_image(map_datas->mlx.ptr, map_datas->minimap.img);
+	ft_mlx_cube(&map->minimap, map->player.fx, map->player.fy, 5, 5, 0xFF5733);
+	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
+	mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	return (0);
 }
 
-int	wasd(int keycode, t_datas *map_datas)
+int	WASD(int keycode, t_datas *map)
 {
 	if (keycode == 13)
-		map_datas->fstart_y -= 6;
+		map->player.fy -= 5;
 	else if (keycode == 0)
-		map_datas->fstart_x -= 6;
+		map->player.fx -= 5;
 	else if (keycode == 1)
-		map_datas->fstart_y += 6;
+		map->player.fy += 5;
 	else if (keycode == 2)
-		map_datas->fstart_x += 6;
+		map->player.fx += 5;
 	return (0);
 }
 
@@ -93,22 +93,22 @@ int wasdout(void *param)
 	return(0);
 }
 
-void	ft_initposition(t_datas *map_datas)
+void	ft_initposition(t_datas *map)
 {
-	map_datas->fstart_x = (float)map_datas->res_x / (float)map_datas->columns * (float)map_datas->start_x;
-	map_datas->fstart_y = (float)map_datas->res_y / (float)map_datas->lines * (float)map_datas->start_y;
+	map->player.fx = (float)map->res_x / (float)map->columns * (float)map->player.x;
+	map->player.fy = (float)map->res_y / (float)map->lines * (float)map->player.y;
 }
 
-void	ft_display(t_datas *map_datas)
+void	ft_display(t_datas *map)
 {
 	//void *param;
 
-	ft_initposition(map_datas);
-	map_datas->mlx.ptr = mlx_init();
-	map_datas->mlx.wdw = mlx_new_window(map_datas->mlx.ptr, map_datas->res_x, map_datas->res_y, "Guigz's Cub3d");
-	ft_minimap(map_datas);	//EDIT IMAGE CARTE + PERSO 
-	mlx_hook(map_datas->mlx.wdw, 2, 1L<<0, wasd, map_datas); //GESTION KEYPRESS
-	mlx_loop_hook(map_datas->mlx.ptr, ft_minimap, map_datas);
-	//mlx_hook(map_datas->mlx.wdw, 3, 1L<<1, wasdout, &param);
-	mlx_loop(map_datas->mlx.ptr);
+	ft_initposition(map);
+	map->mlx.ptr = mlx_init();
+	map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Guigz's Cub3d");
+	ft_minimap(map);	//EDIT IMAGE CARTE + PERSO 
+	mlx_hook(map->mlx.wdw, 2, 1L<<0, WASD, map); //GESTION KEYPRESS
+	mlx_loop_hook(map->mlx.ptr, ft_minimap, map);
+	//mlx_hook(map->mlx.wdw, 3, 1L<<1, wasdout, &param);
+	mlx_loop(map->mlx.ptr);
 }

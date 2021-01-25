@@ -127,7 +127,7 @@ static int	map_checkerror(char **map, int k)
 	return(ret);
 }
 
-static void	register_map_datas(t_datas *map_datas)
+static void	register_map_datas(t_datas *map)
 {
 	static int i = 0;
 	int j;
@@ -135,17 +135,17 @@ static void	register_map_datas(t_datas *map_datas)
 	char position[] = "NSEW";
 
 	k = 0;
-	while (map_datas->map[k])
+	while (map->map[k])
 	{
-		printf("%s\n", map_datas->map[k]);
+		printf("%s\n", map->map[k]);
 		j = 0;
-		while (map_datas->map[k][j])
+		while (map->map[k][j])
 		{
-			if (ft_strchr(position, map_datas->map[k][j]))
+			if (ft_strchr(position, map->map[k][j]))
 			{
-				map_datas->start = map_datas->map[k][j];
-				map_datas->start_x = j;
-				map_datas->start_y = k;
+				map->player.start = map->map[k][j];
+				map->player.x = j;
+				map->player.y = k;
 			}
 			j++;
 		}
@@ -153,25 +153,25 @@ static void	register_map_datas(t_datas *map_datas)
 			i = j;
 		k++;
 	}
-	map_datas->columns = i;
-	map_datas->lines = k;
-	printf("lignes = %d\n", map_datas->lines);
-	printf("colonnes = %d\n", map_datas->columns);
-	printf("direction de depart : %c\n", map_datas->start);
-	printf("position start.x = %d\n", map_datas->start_x);
-	printf("position start.y = %d\n", map_datas->start_y);
+	map->columns = i;
+	map->lines = k;
+	printf("lignes = %d\n", map->lines);
+	printf("colonnes = %d\n", map->columns);
+	printf("direction de depart : %c\n", map->player.start);
+	printf("position start.x = %d\n", map->player.x);
+	printf("position start.y = %d\n", map->player.y);
 }
 
-int	map_parsor(char *line_map, t_datas *map_datas)
+int	map_parsor(char *line_map, t_datas *map)
 {
 	static int k = 0;
 
-	map_datas->map = ft_split(line_map, '-');
-	while (map_datas->map[k])
+	map->map = ft_split(line_map, '-');
+	while (map->map[k])
 		k++;
-	if (map_checkerror(map_datas->map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
+	if (map_checkerror(map->map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
 		return (-1);
 	else
-		register_map_datas(map_datas);
+		register_map_datas(map);
 	return(0);
 }
