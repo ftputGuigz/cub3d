@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/20 15:01:07 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/25 16:55:53 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,30 @@ static int	map_checkerror(char **map, int k)
 	return(ret);
 }
 
+static void get_angle(t_datas *map)
+{
+	if (map->player.start == 'N')
+	{
+		map->player.angle = M_PI_2;
+		map->player.ortho = M_PI;
+	}
+	if (map->player.start == 'S')
+	{
+		map->player.angle = -3 * M_PI_2;
+		map->player.ortho = 0;
+	}
+	if (map->player.start == 'E')
+	{
+		map->player.angle = 0;
+		map->player.ortho = M_PI_2;
+	}
+	if (map->player.start == 'W')
+	{
+		map->player.angle = M_PI;
+		map->player.ortho = -3 * M_PI_2;
+	}
+}
+
 static void	register_map_datas(t_datas *map)
 {
 	static int i = 0;
@@ -144,6 +168,7 @@ static void	register_map_datas(t_datas *map)
 			if (ft_strchr(position, map->map[k][j]))
 			{
 				map->player.start = map->map[k][j];
+				get_angle(map);
 				map->player.x = j;
 				map->player.y = k;
 			}
@@ -158,6 +183,7 @@ static void	register_map_datas(t_datas *map)
 	printf("lignes = %d\n", map->lines);
 	printf("colonnes = %d\n", map->columns);
 	printf("direction de depart : %c\n", map->player.start);
+	printf("angle de depart = %f\n", map->player.angle);
 	printf("position start.x = %d\n", map->player.x);
 	printf("position start.y = %d\n", map->player.y);
 }

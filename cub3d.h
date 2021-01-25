@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/20 15:51:12 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/25 17:26:32 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct s_flags
 typedef struct s_player
 {
 	char start;
+	float angle;
+	float ortho;
 	int x;
 	int y;
 	float fx;
