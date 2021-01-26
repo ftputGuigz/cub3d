@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/26 12:20:36 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/26 16:58:06 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,6 @@ int wasdout(int keycode, t_datas *map)
 	printf("x = %f\ny = %f\n", map->player.fx, map->player.fy);
 	printf("angle = %f\northo = %f\n", map->player.angle, map->player.ortho);
 	return(0);
-}
-
-static void	ft_initposition(t_datas *map)
-{
-	map->player.fx = (float)map->res_x / (float)map->columns * (float)map->player.x;
-	map->player.fy = (float)map->res_y / (float)map->lines * (float)map->player.y;
 }
 
 void	ft_display(t_datas *map)

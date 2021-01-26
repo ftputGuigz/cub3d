@@ -6,27 +6,13 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:31:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/26 12:20:42 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/26 17:09:23 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	invertor_y(t_datas *map, float fy)
-{
-	float y;
 
-	y = fy * map->lines / map->res_y;
-	return ((int)y);
-}
-
-static int	invertor_x(t_datas *map, float fx)
-{
-	float x;
-
-	x = fx * map->columns / map->res_x;
-	return ((int)x);
-}
 
 void	movement(int i, int j, t_datas *map)
 {
