@@ -171,6 +171,7 @@ static void	register_map_datas(t_datas *map)
 				get_angle(map);
 				map->player.x = j;
 				map->player.y = k;
+				map->map[k][j] = '0';
 			}
 			j++;
 		}
@@ -180,12 +181,6 @@ static void	register_map_datas(t_datas *map)
 	}
 	map->columns = i;
 	map->lines = k;
-	printf("lignes = %d\n", map->lines);
-	printf("colonnes = %d\n", map->columns);
-	printf("direction de depart : %c\n", map->player.start);
-	printf("angle de depart = %f\n", map->player.angle);
-	printf("position start.x = %d\n", map->player.x);
-	printf("position start.y = %d\n", map->player.y);
 }
 
 int	map_parsor(char *line_map, t_datas *map)

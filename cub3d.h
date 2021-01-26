@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/25 17:26:32 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/26 12:21:20 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,11 @@ typedef struct	s_datas
 int		ft_parsor(char *path, t_datas *map_datas);
 int		map_parsor(char *line_map, t_datas *map_datas);
 void	ft_display(t_datas *map_datas);
+
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color);
+int	ft_minimap(t_datas *map);
+void movement(int i, int j, t_datas *maps);
+void ortho_movement(int i, int j, t_datas *maps);
 
 #endif
