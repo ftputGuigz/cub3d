@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/28 10:29:23 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/28 14:26:40 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static void get_angle(t_datas *map)
 {
 	if (map->player.start == 'N')
 	{
-		map->player.angle = - M_PI_2;
+		map->player.angle = 3 * M_PI_2;
 		map->player.ortho = 0;
 	}
 	if (map->player.start == 'S')
@@ -147,7 +147,7 @@ static void get_angle(t_datas *map)
 	if (map->player.start == 'W')
 	{
 		map->player.angle = M_PI;
-		map->player.ortho = - M_PI_2;
+		map->player.ortho = 3 * M_PI_2;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/28 10:56:53 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/28 12:43:35 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct	s_datas
 	t_player player;
 	t_mlx	mlx;
 	t_img minimap;
+	t_img fps;
 }				t_datas;
 
 int		ft_parsor(char *path, t_datas *map_datas);
