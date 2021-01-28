@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 12:27:49 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/26 17:26:44 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/28 10:29:23 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ static void get_angle(t_datas *map)
 {
 	if (map->player.start == 'N')
 	{
-		map->player.angle = -M_PI_2;
+		map->player.angle = - M_PI_2;
 		map->player.ortho = 0;
 	}
 	if (map->player.start == 'S')

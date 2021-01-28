@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/26 15:00:00 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/28 10:56:53 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int	ft_minimap(t_datas *map);
 void movement(int i, int j, t_datas *maps);
 void ortho_movement(int i, int j, t_datas *maps);
 
-int invertor_y(t_datas *map, float fy);
-int invertor_x(t_datas *map, float fx);
+float	invertor_y(t_datas *map, float fy);
+float	invertor_x(t_datas *map, float fx);
 void	ft_initposition(t_datas *map);
 
 #endif

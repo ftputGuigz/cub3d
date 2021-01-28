@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/26 16:58:06 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/28 11:23:29 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	WASD(int keycode, t_datas *map)
 int wasdout(int keycode, t_datas *map)
 {
 	(void)keycode;
-	printf("x = %f\ny = %f\n", map->player.fx, map->player.fy);
+	printf("rfx = %f\nrfy = %f\n", map->player.rfx, map->player.rfy);
 	printf("angle = %f\northo = %f\n", map->player.angle, map->player.ortho);
 	return(0);
 }
