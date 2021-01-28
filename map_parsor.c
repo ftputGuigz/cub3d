@@ -131,13 +131,13 @@ static void get_angle(t_datas *map)
 {
 	if (map->player.start == 'N')
 	{
-		map->player.angle = M_PI_2;
-		map->player.ortho = M_PI;
+		map->player.angle = -M_PI_2;
+		map->player.ortho = 0;
 	}
 	if (map->player.start == 'S')
 	{
-		map->player.angle = 3 * M_PI_2;
-		map->player.ortho = 0;
+		map->player.angle = M_PI_2;
+		map->player.ortho = M_PI;
 	}
 	if (map->player.start == 'E')
 	{
@@ -147,7 +147,7 @@ static void get_angle(t_datas *map)
 	if (map->player.start == 'W')
 	{
 		map->player.angle = M_PI;
-		map->player.ortho = -3 * M_PI_2;
+		map->player.ortho = - M_PI_2;
 	}
 }
 
