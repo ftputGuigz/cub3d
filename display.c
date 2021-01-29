@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/28 17:22:46 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/29 13:42:51 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,11 @@ int	WASD(int keycode, t_datas *map)
 int wasdout(int keycode, t_datas *map)
 {
 	(void)keycode;
-	printf("cos(angle) = %f\n", cosf(map->player.angle));
-	printf("sin(angle) = %f\n", sinf(map->player.angle));
+	//printf("cos(angle) = %f\n", cosf(map->player.angle));
+	//printf("sin(angle) = %f\n", sinf(map->player.angle));
 	//printf("rfx = %f\nrfy = %f\n", map->player.rfx, map->player.rfy);
-	//printf("angle = %f\northo = %f\n", map->player.angle, map->player.ortho);
+	printf("angle = %f\nangle2 = %f\n", map->player.angle, M_PI_2 - map->player.angle);
+	printf("ray size = %f\n", ft_fps(map));
 	return(0);
 }
 

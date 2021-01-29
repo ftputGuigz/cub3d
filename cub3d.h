@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/28 12:43:35 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/01/29 13:39:29 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ typedef struct s_player
 	float fy;
 }				t_player;
 
+typedef struct s_triangle
+{
+	float xa;
+	float ya;
+	float xb;
+	float yb;
+	float xc;
+	float yc;
+	float angle;
+	float r;
+}				t_triangle;
+
 typedef struct	s_datas
 {
 	int res_x;
@@ -99,5 +111,7 @@ void ortho_movement(int i, int j, t_datas *maps);
 float	invertor_y(t_datas *map, float fy);
 float	invertor_x(t_datas *map, float fx);
 void	ft_initposition(t_datas *map);
+
+float ft_fps(t_datas *map);
 
 #endif
