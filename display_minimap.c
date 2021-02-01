@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:31:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/01 13:06:35 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/01 15:14:31 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ void	movement(int i, int j, t_datas *map)
 		map->player.fx = map->player.fx + (i * cosf(map->player.angle));
 		map->player.rfx = invertor_x(map, map->player.fx);
 	}
-	//	printf("%f\n", map->player.fx);
 	if (map->map[(int)invertor_y(map,map->player.fy + (j * sinf(map->player.angle)))][(int)invertor_x(map, map->player.fx)] == '0')
 	{
 		map->player.fy = map->player.fy + (j * sinf(map->player.angle));
 		map->player.rfy = invertor_y(map, map->player.fy);
 	}
-	//	printf("%f\n", map->player.fy);
 }
 
 void	ortho_movement(int i, int j, t_datas *map)
@@ -37,6 +35,7 @@ void	ortho_movement(int i, int j, t_datas *map)
 		map->player.fx = map->player.fx + (i * cosf(map->player.ortho));
 		map->player.rfx = invertor_x(map, map->player.fx);
 	}
+	if (map->map[(int)invertor_y(map,map->player.fy + (j * sinf(map->player.angle)))][(int)invertor_x(map, map->player.fx)] == '0')
 	if (map->map[(int)invertor_y(map,map->player.fy + (j * sinf(map->player.ortho)))][(int)invertor_x(map, map->player.fx)] == '0')
 	{
 		map->player.fy = map->player.fy + (j * sinf(map->player.ortho));

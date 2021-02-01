@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/01 13:23:10 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/01 17:14:51 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,47 @@ float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 	X->xb = ceil(X->xa);
 	X->yb = X->ya;
 	
+	X->r = fabsf(X->xb - X->xa) / cosf(X->angle);
+	X->xc = X->xb + X->r * cosf(angle);
+	X->yc = X->ya + X->r * sinf(angle);
+	while ((int)X->xc < map->columns && (int)X->yc >= 0 && map->map[(int)X->yc][(int)X->xc] == '0')
+	{
+		X->xb++;
+		X->r = fabsf(X->xb - X->xa) / cosf(X->angle);
+		X->xc = X->xb + X->r * cosf(angle);
+		X->yc = X->ya + X->r * sinf(angle);
+	}
+	
+	Y->yb = floor(Y->ya);
+	Y->xb = Y->xa;		
+	
+	Y->r = fabsf(Y->yb - Y->ya) / cosf(Y->angle);
+	Y->xc = Y->xa + Y->r * cosf(angle);
+	Y->yc = Y->yb + Y->r * sinf(angle);
+	while ((int)X->xc < map->columns && (int)X->yc >= 0 && map->map[(int)Y->yc][(int)Y->xc] == '0')
+	{
+		Y->yb--;
+		Y->r = fabsf(Y->yb - Y->ya) / cosf(Y->angle);
+		Y->xc = Y->xa + Y->r * cosf(angle);
+		Y->yc = Y->yb + Y->r * sinf(angle);
+	}
+	if (X->r > Y->r)
+		return (Y->r);
+	else
+		return (X->r);
+}
+
+float NW_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
+{
+	X->xb = floor(X->xa);
+	X->yb = X->ya;
+	
 	X->r = fabsf(X->xb - X->xa);
 	X->xc = X->xb;
 	X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
-	while ((int)X->xc < map->columns && (int)X->yc >= 0  && map->map[(int)X->yc][(int)X->xc] == '0')
+	while ((int)X->xc >= 0 && (int)X->yc >= 0  && map->map[(int)X->yc][(int)X->xc] == '0')
 	{
-		X->xb++;
+		X->xb--;
 		X->r = fabsf(X->xb - X->xa);
 		X->xc = X->xb;
 		X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
@@ -34,7 +69,7 @@ float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 	Y->r = fabsf(Y->yb - Y->ya);
 	Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
 	Y->yc = Y->yb;
-	while ((int)Y->yc >= 0 && (int)Y->xc < map->columns && map->map[(int)Y->yc][(int)Y->xc] == '0')
+	while ((int)Y->xc >= 0 && (int)Y->yc >= 0 && map->map[(int)Y->yc][(int)Y->xc] == '0')
 	{
 		Y->yb--;
 		Y->r = fabsf(Y->yb - Y->ya);
@@ -47,48 +82,106 @@ float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 		return (X->r);
 }
 
+float SW_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
+{
+	X->xb = floor(X->xa);
+	X->yb = X->ya;
+	
+	X->r = fabsf(X->xb - X->xa);
+	X->xc = X->xb;
+	X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
+	while ((int)X->xc >= 0 && (int)X->yc < map->lines && map->map[(int)X->yc][(int)X->xc] == '0')
+	{
+		X->xb--;
+		X->r = fabsf(X->xb - X->xa);
+		X->xc = X->xb;
+		X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
+	}
+	
+	Y->yb = ceil(Y->ya);
+	Y->xb = Y->xa;		
+	
+	Y->r = fabsf(Y->yb - Y->ya);
+	Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
+	Y->yc = Y->yb;
+	while ((int)Y->xc >= 0 && (int)Y->yc < map->lines && map->map[(int)Y->yc][(int)Y->xc] == '0')
+	{
+		Y->yb++;
+		Y->r = fabsf(Y->yb - Y->ya);
+		Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
+		Y->yc = Y->yb;
+	}
+	if (X->r > Y->r)
+		return (Y->r);
+	else
+		return (X->r);
+}
+
+float SE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
+{
+	X->xb = ceil(X->xa);
+	X->yb = X->ya;
+	
+	X->r = fabsf(X->xb - X->xa);
+	X->xc = X->xb;
+	X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
+	while ((int)X->xc < map->columns && (int)X->yc < map->lines && map->map[(int)X->yc][(int)X->xc] == '0')
+	{
+		X->xb++;
+		X->r = fabsf(X->xb - X->xa);
+		X->xc = X->xb;
+		X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
+	}
+	
+	Y->yb = ceil(Y->ya);
+	Y->xb = Y->xa;		
+	
+	Y->r = fabsf(Y->yb - Y->ya);
+	Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
+	Y->yc = Y->yb;
+	while ((int)Y->xc < map->columns && (int)Y->yc < map->lines && map->map[(int)Y->yc][(int)Y->xc] == '0')
+	{
+		Y->yb++;
+		Y->r = fabsf(Y->yb - Y->ya);
+		Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
+		Y->yc = Y->yb;
+	}
+	if (X->r > Y->r)
+		return (Y->r);
+	else
+		return (X->r);
+}
+
 float	compass(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 {
-	/*if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > 0 && sinf(angle) < 1) //SUD-EST
+	if (cosf(angle) > 0 && cosf(angle) <= 1 && sinf(angle) > 0 && sinf(angle) < 1) //SUD-EST
 	{
 		X->angle = angle;
 		Y->angle = M_PI_2 - X->angle;
-		return (SE_RAY(map, X, Y));
+		return (SE_RAY(map, angle, X, Y));
 	}
-	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > 0 && sinf(angle) < 1)//SUD-OUEST
-		Y->angle = map->player.angle - M_PI_2;
-		X->angle = M_PI_2 - Y->angle;
-		SW_RAY(X, Y);
-		x--;
-		y++;
-	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-OUEST
-		X->angle = map->player.angle - M_PI;
+	if (cosf(angle) > -1 && cosf(angle) <= 0 && sinf(angle) > 0 && sinf(angle) <= 1)//SUD-OUEST
+	{
+		X->angle = M_PI - angle;
 		Y->angle = M_PI_2 - X->angle;
-		NW_RAY(X, Y);
-		x--;
-		y--;*/
-	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-EST
+		return(SW_RAY(map, angle, X, Y));
+	}
+	if (cosf(angle) >= -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-OUEST
+	{
+		X->angle = angle - M_PI;
+		Y->angle = M_PI_2 - X->angle;
+		return(NW_RAY(map, angle, X, Y));
+	}
+	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) >= -1 && sinf(angle) < 0) //NORD-EST
 	{
 		Y->angle = angle - (3 * M_PI_2);
 		X->angle = M_PI_2 - Y->angle;
 		return(NE_RAY(map, angle, X, Y));
-		//return (0);
-		//x++;
-		//y--;
 	}
 	else
 		return (0);
 }
 
-/*static void NW_RAY
-static void	NE_RAY
-static void SW_RAY
-
-
-static void N_RAY
-static void	S_RAY
-static void W_RAY
-static void E_RAY */
 
 float	ft_shootrays(t_datas *map, float ray_angle)
 {
