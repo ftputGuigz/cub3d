@@ -6,50 +6,45 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/29 17:18:11 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/01 13:23:10 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
+float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 {
 	X->xb = ceil(X->xa);
 	X->yb = X->ya;
 	
-	X->r = X->xb - X->xa;
-	X->xc = X->xa + X->r / cosf(X->angle) * cosf(X->angle);
-	X->yc = X->ya + X->r / cosf(X->angle) * sinf(X->angle);
-	printf("X->r = %f\nX->xc = %f\nX->yc = %f\n", X->r, X->xc, X->yc);
-	while (map->map[(int)X->yc][(int)X->xc] == '0')
+	X->r = fabsf(X->xb - X->xa);
+	X->xc = X->xb;
+	X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
+	while ((int)X->xc < map->columns && (int)X->yc >= 0  && map->map[(int)X->yc][(int)X->xc] == '0')
 	{
 		X->xb++;
-		X->r = X->xb - X->xa;
-		X->xc = X->xa + X->r / cosf(X->angle) * cosf(X->angle);
-		X->yc = X->ya + X->r / cosf(X->angle) * sinf(X->angle);
-		printf("X->r = %f\nX->xc = %f\nX->yc = %f\n", X->r, X->xc, X->yc);
+		X->r = fabsf(X->xb - X->xa);
+		X->xc = X->xb;
+		X->yc = X->ya + X->r / cosf(X->angle) * sinf(angle);
 	}
 	
 	Y->yb = floor(Y->ya);
-	printf("y->ya = %f\n", Y->ya);
 	Y->xb = Y->xa;		
 	
-	Y->r = Y->yb - Y->ya;
-	Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(Y->angle);
-	Y->yc = Y->ya + Y->r / cosf(Y->angle) * sinf(Y->angle);
-	printf("Y->r = %f\nY->xc = %f\nY->yc = %f\n", Y->r, Y->xc, Y->yc);
-	while (map->map[(int)Y->yc][(int)Y->xc] == '0')
+	Y->r = fabsf(Y->yb - Y->ya);
+	Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
+	Y->yc = Y->yb;
+	while ((int)Y->yc >= 0 && (int)Y->xc < map->columns && map->map[(int)Y->yc][(int)Y->xc] == '0')
 	{
 		Y->yb--;
-		Y->r = Y->yb - Y->ya;
-		Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(Y->angle);
-		Y->yc = Y->ya + Y->r / cosf(Y->angle) * sinf(Y->angle);
-		printf("Y->r = %f\nY->xc = %f\nY->yc = %f\n", Y->r, Y->xc, Y->yc);
+		Y->r = fabsf(Y->yb - Y->ya);
+		Y->xc = Y->xa + Y->r / cosf(Y->angle) * cosf(angle);
+		Y->yc = Y->yb;
 	}
 	if (X->r > Y->r)
-		return (fabsf(Y->r));
+		return (Y->r);
 	else
-		return (fabsf(X->r));
+		return (X->r);
 }
 
 float	compass(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
@@ -74,10 +69,9 @@ float	compass(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 		y--;*/
 	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-EST
 	{
-		Y->angle = map->player.angle - (3 * M_PI_2);
+		Y->angle = angle - (3 * M_PI_2);
 		X->angle = M_PI_2 - Y->angle;
-		printf("map char =%c\n", map->map[(int)4.14][(int)9.00]);
-		return(NE_RAY(map, X, Y));
+		return(NE_RAY(map, angle, X, Y));
 		//return (0);
 		//x++;
 		//y--;
