@@ -6,13 +6,13 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/01 17:14:51 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/01 22:03:50 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
+/*float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 {
 	X->xb = ceil(X->xa);
 	X->yb = X->ya;
@@ -41,6 +41,39 @@ float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 		Y->xc = Y->xa + Y->r * cosf(angle);
 		Y->yc = Y->yb + Y->r * sinf(angle);
 	}
+	if (X->r > Y->r)
+		return (Y->r);
+	else
+		return (X->r);
+}*/
+
+float NE_RAY(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
+{
+	X->xb = ceil(X->xa);
+	X->yb = X->ya;
+	
+	X->xc = X->xb;
+	X->yc = X->yb - (tan(X->angle) * (X->xb - X->xa));
+	while ((int)X->xc < map->columns && (int)X->yc >= 0 && map->map[(int)X->yc][(int)X->xc] == '0')
+	{
+		X->xb++;
+		X->xc = X->xb;
+		X->yc = X->yb - (tanf(X->angle) * (X->xb - X->xa));
+	}
+	X->r = (X->xb - X->xa) / cosf(X->angle);
+	
+	Y->yb = floor(Y->ya);
+	Y->xb = Y->xa;		
+	
+	Y->yc = Y->yb;
+	Y->xc = Y->xb + tanf(Y->angle) * (Y->ya - Y->yb);
+	while ((int)X->xc < map->columns && (int)X->yc >= 0 && map->map[(int)Y->yc][(int)Y->xc] == '0')
+	{
+		Y->yb--;
+		Y->yc = Y->yb;
+		Y->xc = Y->xb + tanf(Y->angle) * (Y->ya - Y->yb);
+	}
+	Y->r = (Y->ya - Y->yb) / cosf(Y->angle);
 	if (X->r > Y->r)
 		return (Y->r);
 	else
