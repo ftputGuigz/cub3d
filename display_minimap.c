@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:31:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/02 13:40:04 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/02 16:56:55 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,23 @@ static void	ft_print_ray(t_datas *map)
 	float x;
 	float y;
 	float ray;
+	//float angle;
 
-	x = map->player.fx;
-	y = map->player.fy;
-	ray = 0;
-	while (map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] != '1')
-	{
-		x = map->player.fx + (ray * cosf(map->player.angle));
-		y = map->player.fy + (ray * sinf(map->player.angle));
-		ft_mlx_pixel_put(&map->minimap, x, y, 0xFFF000);
-		ray = ray + 0.1; //changer decrementation
-	}
+	//angle = map->player.angle - 0.575959;
+	//while(angle != )		
+	//{
+		x = map->player.fx;
+		y = map->player.fy;
+		ray = 0;
+		while (map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] != '1')
+		{
+			x = map->player.fx + (ray * cosf(map->player.angle));
+			y = map->player.fy + (ray * sinf(map->player.angle));
+			ft_mlx_pixel_put(&map->minimap, x, y, 0xFFF000);
+			ray = ray + 0.1; //changer decrementation
+		}
+
+	//}
 }
 
 int	ft_minimap(t_datas *map)
