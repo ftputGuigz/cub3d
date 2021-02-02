@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:31:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/02 16:56:55 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/02 21:36:34 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ortho_movement(int i, int j, t_datas *map)
 	}
 }
 
-/*static void	ft_mlx_direction(t_datas *map, float c1, float c2)
+static void	ft_mlx_direction(t_datas *map, float c1)
 {
 	float x;
 	float y;
@@ -54,33 +54,34 @@ void	ortho_movement(int i, int j, t_datas *map)
 	{
 		x = map->player.fx + (r * cosf(map->player.angle));
 		y = map->player.fy + (r * sinf(map->player.angle));
-		ft_mlx_pixel_put(&map->minimap, x + c1 / 2, y + c2 / 2, 0x00FF00);
-		r = r - 0.5; //changer decrementation
+		ft_mlx_pixel_put(&map->minimap, x, y, 0xFF0000);
+		r = r - 0.1; //changer decrementation
 	}
-}*/
+}
 
 static void	ft_print_ray(t_datas *map)
 {
 	float x;
 	float y;
 	float ray;
-	//float angle;
+	float angle;
 
 	//angle = map->player.angle - 0.575959;
-	//while(angle != )		
-	//{
+	angle = map->player.angle - 2 * M_PI;
+	while(angle <= map->player.angle)		
+	{
 		x = map->player.fx;
 		y = map->player.fy;
 		ray = 0;
-		while (map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] != '1')
+		while ((int)invertor_y(map, y) >= 0 && (int)invertor_y(map, y) < map->lines && (int)invertor_x(map, x) >= 0 && (int)invertor_x(map, x) < map->columns && map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] == '0')
 		{
-			x = map->player.fx + (ray * cosf(map->player.angle));
-			y = map->player.fy + (ray * sinf(map->player.angle));
+			x = map->player.fx + (ray * cosf(angle));
+			y = map->player.fy + (ray * sinf(angle));
 			ft_mlx_pixel_put(&map->minimap, x, y, 0xFFF000);
-			ray = ray + 0.1; //changer decrementation
+			ray = ray + 0.2; //changer decrementation
 		}
-
-	//}
+		angle = angle + 0.08;
+	}
 }
 
 int	ft_minimap(t_datas *map)
@@ -111,8 +112,8 @@ int	ft_minimap(t_datas *map)
 		k++;
 	}
 	ft_mlx_cube(&map->minimap, map->player.fx - 2.5, map->player.fy - 2.5, 5.0, 5.0, 0xFF5733);
-	//ft_mlx_direction(map, c1, c2);
 	ft_print_ray(map);
+	ft_mlx_direction(map, c1);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	return (0);
