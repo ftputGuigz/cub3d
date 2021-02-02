@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 14:53:59 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/28 11:21:55 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:15:09 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 float	invertor_y(t_datas *map, float fy)
 {
-	float y;
+	float rfy;
 
-	y = fy * (float)map->lines / (float)map->res_y;
-	return (y);
+	rfy = fy * (float)map->lines / (float)map->res_y;
+	return (rfy);
 }
 
 float	invertor_x(t_datas *map, float fx)
 {
-	float x;
+	float rfx;
 
-	x = fx * (float)map->columns / (float)map->res_x;
-	return (x);
+	rfx = fx * (float)map->columns / (float)map->res_x;
+	return (rfx);
 }
 
 void	ft_initposition(t_datas *map)

@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:31:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/01 15:14:31 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/02 13:40:04 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ortho_movement(int i, int j, t_datas *map)
 	}
 }
 
-static void	ft_mlx_direction(t_datas *map, float c1, float c2)
+/*static void	ft_mlx_direction(t_datas *map, float c1, float c2)
 {
 	float x;
 	float y;
@@ -56,6 +56,24 @@ static void	ft_mlx_direction(t_datas *map, float c1, float c2)
 		y = map->player.fy + (r * sinf(map->player.angle));
 		ft_mlx_pixel_put(&map->minimap, x + c1 / 2, y + c2 / 2, 0x00FF00);
 		r = r - 0.5; //changer decrementation
+	}
+}*/
+
+static void	ft_print_ray(t_datas *map)
+{
+	float x;
+	float y;
+	float ray;
+
+	x = map->player.fx;
+	y = map->player.fy;
+	ray = 0;
+	while (map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] != '1')
+	{
+		x = map->player.fx + (ray * cosf(map->player.angle));
+		y = map->player.fy + (ray * sinf(map->player.angle));
+		ft_mlx_pixel_put(&map->minimap, x, y, 0xFFF000);
+		ray = ray + 0.1; //changer decrementation
 	}
 }
 
@@ -86,8 +104,9 @@ int	ft_minimap(t_datas *map)
 		y += c2;
 		k++;
 	}
-	ft_mlx_cube(&map->minimap, map->player.fx, map->player.fy, c1, c2, 0xFF5733);
-	ft_mlx_direction(map, c1, c2);
+	ft_mlx_cube(&map->minimap, map->player.fx - 2.5, map->player.fy - 2.5, 5.0, 5.0, 0xFF5733);
+	//ft_mlx_direction(map, c1, c2);
+	ft_print_ray(map);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	return (0);
