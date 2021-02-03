@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/02 16:07:22 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:27:43 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int wasdout(int keycode, t_datas *map)
 	//printf("cos(angle) = %f\n", cosf(map->player.angle));
 	//printf("sin(angle) = %f\n", sinf(map->player.angle));
 	//printf("rfx = %f\nrfy = %f\n", map->player.rfx, map->player.rfy);
-	//printf("angle = %f\nangle2 = %f\n", map->player.angle, M_PI_2 - map->player.angle);
-	printf("final ray = %f\n<============>\n", ft_fps(map));
+	printf("angle = %f\nangle2 = %f\n", map->player.angle, M_PI_2 - map->player.angle);
+	//printf("final ray = %f\n<============>\n", ft_fps(map));
 	return(0);
 }
 
@@ -81,10 +81,11 @@ void	ft_display(t_datas *map)
 	ft_initposition(map);
 	map->mlx.ptr = mlx_init();
 	map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Guigz's Cub3d");
-	ft_minimap(map);	//EDIT IMAGE CARTE + PERSO
-	//ft_fps(map);
+	//ft_minimap(map);	//EDIT IMAGE CARTE + PERSO
+	ft_fps(map);
 	mlx_hook(map->mlx.wdw, 2, 1L<<0, WASD, map); //GESTION KEYPRESS
 	mlx_hook(map->mlx.wdw, 3, 1L<<1, wasdout, map); //GEStiON KEYOUT + POSITION PERSO
-	mlx_loop_hook(map->mlx.ptr, ft_minimap, map);
+	//mlx_loop_hook(map->mlx.ptr, ft_minimap, map);
+	mlx_loop_hook(map->mlx.ptr, ft_fps, map);
 	mlx_loop(map->mlx.ptr);
 }

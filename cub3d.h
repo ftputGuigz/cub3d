@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/29 13:39:29 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:21:52 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ float	invertor_y(t_datas *map, float fy);
 float	invertor_x(t_datas *map, float fx);
 void	ft_initposition(t_datas *map);
 
-float ft_fps(t_datas *map);
+int ft_fps(t_datas *map);
 
 #endif

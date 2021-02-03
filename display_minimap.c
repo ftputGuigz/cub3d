@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 11:31:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/03 13:19:46 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/03 17:27:44 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ortho_movement(int i, int j, t_datas *map)
 	}
 }
 
-static void	ft_mlx_direction(t_datas *map, float c1)
+/*static void	ft_mlx_direction(t_datas *map, float c1)
 {
 	float x;
 	float y;
@@ -148,10 +148,10 @@ int	ft_minimap(t_datas *map)
 		k++;
 	}
 	ft_mlx_cube(&map->minimap, map->player.fx - 2.5, map->player.fy - 2.5, 5.0, 5.0, 0xFF5733);
-	grid_print(map);
-	ft_print_ray(map);
-	ft_mlx_direction(map, c1);
+	grid_print(map); //GRILLE
+	ft_print_ray(map); //RAYONS - FOV
+	ft_mlx_direction(map, c1); // RAYON - DIRECTION
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	return (0);
-}
+}*/
