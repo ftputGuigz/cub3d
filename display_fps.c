@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/03 17:27:42 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/03 20:14:10 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 
 float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 {
-	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
@@ -342,15 +342,24 @@ float	ft_shootrays(t_datas *map, float ray_angle)
 void print_ray(t_datas *map, int x, float raysize)
 {
 	float ray;
-	float k = 500;
-	int y = 100;
+	float k = 800;
+	int y;
 	
-	ray = k * 1 / raysize; //PROPORTIONNELLE
-	while (ray >= 0)
+	y = map->res_y / 2;
+	ray = (k * 1 / raysize) / 2; //PROPORTIONNELLE
+	while (ray >= 0 && y >= 0)
 	{
 		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
 		ray--;
-		y++;
+		y--;
+	} 
+	y = map->res_y / 2;
+	ray = (k * 1 / raysize) / 2;
+	while (ray <= k * 1 / raysize && y < map->res_y)
+	{
+		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
+		ray++;	
+		y++;	
 	}
 }
 
@@ -359,7 +368,7 @@ int	ft_fps(t_datas *map)
 	float FOV;
 	float increment;
 	float raysize;
-	static int x = 0;
+	int x = 0;
 
 	increment = 1.15192 / (float)map->res_x;
 	FOV = map->player.angle - 0.575959;
@@ -368,7 +377,6 @@ int	ft_fps(t_datas *map)
 	while (x < map->res_x && FOV <= (map->player.angle + 0.575959))
 	{
 		raysize = ft_shootrays(map, FOV);
-		printf("raysize = %f\n", raysize);
 		print_ray(map, x, raysize);
 		x++;
 		FOV += increment; //POUR L'INSTANT 66 RAYONS DE SHOOT. PLUS TARD AUTANT QUE LA RESOLUTION LEXIGE
