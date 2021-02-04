@@ -43,7 +43,7 @@ void	ortho_movement(int i, int j, t_datas *map)
 	}
 }
 
-/*static void	ft_mlx_direction(t_datas *map, float c1)
+static void	ft_mlx_direction(t_datas *map, float c1)
 {
 	float x;
 	float y;
@@ -68,7 +68,7 @@ static void	ft_print_ray(t_datas *map)
 
 	angle = map->player.angle - 0.575959;
 	//angle = map->player.angle - 2 * M_PI;
-	while(angle <= map->player.angle)		
+	while (angle <= map->player.angle + 0.575959)		
 	{
 		x = map->player.fx;
 		y = map->player.fy;
@@ -93,13 +93,13 @@ static void grid_print(t_datas *map)
 	float c1;
 	float c2;
 
-	c1 = (float)(map->res_x / 4) / (float)map->columns;
-	c2 = (float)(map->res_y / 4)/ (float)map->lines;
+	c1 = (float)map->res_x / (float)map->columns;
+	c2 = (float)map->res_y / (float)map->lines;
 	x = 0;
-	while (x < (map->res_x / 4))
+	while (x < map->res_x)
 	{
 		y2 = 0;
-		while(y2 < (map->res_y / 4))
+		while(y2 < map->res_y)
 		{
 			ft_mlx_pixel_put(&map->minimap, x, y2, 0xFF3599);
 			y2 += 0.1;
@@ -107,10 +107,10 @@ static void grid_print(t_datas *map)
 		x += c1;
 	}
 	y = 0;
-	while (y < (map->res_y / 4))
+	while (y < map->res_y)
 	{
 		x2 = 0;
-		while(x2 < (map->res_x / 4))
+		while(x2 < map->res_x)
 		{
 			ft_mlx_pixel_put(&map->minimap, x2, y, 0xFF3599);
 			x2 += 0.1;
@@ -129,15 +129,15 @@ int	ft_minimap(t_datas *map)
 	int k = 0;
 	int i;
 
-	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x / 4, map->res_y / 4);
+	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
 	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel, &map->minimap.line_length, &map->minimap.endian);
-	c1 = (float)(map->res_x  / 4) / (float)map->columns;
-	c2 = (float)(map->res_y / 4) / (float)map->lines;
-	while (y <= map->res_y / 4 && map->map[k])
+	c1 = (float)map->res_x / (float)map->columns;
+	c2 = (float)(map->res_y / (float)map->lines);
+	while (y <= map->res_y && map->map[k])
 	{
 		i = 0;
 		x = 0;
-		while (x <= map->res_x / 4 && map->map[k][i]) // <= peut etre responsable d'une SEGFAULT
+		while (x <= map->res_x && map->map[k][i]) // <= peut etre responsable d'une SEGFAULT
 		{
 			if (map->map[k][i] == '1')
 				ft_mlx_cube(&map->minimap, x, y, c1, c2, 0x00FF00);
@@ -154,4 +154,4 @@ int	ft_minimap(t_datas *map)
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	return (0);
-}*/
+}

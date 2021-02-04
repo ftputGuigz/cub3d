@@ -30,6 +30,7 @@ typedef struct s_mlx
 {
 	void *ptr;
 	void *wdw;
+	void *wdw2;
 }				t_mlx;
 
 typedef struct s_img

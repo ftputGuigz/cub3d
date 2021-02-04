@@ -12,10 +12,10 @@
 
 #include "cub3d.h"
 
-float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
+float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 {
 
-	/* LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
@@ -24,15 +24,15 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	y = map->player.rfy;
 	while ((int)x < map->columns && (int)y > 0 && map->map[(int)y][(int)x] == '0')
 	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
+		x = map->player.rfx + r * cosf(angle);
+		y = map->player.rfy + r * sinf(angle);
 		r += 0.1;
 	}
-	printf("APPROX R =  %f\n", r);
+	//printf("APPROX R =  %f\n", r);
 
- 	FIN DE LA PARTIE DEBOGAGE*/
+ 	//FIN DE LA PARTIE DEBOGAGE
 
-	X->xb = ceil(X->xa);
+	/*X->xb = ceil(X->xa);
 	X->yb = X->ya;
 	X->xc = X->xb;
 	X->yc = X->yb - tan(X->angle) * fabsf(X->xb - X->xa);
@@ -61,12 +61,13 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	if (X->r > Y->r)
 		return (Y->r);
 	else
-		return (X->r);
+		return (X->r);*/
+	return (r);
 }
 
-float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
+float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 {
-	/* LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
@@ -75,13 +76,13 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	y = map->player.rfy;
 	while ((int)x > 0 && (int)y > 0 && map->map[(int)y][(int)x] == '0')
 	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
+		x = map->player.rfx + r * cosf(angle);
+		y = map->player.rfy + r * sinf(angle);
 		r += 0.1;
 	}
-	//printf("APPROX R =  %f\n", r);
+	/*printf("APPROX R =  %f\n", r);
 
- 	FIN DE LA PARTIE DEBOGAGE*/
+ 	//FIN DE LA PARTIE DEBOGAGE
 
 
 	X->xb = floor(X->xa);
@@ -112,12 +113,13 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	if (X->r > Y->r)
 		return (Y->r);
 	else
-		return (X->r);
+		return (X->r);*/
+	return (r);
 }
 
-float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
+float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 {
-	/*LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
@@ -126,13 +128,13 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	y = map->player.rfy;
 	while ((int)x > 0 && (int)y < map->lines && map->map[(int)y][(int)x] == '0')
 	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
+		x = map->player.rfx + r * cosf(angle);
+		y = map->player.rfy + r * sinf(angle);
 		r += 0.1;
 	}
-	//printf("APPROX R =  %f\n", r);
+	/*printf("APPROX R =  %f\n", r);
 
- 	FIN DE LA PARTIE DEBOGAGE*/
+ 	FIN DE LA PARTIE DEBOGAGE
 
 
 	X->xb = floor(X->xa);
@@ -163,13 +165,14 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	if (X->r > Y->r)
 		return (Y->r);
 	else
-		return (X->r);
+		return (X->r);*/
+	return (r);
 
 }
 
-float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
+float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 {
-	/* LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
@@ -178,13 +181,13 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	y = map->player.rfy;
 	while ((int)x < map->columns && (int)y < map->lines && map->map[(int)y][(int)x] == '0')
 	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
+		x = map->player.rfx + r * cosf(angle);
+		y = map->player.rfy + r * sinf(angle);
 		r += 0.1;
 	}
-	//printf("APPROX R =  %f\n", r);
+	/*printf("APPROX R =  %f\n", r);
 
- 	FIN DE LA PARTIE DEBOGAGE*/
+ 	FIN DE LA PARTIE DEBOGAGE
 
 	X->xb = ceil(X->xa);
 	X->yb = X->ya;
@@ -214,7 +217,8 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	if (X->r > Y->r)
 		return (Y->r);
 	else
-		return (X->r);
+		return (X->r);*/
+	return (r);
 }
 
 static float NORTH(t_datas *map)
@@ -295,29 +299,29 @@ float	compass(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
 {
 	if (cosf(angle) == 1 || cosf(angle) == -1 || sinf(angle) == 1 || sinf(angle) == -1)
 		return (straight_compass(map, angle));
-	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > 0 && sinf(angle) < 1) //SUD-EST
+	else if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > 0 && sinf(angle) < 1) //SUD-EST
 	{
 		X->angle = angle;
 		Y->angle = M_PI_2 - X->angle;
-		return (SE_RAY(map, X, Y));
+		return (SE_RAY(map, X, Y , angle));
 	}
-	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > 0 && sinf(angle) < 1)//SUD-OUEST
+	else if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > 0 && sinf(angle) < 1)//SUD-OUEST
 	{
 		X->angle = M_PI - angle;
 		Y->angle = M_PI_2 - X->angle;
-		return(SW_RAY(map, X, Y));
+		return(SW_RAY(map, X, Y, angle));
 	}
-	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-OUEST
+	else if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-OUEST
 	{
 		X->angle = angle - M_PI;
 		Y->angle = M_PI_2 - X->angle;
-		return(NW_RAY(map, X, Y));
+		return(NW_RAY(map, X, Y, angle));
 	}
-	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-EST
+	else if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-EST
 	{
 		Y->angle = angle - (3 * M_PI_2);
 		X->angle = M_PI_2 - Y->angle;
-		return(NE_RAY(map, X, Y));
+		return(NE_RAY(map, X, Y, angle));
 	}
 	else
 		return (0);
@@ -339,18 +343,23 @@ float	ft_shootrays(t_datas *map, float ray_angle)
 	else
 		fisheye_angle = map->player.angle - ray_angle;
 	ray = compass(map, ray_angle, &X, &Y);
-	ray *= cos(fisheye_angle);
+	ray *= cosf(fisheye_angle);
 	//printf("X.xc = %f\nX.yc = %f\n---------------\n", X.xc, X.yc);
 	//printf("Y.xc = %f\nY.yc = %f\n---------------\n", Y.xc, Y.yc);
 	//printf("Xr = %f\nYr = %f\n---------------\n", X.r, Y.r);
 	return (ray);
 }
 
-void print_ray(t_datas *map, int x, float raysize)
+void print_ray(t_datas *map, int x, float raysize, float FOV)
 {
 	float ray;
 	float k;
 	int y;
+
+	int N;
+	int S;
+	int E;
+	int W;
 	
 	k = map->res_y;
 	y = map->res_y / 2;
@@ -385,11 +394,12 @@ int	ft_fps(t_datas *map)
 	while (x < map->res_x && FOV <= (map->player.angle + 0.575959))
 	{
 		raysize = ft_shootrays(map, FOV);
-		print_ray(map, x, raysize);
+		print_ray(map, x, raysize, FOV);
 		x++;
 		FOV += increment; //POUR L'INSTANT 66 RAYONS DE SHOOT. PLUS TARD AUTANT QUE LA RESOLUTION LEXIGE
 	}
-	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->fps.img, 0, 0);
+	ft_minimap(map);
+	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	return(0);
 }
