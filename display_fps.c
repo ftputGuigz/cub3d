@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/03 20:14:10 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/04 12:02:48 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 {
 
-	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	/* LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
 
 	x = map->player.rfx;
 	y = map->player.rfy;
-	while ((int)x < map->columns && (int)y >= 0 && map->map[(int)y][(int)x] == '0')
+	while ((int)x < map->columns && (int)y > 0 && map->map[(int)y][(int)x] == '0')
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
 		r += 0.1;
 	}
-	//printf("APPROX R =  %f\n", r);
+	printf("APPROX R =  %f\n", r);
 
- 	//FIN DE LA PARTIE DEBOGAGE
+ 	FIN DE LA PARTIE DEBOGAGE*/
 
 	X->xb = ceil(X->xa);
 	X->yb = X->ya;
 	X->xc = X->xb;
 	X->yc = X->yb - tan(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)X->xc < map->columns && (int)X->yc >= 0 && map->map[(int)(X->yc - 0.01)][(int)(X->xc + 0.01)] == '0')
+	while ((int)(X->xc + 0.01) < map->columns && (int)(X->yc - 0.01) > 0 && map->map[(int)(X->yc - 0.01)][(int)(X->xc + 0.01)] == '0')
 	{
 		X->xb++;
 		X->xc = X->xb;
@@ -49,7 +49,7 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	Y->xb = Y->xa;		
 	Y->yc = Y->yb;
 	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)Y->xc < map->columns && (int)Y->yc >= 0 && map->map[(int)(Y->yc - 0.01)][(int)(Y->xc + 0.01)] == '0')
+	while ((int)(Y->xc + 0.01) < map->columns && (int)(Y->yc - 0.01) > 0 && map->map[(int)(Y->yc - 0.01)][(int)(Y->xc + 0.01)] == '0')
 	{
 		//printf("char = %c\n", map->map[(int)Y->yc][(int)Y->xc]);
 		Y->yb--;
@@ -66,14 +66,14 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 
 float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 {
-	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	/* LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
 
 	x = map->player.rfx;
 	y = map->player.rfy;
-	while ((int)x >= 0 && (int)y >= 0 && map->map[(int)y][(int)x] == '0')
+	while ((int)x > 0 && (int)y > 0 && map->map[(int)y][(int)x] == '0')
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
@@ -81,7 +81,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	}
 	//printf("APPROX R =  %f\n", r);
 
- 	//FIN DE LA PARTIE DEBOGAGE
+ 	FIN DE LA PARTIE DEBOGAGE*/
 
 
 	X->xb = floor(X->xa);
@@ -89,7 +89,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	
 	X->xc = X->xb;
 	X->yc = X->yb - tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)X->xc >= 0 && (int)X->yc >= 0 && map->map[(int)(X->yc - 0.01)][(int)(X->xc - 0.01)] == '0')
+	while ((int)(X->xc - 0.01) > 0 && (int)(X->yc - 0.01) > 0 && map->map[(int)(X->yc - 0.01)][(int)(X->xc - 0.01)] == '0')
 	{
 		X->xb--;
 		X->xc = X->xb;
@@ -102,7 +102,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	
 	Y->yc = Y->yb;
 	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)Y->xc >= 0 && (int)Y->yc >= 0 && map->map[(int)(Y->yc - 0.01)][(int)(Y->xc - 0.01)] == '0')
+	while ((int)(Y->xc - 0.01) > 0 && (int)(Y->yc - 0.01) > 0 && map->map[(int)(Y->yc - 0.01)][(int)(Y->xc - 0.01)] == '0')
 	{
 		Y->yb--;
 		Y->yc = Y->yb;
@@ -117,14 +117,14 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 
 float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 {
-	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	/*LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
 
 	x = map->player.rfx;
 	y = map->player.rfy;
-	while ((int)x >= 0 && (int)y < map->lines && map->map[(int)y][(int)x] == '0')
+	while ((int)x > 0 && (int)y < map->lines && map->map[(int)y][(int)x] == '0')
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
@@ -132,7 +132,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	}
 	//printf("APPROX R =  %f\n", r);
 
- 	//FIN DE LA PARTIE DEBOGAGE
+ 	FIN DE LA PARTIE DEBOGAGE*/
 
 
 	X->xb = floor(X->xa);
@@ -140,7 +140,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	
 	X->xc = X->xb;
 	X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)X->xc >= 0 && (int)X->yc < map->lines && map->map[(int)(X->yc + 0.01)][(int)(X->xc - 0.01)] == '0')
+	while ((int)(X->xc - 0.01) > 0 && (int)(X->yc + 0.01) < map->lines && map->map[(int)(X->yc + 0.01)][(int)(X->xc - 0.01)] == '0')
 	{
 		X->xb--;
 		X->xc = X->xb;
@@ -153,7 +153,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	
 	Y->yc = Y->yb;
 	Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)Y->xc >= 0 && (int)Y->yc < map->lines && map->map[(int)(Y->yc + 0.01)][(int)(Y->xc - 0.01)] == '0')
+	while ((int)(Y->xc - 0.01) > 0 && (int)(Y->yc + 0.01) < map->lines && map->map[(int)(Y->yc + 0.01)][(int)(Y->xc - 0.01)] == '0')
 	{
 		Y->yb++;
 		Y->yc = Y->yb;
@@ -169,7 +169,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 
 float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 {
-	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
+	/* LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
 	float x;
 	float y;
@@ -184,13 +184,14 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	}
 	//printf("APPROX R =  %f\n", r);
 
- 	//FIN DE LA PARTIE DEBOGAGE
+ 	FIN DE LA PARTIE DEBOGAGE*/
+
 	X->xb = ceil(X->xa);
 	X->yb = X->ya;
 	
 	X->xc = X->xb;
 	X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)X->xc < map->columns && (int)X->yc < map->lines && map->map[(int)(X->yc + 0.01)][(int)(X->xc + 0.01)] == '0')
+	while ((int)(X->xc + 0.01) < map->columns && (int)(X->yc + 0.01) < map->lines && map->map[(int)(X->yc + 0.01)][(int)(X->xc + 0.01)] == '0')
 	{
 		X->xb++;
 		X->xc = X->xb;
@@ -203,7 +204,7 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y)
 	
 	Y->yc = Y->yb;
 	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)Y->xc < map->columns && (int)Y->yc < map->lines && map->map[(int)(Y->yc + 0.01)][(int)(Y->xc + 0.01)] == '0')
+	while ((int)(Y->xc + 0.01) < map->columns && (int)(Y->yc + 0.01) < map->lines && map->map[(int)(Y->yc + 0.01)][(int)(Y->xc + 0.01)] == '0')
 	{
 		Y->yb++;
 		Y->yc = Y->yb;
@@ -327,12 +328,18 @@ float	ft_shootrays(t_datas *map, float ray_angle)
 	t_triangle X;
 	t_triangle Y;
 	float ray;
+	float fisheye_angle;
 
 	X.xa = map->player.rfx;
 	X.ya = map->player.rfy;
 	Y.xa = map->player.rfx;
 	Y.ya = map->player.rfy;
+	if (ray_angle > map->player.angle)
+		fisheye_angle = ray_angle - map->player.angle;
+	else
+		fisheye_angle = map->player.angle - ray_angle;
 	ray = compass(map, ray_angle, &X, &Y);
+	ray *= cos(fisheye_angle);
 	//printf("X.xc = %f\nX.yc = %f\n---------------\n", X.xc, X.yc);
 	//printf("Y.xc = %f\nY.yc = %f\n---------------\n", Y.xc, Y.yc);
 	//printf("Xr = %f\nYr = %f\n---------------\n", X.r, Y.r);
@@ -342,9 +349,10 @@ float	ft_shootrays(t_datas *map, float ray_angle)
 void print_ray(t_datas *map, int x, float raysize)
 {
 	float ray;
-	float k = 800;
+	float k;
 	int y;
 	
+	k = map->res_y;
 	y = map->res_y / 2;
 	ray = (k * 1 / raysize) / 2; //PROPORTIONNELLE
 	while (ray >= 0 && y >= 0)
@@ -383,6 +391,5 @@ int	ft_fps(t_datas *map)
 	}
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->fps.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->fps.img);
-	//ft_shootrays(map, map->player.angle);
 	return(0);
 }
