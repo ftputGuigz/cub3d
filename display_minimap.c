@@ -66,22 +66,22 @@ static void	ft_print_ray(t_datas *map)
 	float ray;
 	float angle;
 
-	angle = map->player.angle - 0.575959;
+/* 	angle = map->player.angle - 0.575959;
 	//angle = map->player.angle - 2 * M_PI;
 	while (angle <= map->player.angle + 0.575959)		
-	{
+	{ */
 		x = map->player.fx;
 		y = map->player.fy;
 		ray = 0;
 		while ((int)invertor_y(map, y) >= 0 && (int)invertor_y(map, y) < map->lines && (int)invertor_x(map, x) >= 0 && (int)invertor_x(map, x) < map->columns && map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] == '0')
 		{
-			x = map->player.fx + (ray * cosf(angle));
-			y = map->player.fy + (ray * sinf(angle));
+			x = map->player.fx + (ray * cosf(map->player.angle)); //remettre ANGLE
+			y = map->player.fy + (ray * sinf(map->player.angle)); //REMETTRE ANGLE
 			ft_mlx_pixel_put(&map->minimap, x, y, 0xFFF000);
 			ray = ray + 0.2; //changer decrementation
 		}
-		angle = angle + 0.08;
-	}
+	/* 	angle = angle + 0.08;
+	} */
 }
 
 static void grid_print(t_datas *map)
