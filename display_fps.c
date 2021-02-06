@@ -27,7 +27,7 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.01;
+		r += 0.000001;
 	}
 	//return (r);
  	//FIN DE LA PARTIE DEBOGAGE */
@@ -36,7 +36,7 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	X->yb = X->ya;
 	X->xc = X->xb;
 	X->yc = X->yb - tan(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc + 0.01) < map->columns && (int)(X->yc - 0.01) > 0 && map->map[(int)(X->yc - 0.01)][(int)(X->xc + 0.01)] == '0')
+	while ((int)(X->xc + 0.000001) < map->columns && (int)(X->yc - 0.000001) > 0 && map->map[(int)(X->yc - 0.000001)][(int)(X->xc + 0.000001)] == '0')
 	{
 		X->xb++;
 		X->xc = X->xb;
@@ -49,7 +49,7 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	Y->xb = Y->xa;		
 	Y->yc = Y->yb;
 	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc + 0.01) < map->columns && (int)(Y->yc - 0.01) > 0 && map->map[(int)(Y->yc - 0.01)][(int)(Y->xc + 0.01)] == '0')
+	while ((int)(Y->xc + 0.000001) < map->columns && (int)(Y->yc - 0.000001) > 0 && map->map[(int)(Y->yc - 0.000001)][(int)(Y->xc + 0.000001)] == '0')
 	{
 		//printf("char = %c\n", map->map[(int)Y->yc][(int)Y->xc]);
 		Y->yb--;
@@ -78,7 +78,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.01;
+		r += 0.000001;
 	}
 	//return (r);
  	//FIN DE LA PARTIE DEBOGAGE */
@@ -88,7 +88,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	
 	X->xc = X->xb;
 	X->yc = X->yb - tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc - 0.01) > 0 && (int)(X->yc - 0.01) > 0 && map->map[(int)(X->yc - 0.01)][(int)(X->xc - 0.01)] == '0')
+	while ((int)(X->xc - 0.000001) > 0 && (int)(X->yc - 0.000001) > 0 && map->map[(int)(X->yc - 0.000001)][(int)(X->xc - 0.000001)] == '0')
 	{
 		X->xb--;
 		X->xc = X->xb;
@@ -101,7 +101,7 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 
 	Y->yc = Y->yb;
 	Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc - 0.01) > 0 && (int)(Y->yc - 0.01) > 0 && map->map[(int)(Y->yc - 0.01)][(int)(Y->xc - 0.01)] == '0')
+	while ((int)(Y->xc - 0.000001) > 0 && (int)(Y->yc - 0.000001) > 0 && map->map[(int)(Y->yc - 0.000001)][(int)(Y->xc - 0.000001)] == '0')
 	{
 		Y->yb--;
 		Y->yc = Y->yb;
@@ -127,7 +127,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.01;
+		r += 0.000001;
 	}
 	//return (r);
  	//FIN DE LA PARTIE DEBOGAGE */
@@ -138,7 +138,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	
 	X->xc = X->xb;
 	X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc - 0.01) > 0 && (int)(X->yc + 0.01) < map->lines && map->map[(int)(X->yc + 0.01)][(int)(X->xc - 0.01)] == '0')
+	while ((int)(X->xc - 0.000001) > 0 && (int)(X->yc + 0.000001) < map->lines && map->map[(int)(X->yc + 0.000001)][(int)(X->xc - 0.000001)] == '0')
 	{
 		X->xb--;
 		X->xc = X->xb;
@@ -151,7 +151,7 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	
 	Y->yc = Y->yb;
 	Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc - 0.01) > 0 && (int)(Y->yc + 0.01) < map->lines && map->map[(int)(Y->yc + 0.01)][(int)(Y->xc - 0.01)] == '0')
+	while ((int)(Y->xc - 0.000001) > 0 && (int)(Y->yc + 0.000001) < map->lines && map->map[(int)(Y->yc + 0.000001)][(int)(Y->xc - 0.000001)] == '0')
 	{
 		Y->yb++;
 		Y->yc = Y->yb;
@@ -177,7 +177,7 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	{
 		x = map->player.rfx + r * cosf(map->player.angle);
 		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.01;
+		r += 0.000001;
 	}
 	//return (r);
  	//FIN DE LA PARTIE DEBOGAGE */
@@ -187,7 +187,7 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	
 	X->xc = X->xb;
 	X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc + 0.01) < map->columns && (int)(X->yc + 0.01) < map->lines && map->map[(int)(X->yc + 0.01)][(int)(X->xc + 0.01)] == '0')
+	while ((int)(X->xc + 0.000001) < map->columns && (int)(X->yc + 0.000001) < map->lines && map->map[(int)(X->yc + 0.000001)][(int)(X->xc + 0.000001)] == '0')
 	{
 		X->xb++;
 		X->xc = X->xb;
@@ -200,7 +200,7 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	
 	Y->yc = Y->yb;
 	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc + 0.01) < map->columns && (int)(Y->yc + 0.01) < map->lines && map->map[(int)(Y->yc + 0.01)][(int)(Y->xc + 0.01)] == '0')
+	while ((int)(Y->xc + 0.000001) < map->columns && (int)(Y->yc + 0.000001) < map->lines && map->map[(int)(Y->yc + 0.000001)][(int)(Y->xc + 0.000001)] == '0')
 	{
 		Y->yb++;
 		Y->yc = Y->yb;
@@ -220,7 +220,7 @@ static float NORTH(t_datas *map)
 	float count = 0;
 
 	reste = modff(map->player.rfy, &dist);
-	while (map->map[(int)(dist - 0.01)][(int)map->player.rfx] == '0')
+	while (map->map[(int)(dist - 0.000001)][(int)map->player.rfx] == '0')
 	{
 		dist--;
 		count++;
@@ -236,7 +236,7 @@ static float SOUTH(t_datas *map)
 
 	reste = 1 - modff(map->player.rfy, &dist);
 	dist++;
-	while (map->map[(int)(dist + 0.01)][(int)map->player.rfx] == '0')
+	while (map->map[(int)(dist + 0.000001)][(int)map->player.rfx] == '0')
 	{
 		dist++;
 		count++;
@@ -252,7 +252,7 @@ static float EAST(t_datas *map)
 
 	reste = 1 - modff(map->player.rfx, &dist);
 	dist++;
-	while (map->map[(int)map->player.rfy][(int)(dist + 0.01)] == '0')
+	while (map->map[(int)map->player.rfy][(int)(dist + 0.000001)] == '0')
 	{
 		dist++;
 		count++;
@@ -266,7 +266,7 @@ static float WEST(t_datas *map)
 	float count = 0;
 
 	reste = modff(map->player.rfx, &dist);
-	while (map->map[(int)map->player.rfy][(int)(dist - 0.01)] == '0')
+	while (map->map[(int)map->player.rfy][(int)(dist - 0.000001)] == '0')
 	{
 		dist--;
 		count++;
