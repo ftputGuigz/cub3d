@@ -65,6 +65,7 @@ typedef struct s_player
 	float rfy;
 	float fx;
 	float fy;
+	float fish;
 }				t_player;
 
 typedef struct s_triangle
