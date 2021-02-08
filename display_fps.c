@@ -6,13 +6,13 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/04 12:02:48 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/07 14:15:25 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
+void NE_RAY(t_datas *map, t_ray *ray)
 {
 
 /* 	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
@@ -32,39 +32,47 @@ float NE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	//return (r);
  	//FIN DE LA PARTIE DEBOGAGE */
 	
-	X->xb = ceil(X->xa);
-	X->yb = X->ya;
-	X->xc = X->xb;
-	X->yc = X->yb - tan(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc + 0.000001) < map->columns && (int)(X->yc - 0.000001) > 0 && map->map[(int)(X->yc - 0.000001)][(int)(X->xc + 0.000001)] == '0')
+	ray->trix.xb = ceil(ray->trix.xa);
+	ray->trix.yb = ray->trix.ya;
+	ray->trix.xc = ray->trix.xb;
+	ray->trix.yc = ray->trix.yb - tan(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
+	while ((int)(ray->trix.xc + 0.000001) < map->columns && (int)(ray->trix.yc - 0.000001) > 0 && map->map[(int)(ray->trix.yc - 0.000001)][(int)(ray->trix.xc + 0.000001)] == '0')
 	{
-		X->xb++;
-		X->xc = X->xb;
-		//printf("X->xc = %f\n", X->xc);
-		X->yc = X->yb - tanf(X->angle) * fabsf(X->xb - X->xa);
+		ray->trix.xb++;
+		ray->trix.xc = ray->trix.xb;
+		//printf("ray->trix.xc = %f\n", ray->trix.xc);
+		ray->trix.yc = ray->trix.yb - tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
 	}
-	X->r = sqrtf(powf(fabsf(X->xb - X->xa), 2) + powf(fabsf(X->yb - X->yc), 2));
+	ray->trix.r = sqrtf(powf(fabsf(ray->trix.xb - ray->trix.xa), 2) + powf(fabsf(ray->trix.yb - ray->trix.yc), 2));
 
-	Y->yb = floor(Y->ya);
-	Y->xb = Y->xa;		
-	Y->yc = Y->yb;
-	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc + 0.000001) < map->columns && (int)(Y->yc - 0.000001) > 0 && map->map[(int)(Y->yc - 0.000001)][(int)(Y->xc + 0.000001)] == '0')
+	ray->triy.yb = floor(ray->triy.ya);
+	ray->triy.xb = ray->triy.xa;		
+	ray->triy.yc = ray->triy.yb;
+	ray->triy.xc = ray->triy.xb + tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
+	while ((int)(ray->triy.xc + 0.000001) < map->columns && (int)(ray->triy.yc - 0.000001) > 0 && map->map[(int)(ray->triy.yc - 0.000001)][(int)(ray->triy.xc + 0.000001)] == '0')
 	{
-		//printf("char = %c\n", map->map[(int)Y->yc][(int)Y->xc]);
-		Y->yb--;
-		Y->yc = Y->yb;
-		//printf("Y->yc = %f\n", Y->yc);
-		Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
+		//printf("char = %c\n", map->map[(int)ray->triy.yc][(int)ray->triy.xc]);
+		ray->triy.yb--;
+		ray->triy.yc = ray->triy.yb;
+		//printf("ray->triy.yc = %f\n", ray->triy.yc);
+		ray->triy.xc = ray->triy.xb + tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
 	}
-	Y->r = sqrtf(powf(fabsf(Y->yb - Y->ya), 2) + powf(fabsf(Y->xb - Y->xc), 2));
-	if (X->r > Y->r)
-		return (Y->r);
+	ray->triy.r = sqrtf(powf(fabsf(ray->triy.yb - ray->triy.ya), 2) + powf(fabsf(ray->triy.xb - ray->triy.xc), 2));
+	if (ray->trix.r > ray->triy.r)
+	{
+		ray->xc = ray->triy.xc;
+		ray->yc = ray->triy.yc;
+		ray->r = ray->triy.r;
+	}
 	else
-		return (X->r);
+	{
+		ray->xc = ray->trix.xc;
+		ray->yc = ray->trix.yc;
+		ray->r = ray->trix.r;
+	}
 }
 
-float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
+void NW_RAY(t_datas *map, t_ray *ray)
 {
 /* 	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
@@ -83,38 +91,46 @@ float NW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 	//return (r);
  	//FIN DE LA PARTIE DEBOGAGE */
 
-	X->xb = floor(X->xa);
-	X->yb = X->ya;
+	ray->trix.xb = floor(ray->trix.xa);
+	ray->trix.yb = ray->trix.ya;
 	
-	X->xc = X->xb;
-	X->yc = X->yb - tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc - 0.000001) > 0 && (int)(X->yc - 0.000001) > 0 && map->map[(int)(X->yc - 0.000001)][(int)(X->xc - 0.000001)] == '0')
+	ray->trix.xc = ray->trix.xb;
+	ray->trix.yc = ray->trix.yb - tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
+	while ((int)(ray->trix.xc - 0.000001) > 0 && (int)(ray->trix.yc - 0.000001) > 0 && map->map[(int)(ray->trix.yc - 0.000001)][(int)(ray->trix.xc - 0.000001)] == '0')
 	{
-		X->xb--;
-		X->xc = X->xb;
-		X->yc = X->yb - tanf(X->angle) * fabsf(X->xa - X->xb);
+		ray->trix.xb--;
+		ray->trix.xc = ray->trix.xb;
+		ray->trix.yc = ray->trix.yb - tanf(ray->trix.angle) * fabsf(ray->trix.xa - ray->trix.xb);
 	}
-	X->r = sqrtf(powf(fabsf(X->xb - X->xa), 2) + powf(fabsf(X->yb - X->yc), 2));
+	ray->trix.r = sqrtf(powf(fabsf(ray->trix.xb - ray->trix.xa), 2) + powf(fabsf(ray->trix.yb - ray->trix.yc), 2));
 
-	Y->yb = floor(Y->ya);
-	Y->xb = Y->xa;
+	ray->triy.yb = floor(ray->triy.ya);
+	ray->triy.xb = ray->triy.xa;
 
-	Y->yc = Y->yb;
-	Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc - 0.000001) > 0 && (int)(Y->yc - 0.000001) > 0 && map->map[(int)(Y->yc - 0.000001)][(int)(Y->xc - 0.000001)] == '0')
+	ray->triy.yc = ray->triy.yb;
+	ray->triy.xc = ray->triy.xb - tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
+	while ((int)(ray->triy.xc - 0.000001) > 0 && (int)(ray->triy.yc - 0.000001) > 0 && map->map[(int)(ray->triy.yc - 0.000001)][(int)(ray->triy.xc - 0.000001)] == '0')
 	{
-		Y->yb--;
-		Y->yc = Y->yb;
-		Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
+		ray->triy.yb--;
+		ray->triy.yc = ray->triy.yb;
+		ray->triy.xc = ray->triy.xb - tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
 	}
-	Y->r = sqrtf(powf(fabsf(Y->yb - Y->ya), 2) + powf(fabsf(Y->xb - Y->xc), 2));
-	if (X->r > Y->r)
-		return (Y->r);
+	ray->triy.r = sqrtf(powf(fabsf(ray->triy.yb - ray->triy.ya), 2) + powf(fabsf(ray->triy.xb - ray->triy.xc), 2));
+	if (ray->trix.r > ray->triy.r)
+	{
+		ray->xc = ray->triy.xc;
+		ray->yc = ray->triy.yc;
+		ray->r = ray->triy.r;
+	}
 	else
-		return (X->r);
+	{
+		ray->xc = ray->trix.xc;
+		ray->yc = ray->trix.yc;
+		ray->r = ray->trix.r;
+	}
 }
 
-float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
+void SW_RAY(t_datas *map, t_ray *ray)
 {
 /* 	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
@@ -129,42 +145,50 @@ float SW_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 		y = map->player.rfy + r * sinf(map->player.angle);
 		r += 0.000001;
 	}
-	//return (r);
+	//ray->r = r);
  	//FIN DE LA PARTIE DEBOGAGE */
 	
 
-	X->xb = floor(X->xa);
-	X->yb = X->ya;
+	ray->trix.xb = floor(ray->trix.xa);
+	ray->trix.yb = ray->trix.ya;
 	
-	X->xc = X->xb;
-	X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc - 0.000001) > 0 && (int)(X->yc + 0.000001) < map->lines && map->map[(int)(X->yc + 0.000001)][(int)(X->xc - 0.000001)] == '0')
+	ray->trix.xc = ray->trix.xb;
+	ray->trix.yc = ray->trix.yb + tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
+	while ((int)(ray->trix.xc - 0.000001) > 0 && (int)(ray->trix.yc + 0.000001) < map->lines && map->map[(int)(ray->trix.yc + 0.000001)][(int)(ray->trix.xc - 0.000001)] == '0')
 	{
-		X->xb--;
-		X->xc = X->xb;
-		X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
+		ray->trix.xb--;
+		ray->trix.xc = ray->trix.xb;
+		ray->trix.yc = ray->trix.yb + tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
 	}
-	X->r = sqrtf(powf(fabsf(X->xb - X->xa), 2) + powf(fabsf(X->yb - X->yc), 2));
+	ray->trix.r = sqrtf(powf(fabsf(ray->trix.xb - ray->trix.xa), 2) + powf(fabsf(ray->trix.yb - ray->trix.yc), 2));
 
-	Y->yb = ceil(Y->ya);
-	Y->xb = Y->xa;		
+	ray->triy.yb = ceil(ray->triy.ya);
+	ray->triy.xb = ray->triy.xa;		
 	
-	Y->yc = Y->yb;
-	Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc - 0.000001) > 0 && (int)(Y->yc + 0.000001) < map->lines && map->map[(int)(Y->yc + 0.000001)][(int)(Y->xc - 0.000001)] == '0')
+	ray->triy.yc = ray->triy.yb;
+	ray->triy.xc = ray->triy.xb - tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
+	while ((int)(ray->triy.xc - 0.000001) > 0 && (int)(ray->triy.yc + 0.000001) < map->lines && map->map[(int)(ray->triy.yc + 0.000001)][(int)(ray->triy.xc - 0.000001)] == '0')
 	{
-		Y->yb++;
-		Y->yc = Y->yb;
-		Y->xc = Y->xb - tanf(Y->angle) * fabsf(Y->ya - Y->yb);
+		ray->triy.yb++;
+		ray->triy.yc = ray->triy.yb;
+		ray->triy.xc = ray->triy.xb - tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
 	}
-	Y->r = sqrtf(powf(fabsf(Y->yb - Y->ya), 2) + powf(fabsf(Y->xb - Y->xc), 2));
-	if (X->r > Y->r)
-		return (Y->r);
+	ray->triy.r = sqrtf(powf(fabsf(ray->triy.yb - ray->triy.ya), 2) + powf(fabsf(ray->triy.xb - ray->triy.xc), 2));
+	if (ray->trix.r > ray->triy.r)
+	{
+		ray->xc = ray->triy.xc;
+		ray->yc = ray->triy.yc;
+		ray->r = ray->triy.r;
+	}
 	else
-		return (X->r);
+	{
+		ray->xc = ray->trix.xc;
+		ray->yc = ray->trix.yc;
+		ray->r = ray->trix.r;
+	}
 }
 
-float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
+void SE_RAY(t_datas *map, t_ray *ray)
 {
 /* 	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
 	float r = 0;
@@ -179,41 +203,49 @@ float SE_RAY(t_datas *map, t_triangle *X, t_triangle *Y, float angle)
 		y = map->player.rfy + r * sinf(map->player.angle);
 		r += 0.000001;
 	}
-	//return (r);
+	//ray->r = r);
  	//FIN DE LA PARTIE DEBOGAGE */
 	
-	X->xb = ceil(X->xa);
-	X->yb = X->ya;
+	ray->trix.xb = ceil(ray->trix.xa);
+	ray->trix.yb = ray->trix.ya;
 	
-	X->xc = X->xb;
-	X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
-	while ((int)(X->xc + 0.000001) < map->columns && (int)(X->yc + 0.000001) < map->lines && map->map[(int)(X->yc + 0.000001)][(int)(X->xc + 0.000001)] == '0')
+	ray->trix.xc = ray->trix.xb;
+	ray->trix.yc = ray->trix.yb + tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
+	while ((int)(ray->trix.xc + 0.000001) < map->columns && (int)(ray->trix.yc + 0.000001) < map->lines && map->map[(int)(ray->trix.yc + 0.000001)][(int)(ray->trix.xc + 0.000001)] == '0')
 	{
-		X->xb++;
-		X->xc = X->xb;
-		X->yc = X->yb + tanf(X->angle) * fabsf(X->xb - X->xa);
+		ray->trix.xb++;
+		ray->trix.xc = ray->trix.xb;
+		ray->trix.yc = ray->trix.yb + tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
 	}
-	X->r = sqrtf(powf(fabsf(X->xb - X->xa), 2) + powf(fabsf(X->yb - X->yc), 2));
+	ray->trix.r = sqrtf(powf(fabsf(ray->trix.xb - ray->trix.xa), 2) + powf(fabsf(ray->trix.yb - ray->trix.yc), 2));
 	
-	Y->yb = ceil(Y->ya);
-	Y->xb = Y->xa;		
+	ray->triy.yb = ceil(ray->triy.ya);
+	ray->triy.xb = ray->triy.xa;		
 	
-	Y->yc = Y->yb;
-	Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
-	while ((int)(Y->xc + 0.000001) < map->columns && (int)(Y->yc + 0.000001) < map->lines && map->map[(int)(Y->yc + 0.000001)][(int)(Y->xc + 0.000001)] == '0')
+	ray->triy.yc = ray->triy.yb;
+	ray->triy.xc = ray->triy.xb + tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
+	while ((int)(ray->triy.xc + 0.000001) < map->columns && (int)(ray->triy.yc + 0.000001) < map->lines && map->map[(int)(ray->triy.yc + 0.000001)][(int)(ray->triy.xc + 0.000001)] == '0')
 	{
-		Y->yb++;
-		Y->yc = Y->yb;
-		Y->xc = Y->xb + tanf(Y->angle) * fabsf(Y->ya - Y->yb);
+		ray->triy.yb++;
+		ray->triy.yc = ray->triy.yb;
+		ray->triy.xc = ray->triy.xb + tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
 	}
-	Y->r = sqrtf(powf(fabsf(Y->yb - Y->ya), 2) + powf(fabsf(Y->xb - Y->xc), 2));
-	if (X->r > Y->r)
-		return (Y->r);
+	ray->triy.r = sqrtf(powf(fabsf(ray->triy.yb - ray->triy.ya), 2) + powf(fabsf(ray->triy.xb - ray->triy.xc), 2));
+	if (ray->trix.r > ray->triy.r)
+	{
+		ray->xc = ray->triy.xc;
+		ray->yc = ray->triy.yc;
+		ray->r = ray->triy.r;
+	}
 	else
-		return (X->r);
+	{
+		ray->xc = ray->trix.xc;
+		ray->yc = ray->trix.yc;
+		ray->r = ray->trix.r;
+	}
 }
 
-static float NORTH(t_datas *map)
+static float NORTH(t_datas *map, t_ray *ray)
 {
 	float reste;
 	float dist;
@@ -225,10 +257,12 @@ static float NORTH(t_datas *map)
 		dist--;
 		count++;
 	}
+	ray->xc = map->player.rfx;
+	ray->yc = map->player.rfy - (count + reste);
 	return (count + reste);
 }
 
-static float SOUTH(t_datas *map)
+static float SOUTH(t_datas *map, t_ray *ray)
 {
 	float reste;
 	float dist;
@@ -241,10 +275,12 @@ static float SOUTH(t_datas *map)
 		dist++;
 		count++;
 	}
+	ray->xc = map->player.rfx;
+	ray->yc = map->player.rfy + (count + reste);
 	return (count + reste);
 }
 
-static float EAST(t_datas *map)
+static float EAST(t_datas *map, t_ray *ray)
 {
 	float reste;
 	float dist;
@@ -257,9 +293,11 @@ static float EAST(t_datas *map)
 		dist++;
 		count++;
 	}
+	ray->xc = map->player.rfx + (count + reste); 
+	ray->yc = map->player.rfy;
 	return (count + reste);
 }
-static float WEST(t_datas *map)
+static float WEST(t_datas *map, t_ray *ray)
 {
 	float reste;
 	float dist;
@@ -271,111 +309,129 @@ static float WEST(t_datas *map)
 		dist--;
 		count++;
 	}
+	ray->xc = map->player.rfx - (count + reste);
+	ray->yc = map->player.rfy;
 	return (count + reste);
 }
 
-static float straight_compass(t_datas *map, float angle)
+static void straight_compass(t_datas *map, t_ray *ray, float angle)
 {
 	if (sinf(angle) == -1)
-		return (NORTH(map));
+		ray->r = (NORTH(map, ray));
 	if (sinf(angle) == 1)
-		return (SOUTH(map));
+		ray->r = (SOUTH(map, ray));
 	if (cosf(angle) == -1)
-		return (WEST(map));
+		ray->r = (WEST(map, ray));
 	if (cosf(angle) == 1)
-		return (EAST(map));
-	return (0);
+		ray->r = (EAST(map, ray));
 }
 
-float	compass(t_datas *map, float angle, t_triangle *X, t_triangle *Y)
+void set_direction(t_datas *map, t_ray *ray)
+{
+	if (map->map[(int)(ray->yc - 0.000001)][(int)ray->xc] != '0' && map->map[(int)ray->yc][(int)(ray->xc + 0.000001)] == '0')
+		ray->dir = 'S';
+	else if (map->map[(int)ray->yc][(int)(ray->xc + 0.000001)] != '0' && map->map[(int)(ray->yc - 0.000001)][(int)ray->xc] == '0')
+		ray->dir = 'W';
+	else if (map->map[(int)(ray->yc + 0.000001)][(int)ray->xc] != '0' && map->map[(int)ray->yc][(int)(ray->xc - 0.000001)] == '0')
+		ray->dir = 'N';
+	else if (map->map[(int)ray->yc][(int)(ray->xc - 0.000001)] != '0' && map->map[(int)(ray->yc + 0.000001)][(int)ray->xc] == '0')
+		ray->dir = 'E';
+}
+
+void compass(t_datas *map, float angle, t_ray *ray)
 {
 	if (cosf(angle) == 1 || cosf(angle) == -1 || sinf(angle) == 1 || sinf(angle) == -1)
-		return (straight_compass(map, angle));
+		straight_compass(map, ray, angle);
 	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > 0 && sinf(angle) < 1) //SUD-EST
 	{
-		X->angle = angle;
-		Y->angle = M_PI_2 - X->angle;
-		return (SE_RAY(map, X, Y , angle));
+		ray->trix.angle = angle;
+		ray->triy.angle = M_PI_2 - ray->trix.angle;
+		SE_RAY(map, ray);
 	}
 	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > 0 && sinf(angle) < 1)//SUD-OUEST
 	{
-		X->angle = M_PI - angle;
-		Y->angle = M_PI_2 - X->angle;
-		return(SW_RAY(map, X, Y, angle));
+		ray->trix.angle = M_PI - angle;
+		ray->triy.angle = M_PI_2 - ray->trix.angle;	
+		SW_RAY(map, ray);
 	}
 	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-OUEST
 	{
-		X->angle = angle - M_PI;
-		Y->angle = M_PI_2 - X->angle;
-		return(NW_RAY(map, X, Y, angle));
+		ray->trix.angle = angle - M_PI;
+		ray->triy.angle = M_PI_2 - ray->trix.angle;
+		NW_RAY(map, ray);
 	}
 	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-EST
 	{
-		Y->angle = angle - (3 * M_PI_2);
-		X->angle = M_PI_2 - Y->angle;
-		return(NE_RAY(map, X, Y, angle));
+		ray->triy.angle = angle - (3 * M_PI_2);
+		ray->trix.angle = M_PI_2 - ray->triy.angle;
+		NE_RAY(map, ray);
 	}
-	return (0);
+	set_direction(map, ray);
 }
 
-float	ft_shootrays(t_datas *map, float ray_angle)
+void ft_shootrays(t_datas *map, float ray_angle, t_ray *ray)
 {
-	t_triangle X;
-	t_triangle Y;
-	float ray;
 	float fisheye_angle;
 
-	X.xa = map->player.rfx;
-	X.ya = map->player.rfy;
-	Y.xa = map->player.rfx;
-	Y.ya = map->player.rfy;
+	ray->trix.xa = map->player.rfx;
+	ray->trix.ya = map->player.rfy;
+	ray->triy.xa = map->player.rfx;
+	ray->triy.ya = map->player.rfy;
 	if (ray_angle > map->player.angle)
 		fisheye_angle = ray_angle - map->player.angle;
 	else
 		fisheye_angle = map->player.angle - ray_angle;
-	ray = compass(map, ray_angle, &X, &Y);
-	ray *= cosf(fisheye_angle);
+	compass(map, ray_angle, ray);
+	ray->r *= cosf(fisheye_angle);
 	//printf("X.xc = %f\nX.yc = %f\n---------------\n", X.xc, X.yc);
 	//printf("Y.xc = %f\nY.yc = %f\n---------------\n", Y.xc, Y.yc);
 	//printf("Xr = %f\nYr = %f\n---------------\n", X.r, Y.r);
-	return (ray);
 }
 
-void print_ray(t_datas *map, int x, float raysize, float FOV)
+int painter(char color)
 {
-	float ray;
+	if (color == 'N')
+		return (0xFF0170);
+	if (color == 'S')
+		return (0x0120FF);
+	if (color == 'W')
+		return (0x97FF00);
+	if (color == 'E')
+		return (0xFFF500);
+	else
+		return (0);
+}
+
+void print_ray(t_datas *map, int x, t_ray *ray)
+{
+	float ray_p;
 	float k;
 	int y;
-
-	int N;
-	int S;
-	int E;
-	int W;
 	
 	k = map->res_y;
 	y = map->res_y / 2;
-	ray = (k * 1 / raysize) / 2; //PROPORTIONNELLE
-	while (ray >= 0 && y >= 0)
+	ray_p = (k * 1 / ray->r) / 2; //PROPORTIONNELLE
+	while (ray_p >= 0 && y >= 0)
 	{
-		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
-		ray--;
+		ft_mlx_pixel_put(&map->fps, x, y, painter(ray->dir));
+		ray_p--;
 		y--;
 	} 
 	y = map->res_y / 2;
-	ray = (k * 1 / raysize) / 2;
-	while (ray <= k * 1 / raysize && y < map->res_y)
+	ray_p = (k * 1 / ray->r) / 2;
+	while (ray_p <= k * 1 / ray->r && y < map->res_y)
 	{
-		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
-		ray++;	
+		ft_mlx_pixel_put(&map->fps, x, y, painter(ray->dir));
+		ray_p++;	
 		y++;	
 	}
 }
 
 int	ft_fps(t_datas *map)
 {
+	t_ray ray;
 	float FOV;
 	//float increment;
-	float raysize;
 	int x = 0;
 
 	//increment = 1.15192 / (float)map->res_x;
@@ -384,8 +440,17 @@ int	ft_fps(t_datas *map)
 	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel, &map->fps.line_length, &map->fps.endian);
 	while (x < map->res_x && FOV <= (map->player.angle + 0.575959))
 	{
-		raysize = ft_shootrays(map, FOV);
-		print_ray(map, x, raysize, FOV);
+		ft_shootrays(map, FOV, &ray);
+		print_ray(map, x, &ray);
+		if (x == map->res_x / 2)
+		{	printf("ray.xc = %f\nray.yc =%f\n", ray.xc, ray.yc);
+			printf("map->map[(int)(ray->yc)][(int)ray->xc] = %c\n", map->map[(int)(ray.yc)][(int)ray.xc]);
+			printf("SOUTH WALL(yc - 0.1) = %c\n", map->map[(int)(ray.yc - 0.000001)][(int)ray.xc]);
+			printf("NORTH WALL(yc + 0.1) = %c\n", map->map[(int)(ray.yc + 0.000001)][(int)ray.xc]);
+			printf("EAST WALL(xc - 0.1) = %c\n", map->map[(int)(ray.yc)][(int)(ray.xc - 0.000001)]);
+			printf("WEST WALL(xc + 0.1) = %c\n", map->map[(int)(ray.yc)][(int)(ray.xc + 0.000001)]);
+			printf("ray.dir = %c\n", ray.dir);
+		}
 		x++;
 		FOV = map->player.angle + atanf((x - map->res_x / 2) / ((map->res_x / 2) / tanf(1.15192 / 2)));
 		//FOV += increment;

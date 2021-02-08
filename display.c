@@ -65,7 +65,7 @@ int	WASD(int keycode, t_datas *map)
 	return (0);
 }
 
-int wasdout(int keycode, t_datas *map)
+int wasdout(int keycode) //, t_datas *map)
 {
 	(void)keycode;
 	//printf("cos(angle) = %f\n", cosf(map->player.angle));
@@ -82,11 +82,9 @@ void	ft_display(t_datas *map)
 	map->mlx.ptr = mlx_init();
 	map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Map");
 	map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
-	ft_fps(map);
-	ft_minimap(map);	//EDIT IMAGE CARTE + PERSO
-	mlx_hook(map->mlx.wdw, 2, 1L<<0, WASD, map); //GESTION KEYPRESS
-	mlx_hook(map->mlx.wdw, 3, 1L<<1, wasdout, map); //GEStiON KEYOUT + POSITION PERSO
-	mlx_loop_hook(map->mlx.ptr, ft_minimap, map);
+	ft_fps(map);	// MINIMAP APPELEE ICI EDIT IMAGE CARTE + PERSO
+	mlx_hook(map->mlx.wdw2, 2, 1L<<0, WASD, map); //GESTION KEYPRESS
+	mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map); //GEStiON KEYOUT + POSITION PERSO
 	mlx_loop_hook(map->mlx.ptr, ft_fps, map);
 	mlx_loop(map->mlx.ptr);
 }
