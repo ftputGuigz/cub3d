@@ -13,25 +13,7 @@
 #include "cub3d.h"
 
 void NE_RAY(t_datas *map, t_ray *ray)
-{
-
-/* 	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
-	float r = 0;
-	static int tag = 0;
-	float x;
-	float y;
-
-	x = map->player.rfx;
-	y = map->player.rfy;
-	while ((int)x < map->columns && (int)y > 0 && map->map[(int)y][(int)x] == '0')
-	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.000001;
-	}
-	//return (r);
- 	//FIN DE LA PARTIE DEBOGAGE */
-	
+{	
 	ray->trix.xb = ceil(ray->trix.xa);
 	ray->trix.yb = ray->trix.ya;
 	ray->trix.xc = ray->trix.xb;
@@ -40,7 +22,6 @@ void NE_RAY(t_datas *map, t_ray *ray)
 	{
 		ray->trix.xb++;
 		ray->trix.xc = ray->trix.xb;
-		//printf("ray->trix.xc = %f\n", ray->trix.xc);
 		ray->trix.yc = ray->trix.yb - tanf(ray->trix.angle) * fabsf(ray->trix.xb - ray->trix.xa);
 	}
 	ray->trix.r = sqrtf(powf(fabsf(ray->trix.xb - ray->trix.xa), 2) + powf(fabsf(ray->trix.yb - ray->trix.yc), 2));
@@ -51,10 +32,8 @@ void NE_RAY(t_datas *map, t_ray *ray)
 	ray->triy.xc = ray->triy.xb + tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
 	while ((int)(ray->triy.xc + 0.000001) < map->columns && (int)(ray->triy.yc - 0.000001) > 0 && map->map[(int)(ray->triy.yc - 0.000001)][(int)(ray->triy.xc + 0.000001)] == '0')
 	{
-		//printf("char = %c\n", map->map[(int)ray->triy.yc][(int)ray->triy.xc]);
 		ray->triy.yb--;
 		ray->triy.yc = ray->triy.yb;
-		//printf("ray->triy.yc = %f\n", ray->triy.yc);
 		ray->triy.xc = ray->triy.xb + tanf(ray->triy.angle) * fabsf(ray->triy.ya - ray->triy.yb);
 	}
 	ray->triy.r = sqrtf(powf(fabsf(ray->triy.yb - ray->triy.ya), 2) + powf(fabsf(ray->triy.xb - ray->triy.xc), 2));
@@ -74,23 +53,6 @@ void NE_RAY(t_datas *map, t_ray *ray)
 
 void NW_RAY(t_datas *map, t_ray *ray)
 {
-/* 	// LA PARTIE QUI SUIT EST POUR DEBOGAGE
-	float r = 0;
-	float x;
-	float y;
-	static int tag = 0;
-
-	x = map->player.rfx;
-	y = map->player.rfy;
-	while ((int)x > 0 && (int)y > 0 && map->map[(int)y][(int)x] == '0')
-	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.000001;
-	}
-	//return (r);
- 	//FIN DE LA PARTIE DEBOGAGE */
-
 	ray->trix.xb = floor(ray->trix.xa);
 	ray->trix.yb = ray->trix.ya;
 	
@@ -132,23 +94,6 @@ void NW_RAY(t_datas *map, t_ray *ray)
 
 void SW_RAY(t_datas *map, t_ray *ray)
 {
-/* 	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
-	float r = 0;
-	float x;
-	float y;
-
-	x = map->player.rfx;
-	y = map->player.rfy;
-	while ((int)x > 0 && (int)y < map->lines && map->map[(int)y][(int)x] == '0')
-	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.000001;
-	}
-	//ray->r = r);
- 	//FIN DE LA PARTIE DEBOGAGE */
-	
-
 	ray->trix.xb = floor(ray->trix.xa);
 	ray->trix.yb = ray->trix.ya;
 	
@@ -190,22 +135,6 @@ void SW_RAY(t_datas *map, t_ray *ray)
 
 void SE_RAY(t_datas *map, t_ray *ray)
 {
-/* 	//LA PARTIE QUI SUIT EST POUR DEBOGAGE
-	float r = 0;
-	float x;
-	float y;
-
-	x = map->player.rfx;
-	y = map->player.rfy;
-	while ((int)x < map->columns && (int)y < map->lines && map->map[(int)y][(int)x] == '0')
-	{
-		x = map->player.rfx + r * cosf(map->player.angle);
-		y = map->player.rfy + r * sinf(map->player.angle);
-		r += 0.000001;
-	}
-	//ray->r = r);
- 	//FIN DE LA PARTIE DEBOGAGE */
-	
 	ray->trix.xb = ceil(ray->trix.xa);
 	ray->trix.yb = ray->trix.ya;
 	
@@ -383,23 +312,47 @@ void ft_shootrays(t_datas *map, float ray_angle, t_ray *ray)
 		fisheye_angle = map->player.angle - ray_angle;
 	compass(map, ray_angle, ray);
 	ray->r *= cosf(fisheye_angle);
-	//printf("X.xc = %f\nX.yc = %f\n---------------\n", X.xc, X.yc);
-	//printf("Y.xc = %f\nY.yc = %f\n---------------\n", Y.xc, Y.yc);
-	//printf("Xr = %f\nYr = %f\n---------------\n", X.r, Y.r);
 }
 
-int painter(char color)
+char *texture_path(char orientation)
 {
-	if (color == 'N')
-		return (0xFF0170);
-	if (color == 'S')
-		return (0x0120FF);
-	if (color == 'W')
-		return (0x97FF00);
-	if (color == 'E')
-		return (0xFFF500);
+	if (orientation == 'N')
+		return ("./texturesMinecraft/grass.xpm");
+	if (orientation == 'S')
+		return ("./texturesMinecraft/grass.xpm");
+	if (orientation == 'W')
+		return ("./texturesMinecraft/grass.xpm");
+	if (orientation == 'E')
+		return ("./texturesMinecraft/grass.xpm");
 	else
-		return (0);
+		return ("NULL");
+}
+
+char	*painter(t_datas *map, t_ray *ray, int y)
+{
+	t_img	texture;
+	float reste;
+	int i;
+	int j;
+	int x_tex;
+	int y_tex;
+	char *color;
+
+	texture.img = mlx_xpm_file_to_image(map->mlx.ptr, texture_path(ray->dir), &i, &j);
+	if (ray->dir == 'N' || ray->dir == 'S')
+	{
+		x_tex = modff(ray->xc, &reste) * i;
+		y_tex = y * j / map->res_y;
+	}
+	if (ray->dir == 'W' || ray->dir == 'E')
+	{	
+		x_tex = modff(ray->yc, &reste) * i;
+		y_tex = y * j / map->res_y;
+	}
+	texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
+	color = texture.addr + texture.line_length * y_tex + texture.bits_per_pixel * x_tex;
+	mlx_destroy_image(map->mlx.ptr, texture.img);
+	return (color);
 }
 
 void print_ray(t_datas *map, int x, t_ray *ray)
@@ -413,15 +366,17 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 	ray_p = (k * 1 / ray->r) / 2; //PROPORTIONNELLE
 	while (ray_p >= 0 && y >= 0)
 	{
-		ft_mlx_pixel_put(&map->fps, x, y, painter(ray->dir));
+		printf("pixel = %s\n", painter(map, ray, y));
+		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
 		ray_p--;
 		y--;
-	} 
+	}
 	y = map->res_y / 2;
 	ray_p = (k * 1 / ray->r) / 2;
 	while (ray_p <= k * 1 / ray->r && y < map->res_y)
 	{
-		ft_mlx_pixel_put(&map->fps, x, y, painter(ray->dir));
+		printf("pixel = %s\n", painter(map, ray, y));
+		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
 		ray_p++;	
 		y++;	
 	}
@@ -442,7 +397,7 @@ int	ft_fps(t_datas *map)
 	{
 		ft_shootrays(map, FOV, &ray);
 		print_ray(map, x, &ray);
-		if (x == map->res_x / 2)
+	/* 	if (x == map->res_x / 2)
 		{	printf("ray.xc = %f\nray.yc =%f\n", ray.xc, ray.yc);
 			printf("map->map[(int)(ray->yc)][(int)ray->xc] = %c\n", map->map[(int)(ray.yc)][(int)ray.xc]);
 			printf("SOUTH WALL(yc - 0.1) = %c\n", map->map[(int)(ray.yc - 0.000001)][(int)ray.xc]);
@@ -450,7 +405,7 @@ int	ft_fps(t_datas *map)
 			printf("EAST WALL(xc - 0.1) = %c\n", map->map[(int)(ray.yc)][(int)(ray.xc - 0.000001)]);
 			printf("WEST WALL(xc + 0.1) = %c\n", map->map[(int)(ray.yc)][(int)(ray.xc + 0.000001)]);
 			printf("ray.dir = %c\n", ray.dir);
-		}
+		} */
 		x++;
 		FOV = map->player.angle + atanf((x - map->res_x / 2) / ((map->res_x / 2) / tanf(1.15192 / 2)));
 		//FOV += increment;
