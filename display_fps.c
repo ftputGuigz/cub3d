@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/07 14:15:25 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/09 10:29:42 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,45 +314,57 @@ void ft_shootrays(t_datas *map, float ray_angle, t_ray *ray)
 	ray->r *= cosf(fisheye_angle);
 }
 
-char *texture_path(char orientation)
+int	texture_number(char orientation)
 {
 	if (orientation == 'N')
-		return ("./texturesMinecraft/grass.xpm");
+		//return (0xFF0000);
+		return (0);
 	if (orientation == 'S')
-		return ("./texturesMinecraft/grass.xpm");
+		//return (0x00FF00);
+		return (1);
 	if (orientation == 'W')
-		return ("./texturesMinecraft/grass.xpm");
+		//return (0x0000FF);
+		return (2);
 	if (orientation == 'E')
-		return ("./texturesMinecraft/grass.xpm");
-	else
-		return ("NULL");
+		//return (0x00FF67);
+		return (3);
+	//else
+	//	return (-1);
+	return (0);
 }
 
-char	*painter(t_datas *map, t_ray *ray, int y)
+int		create_trgb(int t, int r, int g, int b)
 {
-	t_img	texture;
+	return(t << 24 | r << 16 | g << 8 | b);
+}
+
+int	painter(t_datas *map, t_ray *ray, int y)
+{
+	int rank;
 	float reste;
-	int i;
-	int j;
-	int x_tex;
+	float x_tex;
 	int y_tex;
 	char *color;
-
-	texture.img = mlx_xpm_file_to_image(map->mlx.ptr, texture_path(ray->dir), &i, &j);
+	int color2;
+	
+	rank = texture_number(ray->dir);
 	if (ray->dir == 'N' || ray->dir == 'S')
 	{
-		x_tex = modff(ray->xc, &reste) * i;
-		y_tex = y * j / map->res_y;
+		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
+		//printf("x_tex = %f\n", x_tex);
+		y_tex = y * map->txt[rank].j / map->res_y;
+		//printf("y_tex = %i\n", y_tex);
 	}
 	if (ray->dir == 'W' || ray->dir == 'E')
 	{	
-		x_tex = modff(ray->yc, &reste) * i;
-		y_tex = y * j / map->res_y;
+		x_tex = modff(ray->yc, &reste) * map->txt[rank].i;
+		//printf("x_tex = %f\n", x_tex);
+		y_tex = y * map->txt[rank].j / map->res_y;
+		//printf("y_tex = %i\n", y_tex);
 	}
-	texture.addr = mlx_get_data_addr(texture.img, &texture.bits_per_pixel, &texture.line_length, &texture.endian);
-	color = texture.addr + texture.line_length * y_tex + texture.bits_per_pixel * x_tex;
-	mlx_destroy_image(map->mlx.ptr, texture.img);
-	return (color);
+	color = map->txt[rank].addr + (y_tex * map->txt[rank].line_length + x_tex * (map->txt[rank].bits_per_pixel / 8));
+	color2 = *(unsigned int *)color;
+	return (color2);
 }
 
 void print_ray(t_datas *map, int x, t_ray *ray)
@@ -366,8 +378,7 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 	ray_p = (k * 1 / ray->r) / 2; //PROPORTIONNELLE
 	while (ray_p >= 0 && y >= 0)
 	{
-		printf("pixel = %s\n", painter(map, ray, y));
-		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
+		ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y));
 		ray_p--;
 		y--;
 	}
@@ -375,8 +386,7 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 	ray_p = (k * 1 / ray->r) / 2;
 	while (ray_p <= k * 1 / ray->r && y < map->res_y)
 	{
-		printf("pixel = %s\n", painter(map, ray, y));
-		ft_mlx_pixel_put(&map->fps, x, y, 0xFF0000);
+		ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y));
 		ray_p++;	
 		y++;	
 	}

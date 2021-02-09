@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/03 18:49:24 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/09 10:27:44 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_img
     int         bits_per_pixel;
     int         line_length;
     int         endian;
+	int 		i;
+	int 		j;
 }				t_img;
 
 typedef struct s_flags
@@ -107,6 +109,7 @@ typedef struct	s_datas
 	t_mlx	mlx;
 	t_img minimap;
 	t_img fps;
+	t_img txt[5];
 }				t_datas;
 
 int		ft_parsor(char *path, t_datas *map_datas);

@@ -14,7 +14,7 @@
 
 void ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
-    char    *dst;
+    char	*dst;
 
     dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
@@ -76,10 +76,26 @@ int wasdout(int keycode) //, t_datas *map)
 	return(0);
 }
 
+int	load_textures(t_datas *map)
+{
+	map->txt[0].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/grass.xpm", &map->txt[0].j, &map->txt[0].i);
+	map->txt[1].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/wood.xpm", &map->txt[1].j, &map->txt[1].i);
+	map->txt[2].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/stone.xpm", &map->txt[2].j, &map->txt[2].i);
+	map->txt[3].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/brick.xpm", &map->txt[3].j, &map->txt[3].i);
+	if (map->txt[0].img == NULL || map->txt[1].img == NULL || map->txt[2].img == NULL || map->txt[3].img == NULL)
+		return (-1);
+	map->txt[0].addr = mlx_get_data_addr(map->txt[0].img, &map->txt[0].bits_per_pixel, &map->txt[0].line_length, &map->txt[0].endian);
+	map->txt[1].addr = mlx_get_data_addr(map->txt[1].img, &map->txt[1].bits_per_pixel, &map->txt[1].line_length, &map->txt[1].endian);
+	map->txt[2].addr = mlx_get_data_addr(map->txt[2].img, &map->txt[2].bits_per_pixel, &map->txt[2].line_length, &map->txt[2].endian);
+	map->txt[3].addr = mlx_get_data_addr(map->txt[3].img, &map->txt[3].bits_per_pixel, &map->txt[3].line_length, &map->txt[3].endian);
+	return (0);
+}
+
 void	ft_display(t_datas *map)
 {
 	ft_initposition(map);
 	map->mlx.ptr = mlx_init();
+	load_textures(map);
 	map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Map");
 	map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
 	ft_fps(map);	// MINIMAP APPELEE ICI EDIT IMAGE CARTE + PERSO
