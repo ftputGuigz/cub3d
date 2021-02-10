@@ -338,23 +338,24 @@ int		create_trgb(int t, int r, int g, int b)
 	return(t << 24 | r << 16 | g << 8 | b);
 }
 
-int	painter(t_datas *map, t_ray *ray, int y)
+int	painter(t_datas *map, t_ray *ray, float y_tex)
 {
 	int rank;
 	float reste;
 	float x_tex;
-	int y_tex;
 	char *color;
 	int color2;
 	
 	rank = texture_number(ray->dir);
-	if (ray->dir == 'N' || ray->dir == 'S')
-		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
-	if (ray->dir == 'W' || ray->dir == 'E')
+	if (ray->dir == 'N')
 		x_tex = modff(ray->yc, &reste) * map->txt[rank].i;
-	
-	y_tex = y * map->txt[rank].j / map->res_y;
-	color = map->txt[rank].addr + (y_tex * map->txt[rank].line_length + (int)x_tex * (map->txt[rank].bits_per_pixel / 8));
+	else if (ray->dir == 'S')
+		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
+	else if (ray->dir == 'W')
+		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
+	else 
+		x_tex = modff(ray->yc, &reste) * map->txt[rank].i;
+	color = map->txt[rank].addr + ((int)y_tex * map->txt[rank].line_length + (int)x_tex * (map->txt[rank].bits_per_pixel / 8));
 	color2 = *(unsigned int *)color;
 	return (color2);
 }
@@ -365,18 +366,25 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 	float k;
 	int y;
 	int start;
+	float y_tex;
+	float step;
+	int rank;
 	
 	k = map->res_y;
 	ray_p = (k * 1 / ray->r);
 	start = (map->res_y - ray_p) / 2;
 	y = start;
 	
+	y_tex = 0;
+	rank = texture_number(ray->dir);
+	step = (float)map->txt[rank].j / ray_p;
 	while (y >= start && y <= map->res_y && ray_p >= 0)
 	{
 		if (y >= 0)
-			ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y));
+			ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y_tex));
 		ray_p--;
 		y++;
+		y_tex += step;
 	}
 }
 
