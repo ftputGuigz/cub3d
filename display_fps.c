@@ -349,20 +349,12 @@ int	painter(t_datas *map, t_ray *ray, int y)
 	
 	rank = texture_number(ray->dir);
 	if (ray->dir == 'N' || ray->dir == 'S')
-	{
 		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
-		//printf("x_tex = %f\n", x_tex);
-		y_tex = y * map->txt[rank].j / map->res_y;
-		//printf("y_tex = %i\n", y_tex);
-	}
 	if (ray->dir == 'W' || ray->dir == 'E')
-	{	
 		x_tex = modff(ray->yc, &reste) * map->txt[rank].i;
-		//printf("x_tex = %f\n", x_tex);
-		y_tex = y * map->txt[rank].j / map->res_y;
-		//printf("y_tex = %i\n", y_tex);
-	}
-	color = map->txt[rank].addr + (y_tex * map->txt[rank].line_length + x_tex * (map->txt[rank].bits_per_pixel / 8));
+	
+	y_tex = y * map->txt[rank].j / map->res_y;
+	color = map->txt[rank].addr + (y_tex * map->txt[rank].line_length + (int)x_tex * (map->txt[rank].bits_per_pixel / 8));
 	color2 = *(unsigned int *)color;
 	return (color2);
 }
@@ -372,23 +364,19 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 	float ray_p;
 	float k;
 	int y;
+	int start;
 	
 	k = map->res_y;
-	y = map->res_y / 2;
-	ray_p = (k * 1 / ray->r) / 2; //PROPORTIONNELLE
-	while (ray_p >= 0 && y >= 0)
+	ray_p = (k * 1 / ray->r);
+	start = (map->res_y - ray_p) / 2;
+	y = start;
+	
+	while (y >= start && y <= map->res_y && ray_p >= 0)
 	{
-		ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y));
+		if (y >= 0)
+			ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y));
 		ray_p--;
-		y--;
-	}
-	y = map->res_y / 2;
-	ray_p = (k * 1 / ray->r) / 2;
-	while (ray_p <= k * 1 / ray->r && y < map->res_y)
-	{
-		ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y));
-		ray_p++;	
-		y++;	
+		y++;
 	}
 }
 
