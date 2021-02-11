@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/08 10:36:58 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/11 12:25:50 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3D
 
 CC = clang
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -O3 -Ofast -Wall -Werror -Wextra 
 
 MINILIBX = minilibx/libmlx.a -framework OpenGL -framework AppKit
 

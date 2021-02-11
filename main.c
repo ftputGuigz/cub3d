@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:41:21 by gpetit            #+#    #+#             */
-/*   Updated: 2021/01/28 10:42:16 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/11 11:58:29 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int main(int ac, char **av) //RESPO GESTIOn D'ERREUR
 {
 	int	check;
 	int	fd;
+	char buff[2];
 
 	if (ac != 2)
 	{
@@ -50,7 +51,7 @@ int main(int ac, char **av) //RESPO GESTIOn D'ERREUR
 		return (0);
 	}
 	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
+	if (fd == -1 || read(fd, buff, 1) < 0)
 	{
 		printf("Cannot find file.\n");
 		return (0);

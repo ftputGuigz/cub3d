@@ -258,13 +258,13 @@ static void straight_compass(t_datas *map, t_ray *ray, float angle)
 void set_direction(t_datas *map, t_ray *ray)
 {
 	if (map->map[(int)(ray->yc - 0.000001)][(int)ray->xc] != '0' && map->map[(int)ray->yc][(int)(ray->xc + 0.000001)] == '0')
-		ray->dir = 'S';
-	else if (map->map[(int)ray->yc][(int)(ray->xc + 0.000001)] != '0' && map->map[(int)(ray->yc - 0.000001)][(int)ray->xc] == '0')
-		ray->dir = 'W';
-	else if (map->map[(int)(ray->yc + 0.000001)][(int)ray->xc] != '0' && map->map[(int)ray->yc][(int)(ray->xc - 0.000001)] == '0')
 		ray->dir = 'N';
-	else if (map->map[(int)ray->yc][(int)(ray->xc - 0.000001)] != '0' && map->map[(int)(ray->yc + 0.000001)][(int)ray->xc] == '0')
+	else if (map->map[(int)ray->yc][(int)(ray->xc + 0.000001)] != '0' && map->map[(int)(ray->yc - 0.000001)][(int)ray->xc] == '0')
 		ray->dir = 'E';
+	else if (map->map[(int)(ray->yc + 0.000001)][(int)ray->xc] != '0' && map->map[(int)ray->yc][(int)(ray->xc - 0.000001)] == '0')
+		ray->dir = 'S';
+	else if (map->map[(int)ray->yc][(int)(ray->xc - 0.000001)] != '0' && map->map[(int)(ray->yc + 0.000001)][(int)ray->xc] == '0')
+		ray->dir = 'W';
 }
 
 void compass(t_datas *map, float angle, t_ray *ray)
@@ -317,25 +317,14 @@ void ft_shootrays(t_datas *map, float ray_angle, t_ray *ray)
 int	texture_number(char orientation)
 {
 	if (orientation == 'N')
-		//return (0xFF0000);
 		return (0);
 	if (orientation == 'S')
-		//return (0x00FF00);
 		return (1);
 	if (orientation == 'W')
-		//return (0x0000FF);
 		return (2);
 	if (orientation == 'E')
-		//return (0x00FF67);
 		return (3);
-	//else
-	//	return (-1);
 	return (0);
-}
-
-int		create_trgb(int t, int r, int g, int b)
-{
-	return(t << 24 | r << 16 | g << 8 | b);
 }
 
 int	painter(t_datas *map, t_ray *ray, float y_tex)
@@ -348,13 +337,13 @@ int	painter(t_datas *map, t_ray *ray, float y_tex)
 	
 	rank = texture_number(ray->dir);
 	if (ray->dir == 'N')
-		x_tex = modff(ray->yc, &reste) * map->txt[rank].i;
+		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
 	else if (ray->dir == 'S')
-		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
+		x_tex = (1 - modff(ray->yc, &reste)) * map->txt[rank].i;
 	else if (ray->dir == 'W')
-		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
+		x_tex = (1 - modff(ray->yc, &reste)) * map->txt[rank].i;
 	else 
-		x_tex = modff(ray->yc, &reste) * map->txt[rank].i;
+		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
 	color = map->txt[rank].addr + ((int)y_tex * map->txt[rank].line_length + (int)x_tex * (map->txt[rank].bits_per_pixel / 8));
 	color2 = *(unsigned int *)color;
 	return (color2);
@@ -373,12 +362,21 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 	k = map->res_y;
 	ray_p = (k * 1 / ray->r);
 	start = (map->res_y - ray_p) / 2;
+	if (start > 0)
+	{
+		y = 0;
+		while (y != start && y <= map->res_y / 2)
+		{	
+			ft_mlx_pixel_put(&map->fps, x, y, map->c_rgb);
+			y++;
+		}
+	}
 	y = start;
 	
 	y_tex = 0;
 	rank = texture_number(ray->dir);
 	step = (float)map->txt[rank].j / ray_p;
-	while (y >= start && y <= map->res_y && ray_p >= 0)
+	while (y >= start && y < map->res_y && ray_p >= 0)
 	{
 		if (y >= 0)
 			ft_mlx_pixel_put(&map->fps, x, y, painter(map, ray, y_tex));
@@ -386,16 +384,22 @@ void print_ray(t_datas *map, int x, t_ray *ray)
 		y++;
 		y_tex += step;
 	}
+	if (y < map->res_y)
+	{
+		while (y < map->res_y)
+		{	
+			ft_mlx_pixel_put(&map->fps, x, y, map->f_rgb);
+			y++;
+		}
+	}
 }
 
 int	ft_fps(t_datas *map)
 {
 	t_ray ray;
 	float FOV;
-	//float increment;
 	int x = 0;
 
-	//increment = 1.15192 / (float)map->res_x;
 	FOV = map->player.angle - 0.575959;
 	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
 	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel, &map->fps.line_length, &map->fps.endian);
@@ -403,18 +407,8 @@ int	ft_fps(t_datas *map)
 	{
 		ft_shootrays(map, FOV, &ray);
 		print_ray(map, x, &ray);
-	/* 	if (x == map->res_x / 2)
-		{	printf("ray.xc = %f\nray.yc =%f\n", ray.xc, ray.yc);
-			printf("map->map[(int)(ray->yc)][(int)ray->xc] = %c\n", map->map[(int)(ray.yc)][(int)ray.xc]);
-			printf("SOUTH WALL(yc - 0.1) = %c\n", map->map[(int)(ray.yc - 0.000001)][(int)ray.xc]);
-			printf("NORTH WALL(yc + 0.1) = %c\n", map->map[(int)(ray.yc + 0.000001)][(int)ray.xc]);
-			printf("EAST WALL(xc - 0.1) = %c\n", map->map[(int)(ray.yc)][(int)(ray.xc - 0.000001)]);
-			printf("WEST WALL(xc + 0.1) = %c\n", map->map[(int)(ray.yc)][(int)(ray.xc + 0.000001)]);
-			printf("ray.dir = %c\n", ray.dir);
-		} */
 		x++;
 		FOV = map->player.angle + atanf((x - map->res_x / 2) / ((map->res_x / 2) / tanf(1.15192 / 2)));
-		//FOV += increment;
 	}
 	ft_minimap(map);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);

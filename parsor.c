@@ -12,6 +12,11 @@
 
 #include "cub3d.h"
 
+int		create_trgb(int t, int r, int g, int b)
+{
+	return(t << 24 | r << 16 | g << 8 | b);
+}
+
 static void	ft_fillmap(char *line, char **line_map)
 {
 	char *tmp;
@@ -23,16 +28,64 @@ static void	ft_fillmap(char *line, char **line_map)
 	*line_map = tmp2;
 }
 
-/*static int	ft_rgb(char *line, t_datas *map, t_flags *flags)
+static int	ft_fill_floor(t_datas *map, t_flags *flags, char **tmp)
+{
+	int r;
+	int g;
+	int b;
+
+	r = ft_atoi(tmp[1]);
+	g = ft_atoi(tmp[2]);
+	b = ft_atoi(tmp[3]);
+	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
+	{
+		flags->F = 1;
+		map->f_rgb = create_trgb(0, r, g, b);
+		printf("floor color = %i\n", map->f_rgb);
+		return (0);
+	}
+	else
+		return (-1);
+}
+
+static int ft_fill_ceiling(t_datas *map, t_flags *flags, char **tmp)
+{
+	int r;
+	int g;
+	int b;
+
+	r = ft_atoi(tmp[1]);
+	g = ft_atoi(tmp[2]);
+	b = ft_atoi(tmp[3]);
+	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
+	{
+		flags->C = 1;
+		map->c_rgb = create_trgb(0, r, g, b);
+		printf("ceiling color = %i\n", map->c_rgb);
+		return (0);
+	}
+	else
+		return (-1);
+}
+
+static int	ft_rgb(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 {
 	char **tmp;
+	static int k = 0;
 
-	tmp = ft_split(line, ' '); //CONTROLER LE MALLOC
+	(*mapclearance)++;
+	tmp = ft_splits(line, " ,"); //CONTROLER LE MALLOC
 	while (tmp[k])
 		k++;
-	if (k != 2)
+	if (k != 4)
 		return (-1);
-}*/
+	if (tmp[0][0] == 'F')
+		return (ft_fill_floor(map, flags, tmp));
+	else if (tmp[0][0] == 'C')
+		return (ft_fill_ceiling(map, flags, tmp));
+	else 
+		return (-1);
+}
 
 static void	ft_fillNO_path(t_datas *map, t_flags *flags, char *str)
 {
@@ -159,12 +212,8 @@ static int ft_fillstruct(char *line, char **line_map, t_datas *map)
 			return (ft_fillres(&mapclearance, line, map, &flags));
 		else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E')
 			return (ft_filltexture(&mapclearance, line, map, &flags));
-		else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
-		{
-			mapclearance++;
-			return (0);
-			//return (ft_rgb(line, &map, &flags));
-		}
+		else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ') // se calquer sur méthode des textures juste au dessus !
+			return (ft_rgb(&mapclearance, line, map, &flags));
 		else 
 			return (-1);
 	}

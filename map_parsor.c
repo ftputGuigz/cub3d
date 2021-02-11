@@ -110,6 +110,7 @@ static int	map_checkerror(char **map, int k)
 	int ret;
 
 	i = 0;
+	ret = 0;
 	if (k <= 2)
 		return (-1);
 	while (i < k && ret != -1)
@@ -123,7 +124,7 @@ static int	map_checkerror(char **map, int k)
 		else
 			ret = map_checkmiddleline(map[i], map[i - 1], map[i + 1]);
 		i++;
-	}	
+	}
 	return(ret);
 }
 

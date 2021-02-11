@@ -12,34 +12,31 @@
 
 #include "cub3d.h"
 
-
-
-void	movement(int i, int j, t_datas *map)
+void	movement(float i, t_datas *map)
 {
-	if (map->map[(int)invertor_y(map, map->player.fy)][(int)invertor_x(map, map->player.fx + (i * cosf(map->player.angle)))] == '0')
+	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i * cosf(map->player.angle))] == '0')
 	{
-		map->player.fx = map->player.fx + (i * cosf(map->player.angle));
-		map->player.rfx = invertor_x(map, map->player.fx);
+		map->player.rfx = map->player.rfx + i * cosf(map->player.angle);
+		map->player.fx = ((float)map->player.rfx * (float)map->res_x) / (float)map->columns;
 	}
-	if (map->map[(int)invertor_y(map,map->player.fy + (j * sinf(map->player.angle)))][(int)invertor_x(map, map->player.fx)] == '0')
+	if (map->map[(int)(map->player.rfy + 2 * i * sinf(map->player.angle))][(int)map->player.rfx] == '0')
 	{
-		map->player.fy = map->player.fy + (j * sinf(map->player.angle));
-		map->player.rfy = invertor_y(map, map->player.fy);
+		map->player.rfy = map->player.rfy + i * sinf(map->player.angle);
+		map->player.fy = ((float)map->player.rfy * (float)map->res_y) / (float)map->lines;
 	}
 }
 
-void	ortho_movement(int i, int j, t_datas *map)
+void	ortho_movement(float i, t_datas *map)
 {
-	if (map->map[(int)invertor_y(map, map->player.fy)][(int)invertor_x(map, map->player.fx + (i * cosf(map->player.ortho)))] == '0')
+	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i * cosf(map->player.ortho))] == '0')
 	{
-		map->player.fx = map->player.fx + (i * cosf(map->player.ortho));
-		map->player.rfx = invertor_x(map, map->player.fx);
+		map->player.rfx = map->player.rfx + i * cosf(map->player.ortho);
+		map->player.fx = (float)map->player.rfx * (float)map->res_x / (float)map->columns;
 	}
-	if (map->map[(int)invertor_y(map,map->player.fy + (j * sinf(map->player.angle)))][(int)invertor_x(map, map->player.fx)] == '0')
-	if (map->map[(int)invertor_y(map,map->player.fy + (j * sinf(map->player.ortho)))][(int)invertor_x(map, map->player.fx)] == '0')
+	if (map->map[(int)(map->player.rfy + 2 * i * sinf(map->player.ortho))][(int)map->player.rfx] == '0')
 	{
-		map->player.fy = map->player.fy + (j * sinf(map->player.ortho));
-		map->player.rfy = invertor_y(map, map->player.fy);
+		map->player.rfy = map->player.rfy + i * sinf(map->player.ortho);
+		map->player.fy = (float)map->player.rfy * (float)map->res_y / (float)map->lines;
 	}
 }
 
@@ -73,7 +70,7 @@ static void	ft_print_ray(t_datas *map)
 		x = map->player.fx;
 		y = map->player.fy;
 		ray = 0;
-		while ((int)invertor_y(map, y) >= 0 && (int)invertor_y(map, y) < map->lines && (int)invertor_x(map, x) >= 0 && (int)invertor_x(map, x) < map->columns && map->map[(int)invertor_y(map, y)][(int)invertor_x(map, x)] == '0')
+		while ((int)y >= 0 && (int)y < map->res_y && (int)x >= 0 && (int)x < map->res_x && map->map[(int)(y * map->lines / map->res_y)][(int)(x * map->columns / map->res_x)] == '0')
 		{
 			x = map->player.fx + (ray * cosf(angle)); //remettre ANGLE
 			y = map->player.fy + (ray * sinf(angle)); //REMETTRE ANGLE

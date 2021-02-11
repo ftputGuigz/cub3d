@@ -100,8 +100,8 @@ typedef struct	s_datas
 	char *EA_path;
 	char *WE_path; 
 	char *sprite_path;
-	char *F_rgb;
-	char *C_rgb;
+	int f_rgb;
+	int c_rgb;
 	char **map;
 	int columns;
 	int lines;
@@ -118,14 +118,11 @@ void	ft_display(t_datas *map_datas);
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color);
-int	ft_minimap(t_datas *map);
-void movement(int i, int j, t_datas *maps);
-void ortho_movement(int i, int j, t_datas *maps);
-
-float	invertor_y(t_datas *map, float fy);
-float	invertor_x(t_datas *map, float fx);
+int		ft_minimap(t_datas *map);
+void	movement(float i, t_datas *maps);
+void	ortho_movement(float i, t_datas *maps);
 void	ft_initposition(t_datas *map);
 
-int ft_fps(t_datas *map);
+int		ft_fps(t_datas *map);
 
 #endif

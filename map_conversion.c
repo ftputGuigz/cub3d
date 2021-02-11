@@ -12,26 +12,14 @@
 
 #include "cub3d.h"
 
-float	invertor_y(t_datas *map, float fy)
-{
-	float rfy;
-
-	rfy = fy * (float)map->lines / (float)map->res_y;
-	return (rfy);
-}
-
-float	invertor_x(t_datas *map, float fx)
-{
-	float rfx;
-
-	rfx = fx * (float)map->columns / (float)map->res_x;
-	return (rfx);
-}
-
 void	ft_initposition(t_datas *map)
 {
-	map->player.fx = (float)map->res_x / (float)map->columns * (float)map->player.x;
 	map->player.rfx = (float)map->player.x;
-	map->player.fy = (float)map->res_y / (float)map->lines * (float)map->player.y;
+	printf("rfx = %f\n", map->player.rfx);
+	map->player.fx = (float)map->player.x * (float)map->res_x / (float)map->columns;
+	printf("fx = %f\n", map->player.fx);
 	map->player.rfy = (float)map->player.y;
+	printf("rfy = %f\n", map->player.rfy);
+	map->player.fy = (float)map->player.y * (float)map->res_y / (float)map->lines;
+	printf("fy = %f\n", map->player.fy);
 }

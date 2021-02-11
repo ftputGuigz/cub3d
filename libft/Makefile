@@ -6,7 +6,7 @@
 #    By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/19 16:49:20 by gpetit            #+#    #+#              #
-#    Updated: 2021/01/14 20:38:12 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/11 13:58:10 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = ft_calloc.c ft_isascii.c ft_itoa.c ft_memmove.c ft_putendl_fd.c ft_split.
 	ft_isdigit.c ft_memccpy.c ft_memchr.c ft_memset.c ft_memcmp.c ft_putnbr_fd.c ft_strchr.c ft_strlcat.c \
 	ft_strmapi.c ft_strrchr.c ft_tolower.c ft_bzero.c ft_isalpha.c ft_isprint.c \
 	ft_memcpy.c ft_putchar_fd.c ft_putstr_fd.c ft_strdup.c ft_strlcpy.c ft_strncmp.c \
-	ft_strtrim.c ft_toupper.c 
+	ft_strtrim.c ft_toupper.c ft_splits.c
 
 SRCSBONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
 	ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_lstmap.c
