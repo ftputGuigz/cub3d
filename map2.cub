@@ -1,12 +1,12 @@
 R 1000 1000
 
-NO ./path_to_the_north_texture
+NO ./texturesMinecraft_hi/stone.xpm
 
-EA ./path_to_the_south_texture
+EA ./texturesMinecraft_hi/brick.xpm
 
-WE ./path_to_the_west_texture
+WE ./texturesMinecraft_hi/wood.xpm
 
-SO ./path_to_the_east_texture
+SO ./texturesMinecraft_hi/grass.xpm
 
 S ./path_to_the_sprite_texture
 
@@ -23,4 +23,4 @@ C 217,244,255
 111111111111111100001001111000111111
 111111111111111111000000000000111111
 11111111111111111111110001111111111
-11111111111111111111111111
+1111111111 11111111111111 

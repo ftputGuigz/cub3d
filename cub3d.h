@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/09 10:27:44 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/12 12:12:37 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ typedef struct s_ray
 	float r;
 }				t_ray;
 
+typedef struct s_sprite
+{
+	int x;
+	int y;
+}				t_sprite;
+
 typedef struct	s_datas
 {
 	int res_x;
@@ -105,16 +111,18 @@ typedef struct	s_datas
 	char **map;
 	int columns;
 	int lines;
+	int sprites_nbr;
 	t_player player;
 	t_mlx	mlx;
 	t_img minimap;
 	t_img fps;
-	t_img txt[5];
+	t_img txt[4];
+	t_sprite *spr;
 }				t_datas;
 
 int		ft_parsor(char *path, t_datas *map_datas);
 int		map_parsor(char *line_map, t_datas *map_datas);
-void	ft_display(t_datas *map_datas);
+int		ft_display(t_datas *map_datas);
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color);

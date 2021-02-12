@@ -78,10 +78,10 @@ int wasdout(int keycode) //, t_datas *map)
 
 int	load_textures(t_datas *map)
 {
-	map->txt[0].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/stone.xpm", &map->txt[0].i, &map->txt[0].j);
-	map->txt[1].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/brick.xpm", &map->txt[1].i, &map->txt[1].j);
-	map->txt[2].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/wood.xpm", &map->txt[2].i, &map->txt[2].j);
-	map->txt[3].img = mlx_xpm_file_to_image (map->mlx.ptr, "./texturesMinecraft/grass.xpm", &map->txt[3].i, &map->txt[3].j);
+	map->txt[0].img = mlx_xpm_file_to_image (map->mlx.ptr, map->NO_path, &map->txt[0].i, &map->txt[0].j);
+	map->txt[1].img = mlx_xpm_file_to_image (map->mlx.ptr, map->SO_path, &map->txt[1].i, &map->txt[1].j);
+	map->txt[2].img = mlx_xpm_file_to_image (map->mlx.ptr, map->EA_path, &map->txt[2].i, &map->txt[2].j);
+	map->txt[3].img = mlx_xpm_file_to_image (map->mlx.ptr, map->WE_path, &map->txt[3].i, &map->txt[3].j);
 	if (map->txt[0].img == NULL || map->txt[1].img == NULL || map->txt[2].img == NULL || map->txt[3].img == NULL)
 		return (-1);
 	map->txt[0].addr = mlx_get_data_addr(map->txt[0].img, &map->txt[0].bits_per_pixel, &map->txt[0].line_length, &map->txt[0].endian);
@@ -91,11 +91,12 @@ int	load_textures(t_datas *map)
 	return (0);
 }
 
-void	ft_display(t_datas *map)
+int	ft_display(t_datas *map)
 {
 	ft_initposition(map);
 	map->mlx.ptr = mlx_init();
-	load_textures(map);
+	if (load_textures(map))
+		return (-1);
 	map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Map");
 	map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
 	ft_fps(map);	// MINIMAP APPELEE ICI EDIT IMAGE CARTE + PERSO
@@ -103,4 +104,5 @@ void	ft_display(t_datas *map)
 	mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map); //GEStiON KEYOUT + POSITION PERSO
 	mlx_loop_hook(map->mlx.ptr, ft_fps, map);
 	mlx_loop(map->mlx.ptr);
+	return (0);
 }

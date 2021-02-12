@@ -30,7 +30,7 @@ static int	main2(char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 
 	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;
 	if (ret != -1)
-		ft_display(&map);
+		ret = ft_display(&map);
 	return (ret);
 }
 

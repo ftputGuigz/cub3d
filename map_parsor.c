@@ -174,6 +174,8 @@ static void	register_map_datas(t_datas *map)
 				map->player.y = k;
 				map->map[k][j] = '0';
 			}
+			if (map->map[k][j] == '2')
+				map->sprites_nbr++;
 			j++;
 		}
 		if (j > i)
@@ -184,9 +186,39 @@ static void	register_map_datas(t_datas *map)
 	map->lines = k;
 }
 
+static int register_sprites(t_datas *map)
+{
+	int j;
+	int k;
+	static int n = 0;
+
+	k = 0;
+	map->spr = malloc(sizeof(t_sprite) * map->sprites_nbr);
+	if (!map->spr)
+		return (-1);
+	while(map->map[k])
+	{
+		j = 0;
+		while(map->map[k][j])
+		{
+			if (map->map[k][j] == '2')
+			{
+				map->spr[n].x = j;
+				map->spr[n].y = k;
+				n++;
+			}
+			j++;
+		}
+		k++;
+	}
+	printf("n = %i\n", n);
+	return (0);
+}
+
 int	map_parsor(char *line_map, t_datas *map)
 {
 	static int k = 0;
+	int ret;
 
 	map->map = ft_split(line_map, '-');
 	while (map->map[k])
@@ -194,6 +226,15 @@ int	map_parsor(char *line_map, t_datas *map)
 	if (map_checkerror(map->map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
 		return (-1);
 	else
+	{
 		register_map_datas(map);
+		ret = register_sprites(map);
+		printf("pos x = %i || pos y = %i\n", map->spr[0].x, map->spr[0].y);
+		printf("pos x = %i || pos y = %i\n", map->spr[1].x, map->spr[1].y);
+		printf("pos x = %i || pos y = %i\n", map->spr[2].x, map->spr[2].y);
+		printf("pos x = %i || pos y = %i\n", map->spr[3].x, map->spr[3].y);
+		if (ret)
+			return (-1);
+	}
 	return(0);
 }
