@@ -1,14 +1,14 @@
-R 1000 1000
+R 500 500
 
-NO ./texturesMinecraft_hi/stone.xpm
+NO ./texturesMinecraft/stone.xpm
 
-EA ./texturesMinecraft_hi/brick.xpm
+EA ./texturesMinecraft/brick.xpm
 
-WE ./texturesMinecraft_hi/wood.xpm
+WE ./texturesMinecraft/wood.xpm
 
-SO ./texturesMinecraft_hi/grass.xpm
+SO ./texturesMinecraft/grass.xpm
 
-S ./path_to_the_sprite_texture
+S ./texturesMinecraft/eagle.xpm
 
 F 130,59,0
 

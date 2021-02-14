@@ -78,16 +78,19 @@ int wasdout(int keycode) //, t_datas *map)
 
 int	load_textures(t_datas *map)
 {
-	map->txt[0].img = mlx_xpm_file_to_image (map->mlx.ptr, map->NO_path, &map->txt[0].i, &map->txt[0].j);
-	map->txt[1].img = mlx_xpm_file_to_image (map->mlx.ptr, map->SO_path, &map->txt[1].i, &map->txt[1].j);
-	map->txt[2].img = mlx_xpm_file_to_image (map->mlx.ptr, map->EA_path, &map->txt[2].i, &map->txt[2].j);
-	map->txt[3].img = mlx_xpm_file_to_image (map->mlx.ptr, map->WE_path, &map->txt[3].i, &map->txt[3].j);
-	if (map->txt[0].img == NULL || map->txt[1].img == NULL || map->txt[2].img == NULL || map->txt[3].img == NULL)
+	map->txt[0].img = mlx_xpm_file_to_image(map->mlx.ptr, map->NO_path, &map->txt[0].i, &map->txt[0].j);
+	map->txt[1].img = mlx_xpm_file_to_image(map->mlx.ptr, map->SO_path, &map->txt[1].i, &map->txt[1].j);
+	map->txt[2].img = mlx_xpm_file_to_image(map->mlx.ptr, map->EA_path, &map->txt[2].i, &map->txt[2].j);
+	map->txt[3].img = mlx_xpm_file_to_image(map->mlx.ptr, map->WE_path, &map->txt[3].i, &map->txt[3].j);
+	map->txt[4].img = mlx_xpm_file_to_image(map->mlx.ptr, map->spr_path, &map->txt[4].i, &map->txt[4].j);
+	if (map->txt[0].img == NULL || map->txt[1].img == NULL
+		|| map->txt[2].img == NULL || map->txt[3].img == NULL || map->txt[4].img == NULL)
 		return (-1);
 	map->txt[0].addr = mlx_get_data_addr(map->txt[0].img, &map->txt[0].bits_per_pixel, &map->txt[0].line_length, &map->txt[0].endian);
 	map->txt[1].addr = mlx_get_data_addr(map->txt[1].img, &map->txt[1].bits_per_pixel, &map->txt[1].line_length, &map->txt[1].endian);
 	map->txt[2].addr = mlx_get_data_addr(map->txt[2].img, &map->txt[2].bits_per_pixel, &map->txt[2].line_length, &map->txt[2].endian);
 	map->txt[3].addr = mlx_get_data_addr(map->txt[3].img, &map->txt[3].bits_per_pixel, &map->txt[3].line_length, &map->txt[3].endian);
+	map->txt[4].addr = mlx_get_data_addr(map->txt[4].img, &map->txt[4].bits_per_pixel, &map->txt[4].line_length, &map->txt[4].endian);
 	return (0);
 }
 

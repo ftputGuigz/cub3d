@@ -8,7 +8,7 @@ WE ./texturesMinecraft_hi/wood.xpm
 
 SO ./texturesMinecraft_hi/grass.xpm
 
-S ./path_to_the_sprite_texture
+S ./texturesMinecraft/eagle.xpm
 
 F 130,59,0
 

@@ -114,7 +114,7 @@ static void	ft_fillSO_path(t_datas *map, t_flags *flags, char *str)
 static void	ft_fillsprite_path(t_datas *map, t_flags *flags, char *str)
 {
 	flags->sprite = 1;
-	map->sprite_path = ft_strdup(str);
+	map->spr_path = ft_strdup(str);
 }
 
 static int	ft_filltexture(int *mapclearance, char *line, t_datas *map, t_flags *flags)

@@ -194,7 +194,8 @@ static int register_sprites(t_datas *map)
 
 	k = 0;
 	map->spr = malloc(sizeof(t_sprite) * map->sprites_nbr);
-	if (!map->spr)
+	map->spr_ordr = malloc(sizeof(int) * map->sprites_nbr);
+	if (!map->spr || !map->spr_ordr)
 		return (-1);
 	while(map->map[k])
 	{
@@ -205,6 +206,7 @@ static int register_sprites(t_datas *map)
 			{
 				map->spr[n].x = j;
 				map->spr[n].y = k;
+				map->spr_ordr[n] = n;
 				n++;
 			}
 			j++;
@@ -229,10 +231,10 @@ int	map_parsor(char *line_map, t_datas *map)
 	{
 		register_map_datas(map);
 		ret = register_sprites(map);
-		printf("pos x = %i || pos y = %i\n", map->spr[0].x, map->spr[0].y);
+/* 		printf("pos x = %i || pos y = %i\n", map->spr[0].x, map->spr[0].y);
 		printf("pos x = %i || pos y = %i\n", map->spr[1].x, map->spr[1].y);
 		printf("pos x = %i || pos y = %i\n", map->spr[2].x, map->spr[2].y);
-		printf("pos x = %i || pos y = %i\n", map->spr[3].x, map->spr[3].y);
+		printf("pos x = %i || pos y = %i\n", map->spr[3].x, map->spr[3].y); */
 		if (ret)
 			return (-1);
 	}

@@ -18,7 +18,7 @@ CFLAGS = -O3 -Ofast -Wall -Werror -Wextra
 
 MINILIBX = minilibx/libmlx.a -framework OpenGL -framework AppKit
 
-SRCS = main.c parsor.c map_parsor.c display.c display_minimap.c map_conversion.c display_fps.c
+SRCS = main.c parsor.c map_parsor.c display.c display_minimap.c map_conversion.c display_fps.c display_sprites.c
 
 OBJS = $(SRCS:.c=.o)
 

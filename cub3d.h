@@ -95,6 +95,7 @@ typedef struct s_sprite
 {
 	int x;
 	int y;
+	int dist;
 }				t_sprite;
 
 typedef struct	s_datas
@@ -105,19 +106,20 @@ typedef struct	s_datas
 	char *SO_path; 
 	char *EA_path;
 	char *WE_path; 
-	char *sprite_path;
+	char *spr_path;
 	int f_rgb;
 	int c_rgb;
 	char **map;
 	int columns;
 	int lines;
-	int sprites_nbr;
 	t_player player;
 	t_mlx	mlx;
 	t_img minimap;
 	t_img fps;
-	t_img txt[4];
+	t_img txt[5];
 	t_sprite *spr;
+	int sprites_nbr;
+	int *spr_ordr;
 }				t_datas;
 
 int		ft_parsor(char *path, t_datas *map_datas);
@@ -132,5 +134,6 @@ void	ortho_movement(float i, t_datas *maps);
 void	ft_initposition(t_datas *map);
 
 int		ft_fps(t_datas *map);
+void	ft_sprites(t_datas *map);
 
 #endif
