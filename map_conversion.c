@@ -15,11 +15,11 @@
 void	ft_initposition(t_datas *map)
 {
 	map->player.rfx = (float)map->player.x + 0.5;
-	printf("rfx = %f\n", map->player.rfx);
+	//printf("rfx = %f\n", map->player.rfx);
 	map->player.fx = map->player.rfx * (float)map->res_x / (float)map->columns;
-	printf("fx = %f\n", map->player.fx);
+	//printf("fx = %f\n", map->player.fx);
 	map->player.rfy = (float)map->player.y + 0.5;
-	printf("rfy = %f\n", map->player.rfy);
+	//printf("rfy = %f\n", map->player.rfy);
 	map->player.fy = map->player.rfy * (float)map->res_y / (float)map->lines;
-	printf("fy = %f\n", map->player.fy);
+	//printf("fy = %f\n", map->player.fy);
 }

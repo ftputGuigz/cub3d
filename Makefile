@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/11 12:25:50 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/15 14:07:40 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS = -O3 -Ofast -Wall -Werror -Wextra
 
 MINILIBX = minilibx/libmlx.a -framework OpenGL -framework AppKit
 
-SRCS = main.c parsor.c map_parsor.c display.c display_minimap.c map_conversion.c display_fps.c display_sprites.c
+SRCS = main.c parsor.c map_parsor.c display.c display_minimap.c map_conversion.c display_fps.c \
+	   display_sprites.c
 
 OBJS = $(SRCS:.c=.o)
 

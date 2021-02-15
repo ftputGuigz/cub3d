@@ -65,7 +65,7 @@ int	WASD(int keycode, t_datas *map)
 	return (0);
 }
 
-int wasdout(int keycode) //, t_datas *map)
+int wasdout(int keycode, t_datas *map)
 {
 	(void)keycode;
 	//printf("cos(angle) = %f\n", cosf(map->player.angle));
@@ -73,6 +73,14 @@ int wasdout(int keycode) //, t_datas *map)
 	//printf("rfx = %f\nrfy = %f\n", map->player.rfx, map->player.rfy);
 	//printf("angle = %f\nangle2 = %f\n", map->player.angle, M_PI_2 - map->player.angle);
 	//printf("final ray = %f\n<============>\n", ft_fps(map));
+	int i = 0;
+	printf("<==============>\n");
+    while (i < map->sprites_nbr)
+    {
+        printf("Order = %i\n", map->spr_ordr[i]);
+        i++;
+    }
+	printf("<==============>\n");
 	return(0);
 }
 
