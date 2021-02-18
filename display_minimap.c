@@ -12,34 +12,6 @@
 
 #include "cub3d.h"
 
-void	movement(float i, t_datas *map)
-{
-	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i * cosf(map->player.angle))] != '1')
-	{
-		map->player.rfx = map->player.rfx + i * cosf(map->player.angle);
-		map->player.fx = ((float)map->player.rfx * (float)map->res_x) / (float)map->columns;
-	}
-	if (map->map[(int)(map->player.rfy + 2 * i * sinf(map->player.angle))][(int)map->player.rfx] != '1')
-	{
-		map->player.rfy = map->player.rfy + i * sinf(map->player.angle);
-		map->player.fy = ((float)map->player.rfy * (float)map->res_y) / (float)map->lines;
-	}
-}
-
-void	ortho_movement(float i, t_datas *map)
-{
-	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i * cosf(map->player.ortho))] != '1')
-	{
-		map->player.rfx = map->player.rfx + i * cosf(map->player.ortho);
-		map->player.fx = (float)map->player.rfx * (float)map->res_x / (float)map->columns;
-	}
-	if (map->map[(int)(map->player.rfy + 2 * i * sinf(map->player.ortho))][(int)map->player.rfx] != '1')
-	{
-		map->player.rfy = map->player.rfy + i * sinf(map->player.ortho);
-		map->player.fy = (float)map->player.rfy * (float)map->res_y / (float)map->lines;
-	}
-}
-
 static void	ft_mlx_direction(t_datas *map, float c1)
 {
 	float x;

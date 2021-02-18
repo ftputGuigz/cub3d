@@ -66,5 +66,4 @@ static void get_order(t_datas *map)
 void    ft_sprites(t_datas *map)
 {
     get_order(map);
-    
 }

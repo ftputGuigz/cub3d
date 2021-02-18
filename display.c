@@ -51,15 +51,9 @@ int	WASD(int keycode, t_datas *map)
 	else if (keycode == 2)
 		ortho_movement(0.2, map);
 	else if (keycode == 123)
-	{
-		map->player.angle -= 0.1;
-		map->player.ortho -= 0.1;
-	}
+		left_rotation(0.1, map);
 	else if (keycode == 124)
-	{
-		map->player.angle += 0.1;
-		map->player.ortho += 0.1;
-	}
+		right_rotation(0.1, map);
 	else
 		printf("%d\n", keycode);
 	return (0);
@@ -73,14 +67,16 @@ int wasdout(int keycode, t_datas *map)
 	//printf("rfx = %f\nrfy = %f\n", map->player.rfx, map->player.rfy);
 	//printf("angle = %f\nangle2 = %f\n", map->player.angle, M_PI_2 - map->player.angle);
 	//printf("final ray = %f\n<============>\n", ft_fps(map));
-	int i = 0;
+	/* int i = 0;
 	printf("<==============>\n");
     while (i < map->sprites_nbr)
     {
         printf("Order = %i\n", map->spr_ordr[i]);
         i++;
     }
-	printf("<==============>\n");
+	printf("<==============>\n"); */
+	printf("dirx = %f || diry = %f\n", map->player.dirx, map->player.diry);
+	printf("planeX = %f || planeY = %f\n", map->player.planx, map->player.plany);
 	return(0);
 }
 

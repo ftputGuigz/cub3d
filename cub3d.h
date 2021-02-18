@@ -67,6 +67,10 @@ typedef struct s_player
 	float rfy;
 	float fx;
 	float fy;
+	float dirx;
+	float diry;
+	float planx;
+	float plany;
 }				t_player;
 
 typedef struct s_triangle
@@ -132,6 +136,8 @@ int		ft_minimap(t_datas *map);
 void	movement(float i, t_datas *maps);
 void	ortho_movement(float i, t_datas *maps);
 void	ft_initposition(t_datas *map);
+void	left_rotation(float rot, t_datas *map);
+void	right_rotation(float rot, t_datas *map);
 
 int		ft_fps(t_datas *map);
 void	ft_sprites(t_datas *map);
