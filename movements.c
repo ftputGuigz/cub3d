@@ -49,6 +49,12 @@ void lodev_positions1(t_datas *map)
 	lodev_positions2(map);
 }
 
+void	sprites_buffer(t_datas *map) //MALLOC DONC AJOUTER PROTECTION
+{
+	map->buff = malloc(sizeof(float) * map->res_x);
+	ft_bzero(map->buff, sizeof(float) * map->res_x);
+}
+
 void	ft_initposition(t_datas *map)
 {
 	map->player.rfx = (float)map->player.x + 0.5;
@@ -56,9 +62,10 @@ void	ft_initposition(t_datas *map)
 	map->player.rfy = (float)map->player.y + 0.5;
 	map->player.fy = map->player.rfy * (float)map->res_y / (float)map->lines;
 	lodev_positions1(map);
+	sprites_buffer(map);
 }
 
-void	right_rotation(float rot, t_datas *map) //POSSIBLEMENT INVERSER LES SIGNES AVEC LEFT-ROTATION
+void	right_rotation(float rot, t_datas *map)
 {
 	float tmp;
 	float tmp2;

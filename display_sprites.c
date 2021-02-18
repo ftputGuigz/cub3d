@@ -65,5 +65,59 @@ static void get_order(t_datas *map)
 
 void    ft_sprites(t_datas *map)
 {
+	int i;
+	float spritx;
+	float sprity;
+	float invDet;
+	char *color;
+	int color2;
+
+	i = 0;
     get_order(map);
+	while (i < map->sprites_nbr)
+	{
+		spritx = map->spr[map->spr_ordr[i]].x - map->player.rfx;
+		sprity = map->spr[map->spr_ordr[i]].y - map->player.rfy;
+		invDet = 1.0 / (map->player.planx * map->player.diry - map->player.dirx * map->player.plany);
+		float transformX = invDet * (map->player.diry * spritx - map->player.dirx * sprity);
+		float transformY = invDet * (-map->player.plany * spritx + map->player.planx * sprity);
+		int spriteScreenx = (int)((map->res_x / 2) * (1 + transformX / transformY));
+		int spriteHeight = abs((int)(map->res_y / (transformY)));
+		int drawStartY = -spriteHeight / 2 + map->res_y / 2;
+      	if(drawStartY < 0)
+			drawStartY = 0;
+		int drawEndY = spriteHeight / 2 + map->res_y / 2;
+      	if(drawEndY >= map->res_y) 
+			drawEndY = map->res_y - 1;
+
+		int spriteWidth = abs((int)(map->res_y / (transformY)));
+      	int drawStartX = -spriteWidth / 2 + spriteScreenx;
+      	if(drawStartX < 0) 
+			drawStartX = 0;
+     	int drawEndX = spriteWidth / 2 + spriteScreenx;
+      	if(drawEndX >= map->res_x)
+			drawEndX = map->res_x - 1;
+		int stripe = drawStartX;
+		while (stripe < drawEndX)
+		{
+			int texX = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenx)) * map->txt[4].i / spriteWidth) / 256);
+			if (transformY > 0 && stripe > 0 && stripe < map->res_x && transformY < map->buff[stripe])
+			{
+				int y = drawStartY;
+				while (y < drawEndY)
+				{
+					int d = (y) * 256 - map->res_y * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+					int texY = ((d * map->txt[4].j) / spriteHeight) / 256;
+					color = map->txt[4].addr + (texY * map->txt[4].line_length + texX * (map->txt[4].bits_per_pixel / 8));
+					color2 = *(unsigned int *)color;
+					ft_mlx_pixel_put(&map->fps, stripe, y, color2);
+					/* if((color2 & 0x00FFFFFF) != 0) 
+						buffer[y][stripe] = color; */
+					y++;
+				}
+			}
+			stripe++;
+		}
+		i++;
+	}
 }

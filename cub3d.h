@@ -116,6 +116,7 @@ typedef struct	s_datas
 	char **map;
 	int columns;
 	int lines;
+	float *buff;
 	t_player player;
 	t_mlx	mlx;
 	t_img minimap;
@@ -135,7 +136,9 @@ void	ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color);
 int		ft_minimap(t_datas *map);
 void	movement(float i, t_datas *maps);
 void	ortho_movement(float i, t_datas *maps);
+//Hello
 void	ft_initposition(t_datas *map);
+//World
 void	left_rotation(float rot, t_datas *map);
 void	right_rotation(float rot, t_datas *map);
 
