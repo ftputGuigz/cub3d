@@ -4,9 +4,9 @@ NO ./texturesMinecraft_hi/stone.xpm
 
 EA ./texturesMinecraft_hi/brick.xpm
 
-WE ./texturesMinecraft/eagle.xpm
+WE ./texturesMinecraft/wood.xpm
 
-SO ./texturesMinecraft/eagle.xpm
+SO ./texturesMinecraft/stone.xpm
 
 S ./texturesMinecraft/eagle.xpm
 
@@ -17,7 +17,7 @@ C 217,244,255
  111111111
 10000000001
 10000200001
-10000000001
+12000000001
 10000000001
 10000W00201
 10000000001

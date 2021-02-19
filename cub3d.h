@@ -121,7 +121,8 @@ typedef struct	s_datas
 	t_mlx	mlx;
 	t_img minimap;
 	t_img fps;
-	t_img txt[5];
+	t_img txt[4];
+	t_img txt2[1];
 	t_sprite *spr;
 	int sprites_nbr;
 	int *spr_ordr;
