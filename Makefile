@@ -6,11 +6,13 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/18 10:55:21 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/22 12:48:00 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
+
+IMG = img.bmp
 
 CC = clang
 
@@ -19,7 +21,7 @@ CFLAGS = -O3 -Ofast -Wall -Werror -Wextra
 MINILIBX = minilibx/libmlx.a -framework OpenGL -framework AppKit
 
 SRCS = main.c parsor.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
-	   display_sprites.c
+	   display_sprites.c bmp_maker.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -39,7 +41,7 @@ clean:
 
 fclean: clean
 	make fclean -C libft/gnl/ && make fclean -C libft/
-	rm -f $(NAME)
+	rm -f $(NAME) $(IMG)
 	
 re: fclean $(NAME)
 

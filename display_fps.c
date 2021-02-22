@@ -413,6 +413,8 @@ int	ft_fps(t_datas *map)
 		FOV = map->player.angle + atanf((x - map->res_x / 2) / ((map->res_x / 2) / tanf(1.15192 / 2)));
 	}
 	ft_sprites(map);
+	if (map->bmp) //EXIT PROPREMENT
+		make_bmp(map);
 	ft_minimap(map);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);
 	mlx_destroy_image(map->mlx.ptr, map->fps.img);

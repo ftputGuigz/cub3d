@@ -104,6 +104,7 @@ typedef struct s_sprite
 
 typedef struct	s_datas
 {
+	int bmp;
 	int res_x;
 	int res_y;
 	char *NO_path;
@@ -145,5 +146,7 @@ void	right_rotation(float rot, t_datas *map);
 
 int		ft_fps(t_datas *map);
 void	ft_sprites(t_datas *map);
+
+void	make_bmp(t_datas *map);
 
 #endif
