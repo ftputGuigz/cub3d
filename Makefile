@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/22 15:52:58 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/22 19:09:52 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@ IMG = img.bmp
 
 CC = clang
 
-CFLAGS = -O3 -Ofast -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
 
 MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit 
 
 SRCS = $(addprefix srcs/, parsor.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
-	   display_sprites.c bmp_maker.c)
+	   display_sprites.c bmp_maker.c initialize.c)
 
 OBJS = $(SRCS:.c=.o)
 

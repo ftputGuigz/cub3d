@@ -160,6 +160,7 @@ static void	register_map_datas(t_datas *map)
 	char position[] = "NSEW";
 
 	k = 0;
+	//map->sprites_nbr = 0;
 	while (map->map[k])
 	{
 		printf("%s\n", map->map[k]);
@@ -213,7 +214,6 @@ static int register_sprites(t_datas *map)
 		}
 		k++;
 	}
-	printf("n = %i\n", n);
 	return (0);
 }
 
@@ -234,5 +234,5 @@ int	map_parsor(char *line_map, t_datas *map)
 		if (ret)
 			return (-1);
 	}
-	return(0);
+	return (0);
 }

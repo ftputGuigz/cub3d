@@ -42,6 +42,7 @@ static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 	t_datas map;
 	int ret;
 
+	initialize_struct(&map);
 	if (ac == 3)
 		map.bmp = 1;
 	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;

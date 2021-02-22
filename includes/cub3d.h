@@ -145,5 +145,6 @@ int		ft_fps(t_datas *map);
 void	ft_sprites(t_datas *map);
 
 void	make_bmp(t_datas *map);
+void	initialize_struct(t_datas *map);
 
 #endif
