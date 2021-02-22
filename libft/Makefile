@@ -35,7 +35,7 @@ HEADER = libft.h
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 bonus : $(OBJS) $(OBJSBONUS)
 	ar rc $(NAME) $(OBJS) $(OBJSBONUS)

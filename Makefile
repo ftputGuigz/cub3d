@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/22 12:48:00 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/22 15:52:58 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,25 +18,32 @@ CC = clang
 
 CFLAGS = -O3 -Ofast -Wall -Werror -Wextra 
 
-MINILIBX = minilibx/libmlx.a -framework OpenGL -framework AppKit
+MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit 
 
-SRCS = main.c parsor.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
-	   display_sprites.c bmp_maker.c
+SRCS = $(addprefix srcs/, parsor.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
+	   display_sprites.c bmp_maker.c)
 
 OBJS = $(SRCS:.c=.o)
 
-LIBGNL = libft/gnl/get_next_line.a
+DEP = -I includes/
 
-LIBFT = libft/libft.a
+LIBGNL = ./libft/gnl/get_next_line.a
+
+LIBFT = ./libft/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C libft/gnl/ && make -C libft/ 
+%.o: %.c
+	$(CC) $(CFLAGS) $(DEP) -o $@ -c $<
+
+$(NAME): $(OBJS) libs
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
 
+libs : 
+	 make -C minilibx/ && make -C libft/gnl/ && make -C libft/
+
 clean:
-	make clean -C libft/gnl/ && make clean -C libft/
+	make clean -C libft/gnl/ && make clean -C libft/ && make clean -C minilibx/
 	rm -f $(OBJS)
 
 fclean: clean
