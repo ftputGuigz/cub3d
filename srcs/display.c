@@ -92,14 +92,16 @@ int	ft_display(t_datas *map)
 	map->mlx.ptr = mlx_init();
 	if (load_textures(map))
 		return (-1);
-	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
+	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y); //IMG FPS
 	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel, &map->fps.line_length, &map->fps.endian);
+	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y); //IMG MINIMAP
+	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel, &map->minimap.line_length, &map->minimap.endian);
 	if (!map->bmp)
 	{
 		map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Map");
 		map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
-		mlx_hook(map->mlx.wdw2, 2, 1L<<0, WASD, map); //GESTION KEYPRESS
-		mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map); //GEStiON KEYOUT + POSITION PERSO
+		mlx_hook(map->mlx.wdw2, 2, 1L<<0, WASD, map);
+		mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map);
 		mlx_hook(map->mlx.wdw2, 17, 1L<<13, ft_exit, map);
 	}
 	mlx_loop_hook(map->mlx.ptr, ft_fps, map);

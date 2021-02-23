@@ -89,6 +89,23 @@ static void grid_print(t_datas *map)
 	}
 }
 
+void	paint_it_black(t_datas *map)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < map->res_y)
+	{
+		x = 0;
+		while (x < map->res_x)
+		{
+			ft_mlx_pixel_put(&map->minimap, x, y, 0x000000);
+			x++;
+		}
+		y++;
+	}
+}
 
 int	ft_minimap(t_datas *map)
 {
@@ -99,8 +116,7 @@ int	ft_minimap(t_datas *map)
 	int k = 0;
 	int i;
 
-	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
-	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel, &map->minimap.line_length, &map->minimap.endian);
+	paint_it_black(map);
 	c1 = (float)map->res_x / (float)map->columns;
 	c2 = (float)(map->res_y / (float)map->lines);
 	while (y <= map->res_y && map->map[k])
