@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/23 14:20:46 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/23 19:49:30 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ CC = clang
 
 CFLAGS = -Wall -Werror -Wextra
 
+OS = $(shell uname -s)
+
 MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit 
+
+MINILIBX_LINUX = ./minilibx_linux/libmlx.a -lmlx -lXext -lX11
 
 SRCS = $(addprefix srcs/, parsor.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
 	   display_sprites.c bmp_maker.c initialize.c)
@@ -36,11 +40,23 @@ all: $(NAME)
 %.o: %.c
 	$(CC) $(CFLAGS) $(DEP) -o $@ -c $<
 
-$(NAME): $(OBJS) libs
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
+os : 
+	echo $(OS)
 
-libs : 
-	 make -C minilibx/ && make -C libft/gnl/ && make -C libft/
+$(NAME): $(OBJS) libs
+ifeq ($(OS),Linux)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX_LINUX)
+else	
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
+endif
+
+
+libs :
+ifeq ($(OS),Linux)
+	make -C minilibx_linux/ && make -C libft/gnl/ && make -C libft/
+else
+	make -C minilibx/ && make -C libft/gnl/ && make -C libft/
+endif
 
 clean:
 	make clean -C libft/gnl/ && make clean -C libft/ && make clean -C minilibx/
