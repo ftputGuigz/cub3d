@@ -42,7 +42,8 @@ void	ft_kill_map(t_datas *map)
 		free(map->map[i]);
 		i++;
 	}
-	free(map->map);
+	if (map->map)
+		free(map->map);
 }
 
 void	ft_kill_mlx(t_datas *map)
@@ -75,6 +76,19 @@ int	ft_exit(t_datas *map)
 	return (0);
 }
 
+void	init_mlx(t_datas *map)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+		map->txt[i++].img = NULL;
+	map->mlx.wdw = NULL;
+	map->mlx.wdw2 = NULL;
+	map->minimap.img = NULL;
+	map->fps.img = NULL;
+}
+
 void	initialize_struct(t_datas *map)
 {
 	map->bmp = 0;
@@ -94,4 +108,5 @@ void	initialize_struct(t_datas *map)
 	map->spr = NULL;
 	map->sprites_nbr = 0;
 	map->spr_ordr = NULL;
+	init_mlx(map);
 }

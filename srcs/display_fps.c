@@ -403,8 +403,6 @@ int	ft_fps(t_datas *map)
 
 	x = 0;
 	FOV = map->player.angle - 0.575959;
-	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
-	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel, &map->fps.line_length, &map->fps.endian);
 	while (x < map->res_x && FOV <= (map->player.angle + 0.575959))
 	{
 		ft_shootrays(map, FOV, &ray, x);
@@ -414,9 +412,11 @@ int	ft_fps(t_datas *map)
 	}
 	ft_sprites(map);
 	if (map->bmp) //EXIT PROPREMENT
+	{
 		make_bmp(map);
+		ft_exit(map);
+	}
 	ft_minimap(map);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);
-	mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	return(0);
 }

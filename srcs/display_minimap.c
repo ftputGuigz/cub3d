@@ -23,7 +23,8 @@ static void	ft_mlx_direction(t_datas *map, float c1)
 	{
 		x = map->player.fx + (r * cosf(map->player.angle));
 		y = map->player.fy + (r * sinf(map->player.angle));
-		ft_mlx_pixel_put(&map->minimap, x, y, 0xFF0000);
+		if ((int)y >= 0 && (int)y < map->res_y && (int)x >= 0 && (int)x < map->res_x && map->map[(int)(y * map->lines / map->res_y)][(int)(x * map->columns / map->res_x)] != '1')
+			ft_mlx_pixel_put(&map->minimap, x, y, 0xFF0000);
 		r = r - 0.1; //changer decrementation
 	}
 }
@@ -42,7 +43,7 @@ static void	ft_print_ray(t_datas *map)
 		x = map->player.fx;
 		y = map->player.fy;
 		ray = 0;
-		while ((int)y >= 0 && (int)y < map->res_y && (int)x >= 0 && (int)x < map->res_x && map->map[(int)(y * map->lines / map->res_y)][(int)(x * map->columns / map->res_x)] == '0')
+		while ((int)y >= 0 && (int)y < map->res_y && (int)x >= 0 && (int)x < map->res_x && map->map[(int)(y * map->lines / map->res_y)][(int)(x * map->columns / map->res_x)] != '1')
 		{
 			x = map->player.fx + (ray * cosf(angle)); //remettre ANGLE
 			y = map->player.fy + (ray * sinf(angle)); //REMETTRE ANGLE
@@ -121,6 +122,5 @@ int	ft_minimap(t_datas *map)
 	ft_print_ray(map); //RAYONS - FOV
 	ft_mlx_direction(map, c1); // RAYON - DIRECTION
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
-	mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	return (0);
 }
