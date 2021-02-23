@@ -54,6 +54,8 @@ int	WASD(int keycode, t_datas *map)
 		left_rotation(0.1, map);
 	else if (keycode == 124)
 		right_rotation(0.1, map);
+	else if (keycode == 53)
+		ft_exit(map);
 	else
 		printf("%d\n", keycode);
 	return (0);
@@ -94,6 +96,7 @@ int	ft_display(t_datas *map)
 	map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
 	mlx_hook(map->mlx.wdw2, 2, 1L<<0, WASD, map); //GESTION KEYPRESS
 	mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map); //GEStiON KEYOUT + POSITION PERSO
+	mlx_hook(map->mlx.wdw2, 17, 1L<<13, ft_exit, map); //ECHAP
 	mlx_loop_hook(map->mlx.ptr, ft_fps, map);
 	mlx_loop(map->mlx.ptr);
 	return (0);
