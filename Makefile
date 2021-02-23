@@ -22,7 +22,7 @@ OS = $(shell uname -s)
 
 MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit 
 
-MINILIBX_LINUX = ./minilibx_linux/libmlx.a -lmlx -lXext -lX11
+MINILIBX_LINUX = -L ./minilibx-linux -lmlx -lXext -lX11
 
 SRCS = $(addprefix srcs/, parsor.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
 	   display_sprites.c bmp_maker.c initialize.c)
@@ -45,7 +45,7 @@ os :
 
 $(NAME): $(OBJS) libs
 ifeq ($(OS),Linux)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX_LINUX)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX_LINUX) -lm
 else	
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
 endif
@@ -53,7 +53,7 @@ endif
 
 libs :
 ifeq ($(OS),Linux)
-	make -C minilibx_linux/ && make -C libft/gnl/ && make -C libft/
+	make -C minilibx-linux/ && make -C libft/gnl/ && make -C libft/
 else
 	make -C minilibx/ && make -C libft/gnl/ && make -C libft/
 endif

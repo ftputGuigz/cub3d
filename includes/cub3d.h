@@ -25,6 +25,7 @@
 # include "../libft/libft.h"
 # include "../libft/gnl/get_next_line.h"
 # include "../minilibx/mlx.h"
+# include "../minilibx-linux/mlx.h"
 
 typedef struct s_mlx
 {
