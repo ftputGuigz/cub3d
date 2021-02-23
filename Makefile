@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/23 19:49:30 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/23 20:31:32 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,11 @@ else
 endif
 
 clean:
+ifeq ($(OS),Linux)
+	make clean -C libft/gnl/ && make clean -C libft/ && make clean -C minilibx-linux/
+else
 	make clean -C libft/gnl/ && make clean -C libft/ && make clean -C minilibx/
+endif
 	rm -f $(OBJS)
 
 fclean: clean
