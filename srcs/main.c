@@ -46,6 +46,10 @@ static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 	if (ac == 3)
 		map.bmp = 1;
 	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;
+	if (LINUX)
+		screen_size_linux(&map);
+	else
+		screen_size_macos(&map);
 	if (ret != -1)
 		ret = ft_display(&map);
 	return (ret);
