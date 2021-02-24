@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/04 12:02:48 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 10:51:41 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ void ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color)
 
 int	WASD(int keycode, t_datas *map)
 {
-	if (keycode == 13)
+	if (keycode == FRONT)
 		movement(0.2, map);
-	else if (keycode == 0)
+	else if (keycode == LEFT)
 		ortho_movement(-0.2, map);
-	else if (keycode == 1)
+	else if (keycode == BACK)
 		movement(-0.2, map);
-	else if (keycode == 2)
+	else if (keycode == RIGHT)
 		ortho_movement(0.2, map);
-	else if (keycode == 123)
+	else if (keycode == ROTATE_LEFT)
 		left_rotation(0.1, map);
-	else if (keycode == 124)
+	else if (keycode == ROTATE_RIGHT)
 		right_rotation(0.1, map);
-	else if (keycode == 53)
+	else if (keycode == ESC)
 		ft_exit(map);
 	else
 		printf("%d\n", keycode);

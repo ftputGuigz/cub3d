@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/22 14:48:19 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 10:52:59 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,24 @@
 # include "../libft/gnl/get_next_line.h"
 # include "../minilibx/mlx.h"
 # include "../minilibx-linux/mlx.h"
+
+# if __linux__
+#	define FRONT
+#	define BACK
+#	define LEFT
+#	define RIGHT
+#	define ROTATE_LEFT
+#	define ROTATE_RIGHT
+#	define ESC
+# elif __APPLE__
+#	define FRONT 13
+#	define BACK 1
+#	define LEFT 0
+#	define RIGHT 2
+#	define ROTATE_LEFT 123
+#	define ROTATE_RIGHT 124
+#	define ESC 53
+# endif
 
 typedef struct s_mlx
 {
