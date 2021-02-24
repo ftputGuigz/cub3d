@@ -24,18 +24,18 @@
 
 # include "../libft/libft.h"
 # include "../libft/gnl/get_next_line.h"
-# include "../minilibx/mlx.h"
-# include "../minilibx-linux/mlx.h"
 
 # if __linux__
-#	define FRONT
-#	define BACK
-#	define LEFT
-#	define RIGHT
-#	define ROTATE_LEFT
-#	define ROTATE_RIGHT
-#	define ESC
+#	include "../minilibx-linux/mlx.h"
+#	define FRONT 119
+#	define BACK 115
+#	define LEFT 97
+#	define RIGHT 100
+#	define ROTATE_LEFT 65361
+#	define ROTATE_RIGHT 65363
+#	define ESC 65307
 # elif __APPLE__
+# 	include "../minilibx/mlx.h"
 #	define FRONT 13
 #	define BACK 1
 #	define LEFT 0
