@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:41:21 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/11 11:58:29 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 15:37:42 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 		map.bmp = 1;
 	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;
 	map.mlx.ptr = mlx_init();
-	if (LINUX)
-		screen_size_linux(&map);
-	else
-		screen_size_macos(&map);
+	screen_size(&map);
 	if (ret != -1)
 		ret = ft_display(&map);
 	return (ret);

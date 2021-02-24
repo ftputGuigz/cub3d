@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 12:00:26 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 15:39:45 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 #	define ESC 65307
 #	define RED_CROSS 33
 #	define RED_CROSS_MASK 1L<<17
-# 	define LINUX_SCREEN mlx_get_screen_size(map->mlx.ptr, &sizex, &sizey);
 # elif __APPLE__
 # 	include "../minilibx/mlx.h"
 #	define FRONT 13
@@ -49,7 +48,6 @@
 #	define ESC 53
 #	define RED_CROSS 17
 #	define RED_CROSS_MASK 1L<<13
-#	define LINUX_SCREEN return ;
 # endif
 
 typedef struct s_mlx
@@ -173,7 +171,6 @@ void	ft_sprites(t_datas *map);
 void	make_bmp(t_datas *map);
 void	initialize_struct(t_datas *map);
 int		ft_exit(t_datas *map);
-void	screen_size_linux(t_datas *map);
-void	screen_size_macos(t_datas *map);
+void	screen_size(t_datas *map);
 
 #endif
