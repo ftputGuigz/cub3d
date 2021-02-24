@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 13:13:11 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 10:51:41 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 11:24:04 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_display(t_datas *map)
 		map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
 		mlx_hook(map->mlx.wdw2, 2, 1L<<0, WASD, map);
 		mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map);
-		mlx_hook(map->mlx.wdw2, 17, 1L<<13, ft_exit, map);
+		mlx_hook(map->mlx.wdw2, RED_CROSS, RED_CROSS_MASK, ft_exit, map);
 	}
 	mlx_loop_hook(map->mlx.ptr, ft_fps, map);
 	mlx_loop(map->mlx.ptr);

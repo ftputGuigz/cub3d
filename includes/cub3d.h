@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 10:52:59 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 11:25:00 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 #	define ROTATE_LEFT 65361
 #	define ROTATE_RIGHT 65363
 #	define ESC 65307
+#	define RED_CROSS 33
+#	define RED_CROSS 1L<<17
 # elif __APPLE__
 # 	include "../minilibx/mlx.h"
 #	define FRONT 13
@@ -43,6 +45,8 @@
 #	define ROTATE_LEFT 123
 #	define ROTATE_RIGHT 124
 #	define ESC 53
+#	define RED_CROSS 17
+#	define RED_CROSS_MASK 1L<<13
 # endif
 
 typedef struct s_mlx
