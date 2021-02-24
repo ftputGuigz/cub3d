@@ -46,6 +46,7 @@ static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 	if (ac == 3)
 		map.bmp = 1;
 	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;
+	map.mlx.ptr = mlx_init();
 	if (LINUX)
 		screen_size_linux(&map);
 	else

@@ -89,7 +89,6 @@ int	load_textures(t_datas *map)
 int	ft_display(t_datas *map)
 {
 	ft_initposition(map);
-	map->mlx.ptr = mlx_init();
 	if (load_textures(map))
 		return (-1);
 	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y); //IMG FPS
