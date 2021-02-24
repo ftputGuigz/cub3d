@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 15:39:45 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 20:13:41 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,17 @@ typedef struct	s_datas
 	int sprites_nbr;
 	int *spr_ordr;
 }				t_datas;
+
+int		create_trgb(int t, int r, int g, int b);
+void	ft_fillmap(char *line, char **line_map);
+int		ft_fill_floor(t_datas *map, t_flags *flags, char **tmp);
+int		ft_fill_ceiling(t_datas *map, t_flags *flags, char **tmp);
+int		ft_rgb(int *mapclearance, char *line, t_datas *map, t_flags *flags);
+void	ft_fill_no_path(t_datas *map, t_flags *flags, char *str);
+void	ft_fill_we_path(t_datas *map, t_flags *flags, char *str);
+void	ft_fill_ea_path(t_datas *map, t_flags *flags, char *str);
+void	ft_fill_so_path(t_datas *map, t_flags *flags, char *str);
+void	ft_fillsprite_path(t_datas *map, t_flags *flags, char *str);
 
 int		ft_parsor(char *path, t_datas *map_datas);
 int		map_parsor(char *line_map, t_datas *map_datas);

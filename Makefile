@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/24 14:19:51 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/24 20:08:47 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,15 @@ CFLAGS = -Wall -Werror -Wextra
 
 OS = $(shell uname -s)
 
-MAX_RESX = $(shell system_profiler SPDisplaysDataType | grep Resolution | tr -s ' ' | cut -d ' ' -f 3)
+MAX_RESX = $(shell system_profiler SPDisplaysDataType | grep -m 1 Resolution | tr -s ' ' | cut -d ' ' -f 3)
 
-MAX_RESY = $(shell system_profiler SPDisplaysDataType | grep Resolution | tr -s ' ' | cut -d ' ' -f 5)
+MAX_RESY = $(shell system_profiler SPDisplaysDataType | grep -m 1 Resolution | tr -s ' ' | cut -d ' ' -f 5)
 
 MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit 
 
 MINILIBX_LINUX = -L ./minilibx-linux -lmlx -lXext -lX11
 
-SRCS = $(addprefix srcs/, parsor.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
+SRCS = $(addprefix srcs/, parsor.c parsor2.c parsor3.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
 	   display_sprites.c bmp_maker.c initialize.c screen_size.c)
 
 OBJS = $(SRCS:.c=.o)

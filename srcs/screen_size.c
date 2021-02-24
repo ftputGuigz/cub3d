@@ -6,13 +6,13 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 12:07:42 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 15:40:11 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/24 19:34:54 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-# if (LINUX)
+#if (LINUX)
 
 void	screen_size(t_datas *map)
 {
@@ -26,7 +26,8 @@ void	screen_size(t_datas *map)
 		map->res_y = sizey;
 }
 
-# else
+#else
+
 void	screen_size(t_datas *map)
 {
 	if (map->res_x > MAX_X)
@@ -34,6 +35,5 @@ void	screen_size(t_datas *map)
 	if (map->res_y > MAX_Y)
 		map->res_y = MAX_Y;
 }
-# endif
 
-
+#endif
