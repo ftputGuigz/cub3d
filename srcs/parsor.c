@@ -15,8 +15,9 @@
 int	ft_filltexture(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 {
 	char		**tmp;
-	static int	k = 0; //VERIFIEZ SI LEGITIME
+	int	k;
 
+	k = 0;
 	(*mapclearance)++;
 	tmp = ft_split(line, ' ');
 	while (tmp[k])
@@ -50,7 +51,7 @@ int	ft_fillres(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 	tmp = ft_split(line, ' '); //controller les mallocs
 	while (tmp[k])
 		k++;
-	if (k != 3 || (tmp[0][0] == 'R' && tmp[0][1]) || flags->R)
+	if (k != 3 || (tmp[0][0] == 'R' && tmp[0][1]) || flags->R || check_num_res(tmp))
 		return (-1);
 	else
 	{

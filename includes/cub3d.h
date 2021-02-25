@@ -162,6 +162,9 @@ void	ft_fill_we_path(t_datas *map, t_flags *flags, char *str);
 void	ft_fill_ea_path(t_datas *map, t_flags *flags, char *str);
 void	ft_fill_so_path(t_datas *map, t_flags *flags, char *str);
 void	ft_fillsprite_path(t_datas *map, t_flags *flags, char *str);
+int		comma_count(char *line);
+int		check_num_res(char **tmp);
+int		check_num_fc(char **tmp);
 
 int		ft_parsor(char *path, t_datas *map_datas);
 int		map_parsor(char *line_map, t_datas *map_datas);

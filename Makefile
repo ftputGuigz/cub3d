@@ -28,7 +28,7 @@ MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit
 
 MINILIBX_LINUX = -L ./minilibx-linux -lmlx -lXext -lX11
 
-SRCS = $(addprefix srcs/, parsor.c parsor2.c parsor3.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
+SRCS = $(addprefix srcs/, parsor.c parsor2.c parsor3.c parsor4.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
 	   display_sprites.c bmp_maker.c initialize.c screen_size.c)
 
 OBJS = $(SRCS:.c=.o)
