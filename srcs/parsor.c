@@ -23,13 +23,13 @@ int	ft_filltexture(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 		k++;
 	if (k != 2)
 		return (-1);
-	if (tmp[0][0] == 'N' && tmp[0][1] == 'O' && !flags->NO)
+	if (tmp[0][0] == 'N' && tmp[0][1] == 'O' && !tmp[0][2] && !flags->NO)
 		ft_fill_no_path(map, flags, tmp[1]);
-	else if (tmp[0][0] == 'W' && tmp[0][1] == 'E' && !flags->WE)
+	else if (tmp[0][0] == 'W' && tmp[0][1] == 'E' && !tmp[0][2] && !flags->WE)
 		ft_fill_we_path(map, flags, tmp[1]);
-	else if (tmp[0][0] == 'E' && tmp[0][1] == 'A' && !flags->EA)
+	else if (tmp[0][0] == 'E' && tmp[0][1] == 'A' && !tmp[0][2] && !flags->EA)
 		ft_fill_ea_path(map, flags, tmp[1]);
-	else if (tmp[0][0] == 'S' && ((tmp[0][1] == 'O' && !flags->SO) || (!tmp[0][1] && !flags->sprite)))
+	else if (tmp[0][0] == 'S' && ((tmp[0][1] == 'O' && !tmp[0][2] && !flags->SO) || (!tmp[0][1] && !flags->sprite)))
 	{
 		if (tmp[0][1] == 'O')
 			ft_fill_so_path(map, flags, tmp[1]);

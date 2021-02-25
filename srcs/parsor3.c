@@ -66,20 +66,37 @@ int		ft_fill_ceiling(t_datas *map, t_flags *flags, char **tmp)
 		return (-1);
 }
 
+int		comma_count(char *line)
+{
+	int	comma;
+	int	i;
+
+	i = 0;
+	comma = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			comma++;
+		i++;
+	}
+	return (comma);
+}
+
 int		ft_rgb(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 {
-	char		**tmp;
-	static int	k = 0;
+	char	**tmp;
+	int		k;
 
+	k = 0;
 	(*mapclearance)++;
 	tmp = ft_splits(line, " ,"); //CONTROLER LE MALLOC
 	while (tmp[k])
 		k++;
-	if (k != 4)
+	if (k != 4 || comma_count(line) != 2)
 		return (-1);
-	if (tmp[0][0] == 'F')
+	if (tmp[0][0] == 'F' && !flags->F)
 		return (ft_fill_floor(map, flags, tmp));
-	else if (tmp[0][0] == 'C')
+	else if (tmp[0][0] == 'C' && !flags->C)
 		return (ft_fill_ceiling(map, flags, tmp));
 	else
 		return (-1);
