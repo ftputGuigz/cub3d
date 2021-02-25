@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	bmp_header(int fd, t_datas *map)
+void		bmp_header(int fd, t_datas *map)
 {
 	int	tmp;
 
@@ -20,8 +20,8 @@ void	bmp_header(int fd, t_datas *map)
 	tmp = 14 + 40 + 4 * map->res_x * map->res_y;
 	write(fd, &tmp, 4);
 	tmp = 0;
-	write(fd, &tmp, 2); 
-	write(fd, &tmp, 2); 
+	write(fd, &tmp, 2);
+	write(fd, &tmp, 2);
 	tmp = 54;
 	write(fd, &tmp, 4);
 	tmp = 40;
@@ -42,9 +42,9 @@ void	bmp_header(int fd, t_datas *map)
 
 static void	bmp_pixels(int fd, t_datas *map)
 {
-	int x;
-	int y;
-	char *color;
+	int		x;
+	int		y;
+	char	*color;
 
 	y = map->res_y - 1;
 	while (y >= 0)
@@ -60,7 +60,7 @@ static void	bmp_pixels(int fd, t_datas *map)
 	}
 }
 
-void	make_bmp(t_datas *map)
+void		make_bmp(t_datas *map)
 {
 	int fd;
 
