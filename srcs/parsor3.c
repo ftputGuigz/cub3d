@@ -70,13 +70,21 @@ int		comma_count(char *line)
 {
 	int	comma;
 	int	i;
+	int j;
 
 	i = 0;
 	comma = 0;
 	while (line[i])
 	{
 		if (line[i] == ',')
+		{
 			comma++;
+			j = i + 1;
+			while (line[j] && line[j] == ' ')
+				j++;
+			if (line[j] == ',')
+				return (-1);
+		}
 		i++;
 	}
 	return (comma);
