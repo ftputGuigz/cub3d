@@ -20,6 +20,8 @@ int	ft_filltexture(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 	k = 0;
 	(*mapclearance)++;
 	tmp = ft_split(line, ' ');
+	if (tmp == NULL)
+		return (-1);
 	while (tmp[k])
 		k++;
 	if (k != 2)
@@ -49,6 +51,8 @@ int	ft_fillres(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 
 	(*mapclearance)++;
 	tmp = ft_split(line, ' '); //controller les mallocs
+	if (tmp == NULL)
+		return (-1);
 	while (tmp[k])
 		k++;
 	if (k != 3 || (tmp[0][0] == 'R' && tmp[0][1]) || flags->R || check_num_res(tmp))
@@ -128,18 +132,20 @@ int	ft_parsor(char *path, t_datas *map)
 	char	*line_map;
 
 	line_map = ft_strdup(""); //malloc Donc = check
+	if (line_map == NULL)
+		return (-1);
 	fd = open(path, O_RDONLY);
 	a = get_next_line(fd, &line);
 	ret = 0;
 	while (a && ret != -1)
 	{
-		ret = ft_fillstruct(line, &line_map, map); //controle le remplissage grossier et les datas (espaces etc)
+		ret = ft_fillstruct(line, &line_map, map);
 		free(line);
 		a = get_next_line(fd, &line);
 	}
 	free(line);
 	if (ret != -1)
-		ret = map_parsor(line_map, map); //controle les donnees de la MAP de facon detaillee
+		ret = map_parsor(line_map, map);
 	free(line_map);
 	close(fd);
 	return (ret);
