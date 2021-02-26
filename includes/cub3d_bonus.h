@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <math.h>
 # include <stdio.h>
@@ -52,6 +52,7 @@
 typedef struct s_mlx
 {
 	void *ptr;
+	void *wdw;
 	void *wdw2;
 }				t_mlx;
 
@@ -87,6 +88,8 @@ typedef struct s_player
 	int y;
 	float rfx;
 	float rfy;
+	float fx;
+	float fy;
 	float dirx;
 	float diry;
 	float planx;
@@ -167,6 +170,8 @@ int		map_parsor(char *line_map, t_datas *map_datas);
 int		ft_display(t_datas *map_datas);
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color);
+int		ft_minimap(t_datas *map);
 void	movement(float i, t_datas *maps);
 void	ortho_movement(float i, t_datas *maps);
 void	ft_initposition(t_datas *map);

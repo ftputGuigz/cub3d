@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 int	ft_filltexture(int *mapclearance, char *line, t_datas *map, t_flags *flags)
 {

@@ -416,7 +416,6 @@ int	ft_fps(t_datas *map)
 		make_bmp(map);
 		ft_exit(map);
 	}
-	ft_minimap(map);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);
 	return(0);
 }

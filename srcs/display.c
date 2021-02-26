@@ -20,26 +20,6 @@ void ft_mlx_pixel_put(t_img *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void ft_mlx_cube(t_img *img, float x, float y, float c1, float c2, int color)
-{
-	float a;
-	float b;
-	float tmpx;
-
-	a = x + c1;
-	b = y + c2;
-	while (y < b)
-	{
-		tmpx = x;
-		while (tmpx < a)
-		{
-			ft_mlx_pixel_put(img, tmpx, y, color);
-			tmpx++;
-		}
-		y++;
-	}
-}
-
 int	WASD(int keycode, t_datas *map)
 {
 	if (keycode == FRONT)
@@ -93,11 +73,8 @@ int	ft_display(t_datas *map)
 		return (-1);
 	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y); //IMG FPS
 	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel, &map->fps.line_length, &map->fps.endian);
-	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y); //IMG MINIMAP
-	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel, &map->minimap.line_length, &map->minimap.endian);
 	if (!map->bmp)
 	{
-		map->mlx.wdw = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "Map");
 		map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y, "FPS");
 		mlx_hook(map->mlx.wdw2, 2, 1L<<0, WASD, map);
 		mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map);

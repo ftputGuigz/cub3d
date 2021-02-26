@@ -58,9 +58,7 @@ void	sprites_buffer(t_datas *map) //MALLOC DONC AJOUTER PROTECTION
 void	ft_initposition(t_datas *map)
 {
 	map->player.rfx = (float)map->player.x + 0.5;
-	map->player.fx = map->player.rfx * (float)map->res_x / (float)map->columns;
 	map->player.rfy = (float)map->player.y + 0.5;
-	map->player.fy = map->player.rfy * (float)map->res_y / (float)map->lines;
 	lodev_positions1(map);
 	sprites_buffer(map);
 }
@@ -102,27 +100,15 @@ void	left_rotation(float rot, t_datas *map)
 void	movement(float i, t_datas *map)
 {
 	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i * cosf(map->player.angle))] != '1')
-	{
 		map->player.rfx = map->player.rfx + i * cosf(map->player.angle);
-		map->player.fx = ((float)map->player.rfx * (float)map->res_x) / (float)map->columns;
-	}
 	if (map->map[(int)(map->player.rfy + 2 * i * sinf(map->player.angle))][(int)map->player.rfx] != '1')
-	{
 		map->player.rfy = map->player.rfy + i * sinf(map->player.angle);
-		map->player.fy = ((float)map->player.rfy * (float)map->res_y) / (float)map->lines;
-	}
 }
 
 void	ortho_movement(float i, t_datas *map)
 {
 	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i * cosf(map->player.ortho))] != '1')
-	{
 		map->player.rfx = map->player.rfx + i * cosf(map->player.ortho);
-		map->player.fx = (float)map->player.rfx * (float)map->res_x / (float)map->columns;
-	}
 	if (map->map[(int)(map->player.rfy + 2 * i * sinf(map->player.ortho))][(int)map->player.rfx] != '1')
-	{
 		map->player.rfy = map->player.rfy + i * sinf(map->player.ortho);
-		map->player.fy = (float)map->player.rfy * (float)map->res_y / (float)map->lines;
-	}
 }

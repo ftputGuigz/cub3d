@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_fill_no_path(t_datas *map, t_flags *flags, char *str)
 {

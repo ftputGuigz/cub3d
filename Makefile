@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/25 21:11:30 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/26 10:54:23 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,18 @@ MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit
 
 MINILIBX_LINUX = -L ./minilibx-linux -lmlx -lXext -lX11
 
-SRCS = $(addprefix srcs/, parsor.c parsor2.c parsor3.c parsor4.c main.c map_parsor.c display.c display_minimap.c movements.c display_fps.c \
-	   display_sprites.c bmp_maker.c initialize.c screen_size.c)
+SRCS_RAW = parsor parsor2 parsor3 parsor4 main map_parsor display movements display_fps \
+		display_sprites bmp_maker initialize screen_size
+
+SRCS = $(addsuffix .c, $(addprefix srcs/, $(SRCS_RAW)))
+
+SRCS_BONUS = $(addsuffix _bonus.c, $(addprefix srcs_bonus/, $(SRCS_RAW) display_minimap))
 
 OBJS = $(SRCS:.c=.o)
 
-DEP = -I includes/
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+
+DEP = -Iincludes
 
 LIBGNL = ./libft/gnl/get_next_line.a
 
@@ -48,18 +54,19 @@ else
 	$(CC) $(CFLAGS) $(DEP) -o $@ -c $< -D LINUX=0 -D MAX_X=$(MAX_RESX) -D MAX_Y=$(MAX_RESY)
 endif
 
-os : 
-	echo $(OS)
-	echo $(MAX_RESX)
-	echo $(MAX_RESY)
-
-$(NAME): $(OBJS) libs
+$(NAME): libs $(OBJS) 
 ifeq ($(OS),Linux)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX_LINUX) -lm
 else
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBGNL) $(LIBFT) $(MINILIBX)
 endif
 
+bonus : libs $(OBJS_BONUS)
+ifeq ($(OS),Linux)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS_BONUS) $(LIBGNL) $(LIBFT) $(MINILIBX_LINUX) -lm
+else
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS_BONUS) $(LIBGNL) $(LIBFT) $(MINILIBX) 
+endif
 
 libs :
 ifeq ($(OS),Linux)
@@ -74,7 +81,7 @@ ifeq ($(OS),Linux)
 else
 	make clean -C libft/gnl/ && make clean -C libft/ && make clean -C minilibx/
 endif
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
 	make fclean -C libft/gnl/ && make fclean -C libft/
