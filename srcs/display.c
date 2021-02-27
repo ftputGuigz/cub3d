@@ -80,6 +80,8 @@ int	ft_display(t_datas *map)
 		mlx_hook(map->mlx.wdw2, 3, 1L<<1, wasdout, map);
 		mlx_hook(map->mlx.wdw2, RED_CROSS, RED_CROSS_MASK, ft_exit, map);
 	}
+	else
+		ft_fps(map);
 	mlx_loop_hook(map->mlx.ptr, ft_fps, map);
 	mlx_loop(map->mlx.ptr);
 	return (0);
