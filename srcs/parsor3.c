@@ -25,11 +25,12 @@ void	ft_fillmap(t_malloc *m, t_datas *map)
 	tmp = ft_strjoin(m->line, "-");
 	if (!tmp)
 		failed_malloc(m, map);
-	tmp2 = ft_strjoin(m->line_map, tmp);
+	tmp2 = m->line_map;
+	m->line_map = ft_strjoin(tmp2, tmp);
 	free(tmp);
-	if (!tmp2)
+	free(tmp2);
+	if (!m->line_map)
 		failed_malloc(m, map);
-	m->line_map = tmp2;
 }
 
 int		ft_fill_floor(t_datas *map, t_flags *flags, char **tmp)
