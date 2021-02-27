@@ -17,15 +17,20 @@ int		create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void	ft_fillmap(char *line, char **line_map)
+void	ft_fillmap(t_malloc *m, t_datas *map)
 {
 	char *tmp;
 	char *tmp2;
 
-	tmp = ft_strjoin(line, "-");
-	tmp2 = ft_strjoin(*line_map, tmp);
+	tmp = ft_strjoin(m->line, "-");
+	tmp = NULL;
+	if (!tmp)
+		failed_malloc(m, map);
+	tmp2 = ft_strjoin(m->line_map, tmp);
 	free(tmp);
-	*line_map = tmp2;
+	if (!tmp2)
+		failed_malloc(m, map);
+	m->line_map = tmp2;
 }
 
 int		ft_fill_floor(t_datas *map, t_flags *flags, char **tmp)
@@ -66,17 +71,19 @@ int		ft_fill_ceiling(t_datas *map, t_flags *flags, char **tmp)
 		return (-1);
 }
 
-int		ft_rgb(int *mapclearance, char *line, t_datas *map, t_flags *flags)
+int		ft_rgb(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 {
 	char	**tmp;
 	int		k;
 
 	k = 0;
 	(*mapclearance)++;
-	tmp = ft_splits(line, " ,"); //CONTROLER LE MALLOC
+	tmp = ft_splits(m->line, " ,"); //CONTROLER LE MALLOC
+	if (!tmp)
+		failed_malloc(m, map);
 	while (tmp[k])
 		k++;
-	if (k != 4 || comma_count(line) != 2 || check_num_fc(tmp))
+	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(tmp))
 		return (-1);
 	if (tmp[0][0] == 'F' && !flags->F)
 		return (ft_fill_floor(map, flags, tmp));

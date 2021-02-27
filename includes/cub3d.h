@@ -122,6 +122,13 @@ typedef struct s_sprite
 	int dist;
 }				t_sprite;
 
+typedef struct s_malloc
+{
+	char *line;
+	char *line_map;
+	int fd;
+}				t_malloc;
+
 typedef struct	s_datas
 {
 	int bmp;
@@ -149,21 +156,21 @@ typedef struct	s_datas
 }				t_datas;
 
 int		create_trgb(int t, int r, int g, int b);
-void	ft_fillmap(char *line, char **line_map);
+void	ft_fillmap(t_malloc *m, t_datas *map);
 int		ft_fill_floor(t_datas *map, t_flags *flags, char **tmp);
 int		ft_fill_ceiling(t_datas *map, t_flags *flags, char **tmp);
-int		ft_rgb(int *mapclearance, char *line, t_datas *map, t_flags *flags);
-void	ft_fill_no_path(t_datas *map, t_flags *flags, char *str);
-void	ft_fill_we_path(t_datas *map, t_flags *flags, char *str);
-void	ft_fill_ea_path(t_datas *map, t_flags *flags, char *str);
-void	ft_fill_so_path(t_datas *map, t_flags *flags, char *str);
-void	ft_fillsprite_path(t_datas *map, t_flags *flags, char *str);
+int		ft_rgb(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags);
+void	ft_fill_no_path(t_malloc *m, t_datas *map, t_flags *flags, char *str);
+void	ft_fill_we_path(t_malloc *m, t_datas *map, t_flags *flags, char *str);
+void	ft_fill_ea_path(t_malloc *m, t_datas *map, t_flags *flags, char *str);
+void	ft_fill_so_path(t_malloc *m, t_datas *map, t_flags *flags, char *str);
+void	ft_fillsprite_path(t_malloc *m, t_datas *map, t_flags *flags, char *str);
 int		comma_count(char *line);
 int		check_num_res(char **tmp);
 int		check_num_fc(char **tmp);
 
 int		ft_parsor(char *path, t_datas *map_datas);
-int		map_parsor(char *line_map, t_datas *map_datas);
+int		map_parsor(t_malloc *m, t_datas *map_datas);
 int		ft_display(t_datas *map_datas);
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
@@ -180,5 +187,8 @@ void	make_bmp(t_datas *map);
 void	initialize_struct(t_datas *map);
 int		ft_exit(t_datas *map);
 void	screen_size(t_datas *map);
+void	init_malloc(t_malloc *m);
+void	free_malloc(t_malloc *m);
+void	failed_malloc(t_malloc *m, t_datas *map);
 
 #endif

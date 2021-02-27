@@ -160,7 +160,6 @@ static void	register_map_datas(t_datas *map)
 	char position[] = "NSEW";
 
 	k = 0;
-	//map->sprites_nbr = 0;
 	while (map->map[k])
 	{
 		printf("%s\n", map->map[k]);
@@ -187,7 +186,7 @@ static void	register_map_datas(t_datas *map)
 	map->lines = k;
 }
 
-static int register_sprites(t_datas *map)
+static int register_sprites(t_malloc *m, t_datas *map)
 {
 	int j;
 	int k;
@@ -197,7 +196,7 @@ static int register_sprites(t_datas *map)
 	map->spr = malloc(sizeof(t_sprite) * map->sprites_nbr);
 	map->spr_ordr = malloc(sizeof(int) * map->sprites_nbr);
 	if (!map->spr || !map->spr_ordr)
-		return (-1);
+		failed_malloc(m, map);
 	while(map->map[k])
 	{
 		j = 0;
@@ -217,12 +216,14 @@ static int register_sprites(t_datas *map)
 	return (0);
 }
 
-int	map_parsor(char *line_map, t_datas *map)
+int	map_parsor(t_malloc *m, t_datas *map)
 {
 	static int k = 0;
 	int ret;
 
-	map->map = ft_split(line_map, '-');
+	map->map = ft_split(m->line_map, '-');
+	if (!map->map)
+		failed_malloc(m, map);
 	while (map->map[k])
 		k++;
 	if (map_checkerror(map->map, k)) //ATTENTION LIBERATION DE MEMOIRE A EFFECTUER
@@ -230,7 +231,7 @@ int	map_parsor(char *line_map, t_datas *map)
 	else
 	{
 		register_map_datas(map);
-		ret = register_sprites(map);
+		ret = register_sprites(m, map);
 		if (ret)
 			return (-1);
 	}

@@ -37,13 +37,15 @@ void	ft_kill_map(t_datas *map)
 	int i;
 
 	i = 0;
-	while (map->map[i])
-	{
-		free(map->map[i]);
-		i++;
-	}
 	if (map->map)
+	{
+		while (map->map[i])
+		{
+			free(map->map[i]);
+			i++;
+		}
 		free(map->map);
+	}
 }
 
 void	ft_kill_mlx(t_datas *map)
@@ -70,6 +72,35 @@ int	ft_exit(t_datas *map)
 	ft_kill_map(map);
 	ft_kill_mlx(map);
 	return (0);
+}
+
+void	failed_malloc(t_malloc *m, t_datas *map)
+{
+	write(1, "Malloc related issue. Aborting.\n", 32);
+	if (m->line)
+		free(m->line);
+	if (m->line_map)
+		free(m->line_map);
+	if (m->fd != -1)
+		close(m->fd);
+	ft_exit(map);
+}
+
+void	free_malloc(t_malloc *m)
+{
+	if (m->line)
+		free(m->line);
+	if (m->line_map)
+		free(m->line_map);
+	if (m->fd != -1)
+		close(m->fd);
+}
+
+void	init_malloc(t_malloc *m)
+{
+	m->line = NULL;
+	m->line_map = NULL;
+	m->fd = 0;
 }
 
 void	init_mlx(t_datas *map)
