@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:59:55 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/22 10:59:56 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/27 14:00:03 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,9 @@ void		make_bmp(t_datas *map)
 	{
 		bmp_header(fd, map);
 		bmp_pixels(fd, map);
-		map->bmp = 0;
 	}
 	else
 		printf("error Fd is null");
 	close(fd);
-	exit (0);  //CLOSE PROPREMENT ET NETTOYER A COUP DE FREE ET DE MALLOC
+	ft_exit(map); //CLOSE PROPREMENT ET NETTOYER A COUP DE FREE ET DE MALLOC
 }

@@ -37,7 +37,7 @@ static int	flag_check(char *str)
 		return (0);
 }
 
-static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
+static int	main2(int ac, char *av1)
 {
 	t_datas map;
 	int ret;
@@ -45,7 +45,7 @@ static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 	initialize_struct(&map);
 	if (ac == 3)
 		map.bmp = 1;
-	ret = ft_parsor(av1, &map); //CHECKER SI RET = -1;
+	ret = ft_parsor(av1, &map);
 	map.mlx.ptr = mlx_init();
 	screen_size(&map);
 	if (ret != -1)
@@ -53,7 +53,7 @@ static int	main2(int ac, char *av1)  //RESPO INIT PARTIE GRAPHIQUE
 	return (ret);
 }
 
-int main(int ac, char **av) //RESPO GESTIOn D'ERREUR
+int main(int ac, char **av)
 {
 	int	check;
 	int	fd;
@@ -84,16 +84,14 @@ int main(int ac, char **av) //RESPO GESTIOn D'ERREUR
 		return (0);
 	}
 	close(fd);
+	check = main2(ac, av[1]);
+	if (check == -1)
 	{
-		check = main2(ac, av[1]);
-		if (check == -1)
-		{
-			printf("Error\n");
-			printf("Your <*.cub> file is not valid.\n");
-			return (0);
-		}
-		else
-			printf("datas correctes");
+		printf("Error\n");
+		printf("Your <*.cub> file is not valid.\n");
+		return (0);
 	}
+	else
+		printf("Too Far.");
 	return (0);
 }

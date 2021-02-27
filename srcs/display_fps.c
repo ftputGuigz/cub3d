@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 12:17:07 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/13 10:15:57 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/27 13:59:52 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,11 +411,8 @@ int	ft_fps(t_datas *map)
 		FOV = map->player.angle + atanf((x - map->res_x / 2) / ((map->res_x / 2) / tanf(1.15192 / 2)));
 	}
 	ft_sprites(map);
-	if (map->bmp) //EXIT PROPREMENT
-	{
+	if (map->bmp)
 		make_bmp(map);
-		ft_exit(map);
-	}
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);
 	return(0);
 }
