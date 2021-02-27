@@ -74,16 +74,34 @@ int	ft_exit(t_datas *map)
 	return (0);
 }
 
+void	failed_reading(t_malloc *m, t_datas *map)
+{
+	write(1, "Error during reading.\n", 22);
+	free_malloc(m);
+	ft_exit(map);
+}
+
 void	failed_malloc(t_malloc *m, t_datas *map)
 {
 	write(1, "Malloc related issue. Aborting.\n", 32);
-	if (m->line)
-		free(m->line);
-	if (m->line_map)
-		free(m->line_map);
-	if (m->fd != -1)
-		close(m->fd);
+	free_malloc(m);
 	ft_exit(map);
+}
+
+void	free_tmp(t_malloc *m)
+{
+	int i;
+
+	i = 0;
+	if (m->tmp)
+	{
+		while (m->tmp[i])
+		{
+			free(m->tmp[i]);
+			i++;
+		}
+		free(m->tmp);
+	}
 }
 
 void	free_malloc(t_malloc *m)
@@ -94,12 +112,14 @@ void	free_malloc(t_malloc *m)
 		free(m->line_map);
 	if (m->fd != -1)
 		close(m->fd);
+	free_tmp(m);
 }
 
 void	init_malloc(t_malloc *m)
 {
 	m->line = NULL;
 	m->line_map = NULL;
+	m->tmp = NULL;
 	m->fd = 0;
 }
 

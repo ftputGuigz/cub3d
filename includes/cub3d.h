@@ -126,6 +126,7 @@ typedef struct s_malloc
 {
 	char *line;
 	char *line_map;
+	char **tmp;
 	int fd;
 }				t_malloc;
 
@@ -190,5 +191,7 @@ void	screen_size(t_datas *map);
 void	init_malloc(t_malloc *m);
 void	free_malloc(t_malloc *m);
 void	failed_malloc(t_malloc *m, t_datas *map);
+void	failed_reading(t_malloc *m, t_datas *map);
+void	free_tmp(t_malloc *m);
 
 #endif

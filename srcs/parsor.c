@@ -14,30 +14,30 @@
 
 int	ft_filltexture(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 {
-	char		**tmp;
 	int	k;
 
 	k = 0;
 	(*mapclearance)++;
-	tmp = ft_split(m->line, ' ');
-	if (tmp == NULL)
+	free_tmp(m);
+	m->tmp = ft_split(m->line, ' ');
+	if (m->tmp == NULL)
 		failed_malloc(m, map);
-	while (tmp[k])
+	while (m->tmp[k])
 		k++;
 	if (k != 2)
 		return (-1);
-	if (tmp[0][0] == 'N' && tmp[0][1] == 'O' && !tmp[0][2] && !flags->NO)
-		ft_fill_no_path(m, map, flags, tmp[1]);
-	else if (tmp[0][0] == 'W' && tmp[0][1] == 'E' && !tmp[0][2] && !flags->WE)
-		ft_fill_we_path(m, map, flags, tmp[1]);
-	else if (tmp[0][0] == 'E' && tmp[0][1] == 'A' && !tmp[0][2] && !flags->EA)
-		ft_fill_ea_path(m, map, flags, tmp[1]);
-	else if (tmp[0][0] == 'S' && ((tmp[0][1] == 'O' && !tmp[0][2] && !flags->SO) || (!tmp[0][1] && !flags->sprite)))
+	if (m->tmp[0][0] == 'N' && m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flags->NO)
+		ft_fill_no_path(m, map, flags, m->tmp[1]);
+	else if (m->tmp[0][0] == 'W' && m->tmp[0][1] == 'E' && !m->tmp[0][2] && !flags->WE)
+		ft_fill_we_path(m, map, flags, m->tmp[1]);
+	else if (m->tmp[0][0] == 'E' && m->tmp[0][1] == 'A' && !m->tmp[0][2] && !flags->EA)
+		ft_fill_ea_path(m, map, flags, m->tmp[1]);
+	else if (m->tmp[0][0] == 'S' && ((m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flags->SO) || (!m->tmp[0][1] && !flags->sprite)))
 	{
-		if (tmp[0][1] == 'O')
-			ft_fill_so_path(m, map, flags, tmp[1]);
+		if (m->tmp[0][1] == 'O')
+			ft_fill_so_path(m, map, flags, m->tmp[1]);
 		else
-			ft_fillsprite_path(m, map, flags, tmp[1]);
+			ft_fillsprite_path(m, map, flags, m->tmp[1]);
 	}
 	else
 		return (-1);
@@ -46,22 +46,22 @@ int	ft_filltexture(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 
 int	ft_fillres(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 {
-	char		**tmp;
 	static int	k = 0;
 
 	(*mapclearance)++;
-	tmp = ft_split(m->line, ' '); //controller les mallocs
-	if (tmp == NULL)
+	free_tmp(m);
+	m->tmp = ft_split(m->line, ' '); //controller les mallocs
+	if (m->tmp == NULL)
 		failed_malloc(m, map);
-	while (tmp[k])
+	while (m->tmp[k])
 		k++;
-	if (k != 3 || (tmp[0][0] == 'R' && tmp[0][1]) || flags->R || check_num_res(tmp))
+	if (k != 3 || (m->tmp[0][0] == 'R' && m->tmp[0][1]) || flags->R || check_num_res(m->tmp))
 		return (-1);
 	else
 	{
 		flags->R = 1;
-		map->res_x = ft_atoi(tmp[1]);
-		map->res_y = ft_atoi(tmp[2]);
+		map->res_x = ft_atoi(m->tmp[1]);
+		map->res_y = ft_atoi(m->tmp[2]);
 	}
 	if (map->res_x <= 0 || map->res_y <= 0)
 		return (-1);
@@ -130,18 +130,22 @@ int	ft_parsor(char *path, t_datas *map)
 	t_malloc m;
 
 	init_malloc(&m);
-	m.line_map = ft_strdup(""); //malloc Donc = check
+	m.line_map = ft_strdup("");
 	m.fd = open(path, O_RDONLY);
+	if (!m.line_map || m.fd < 0)
+		failed_malloc(&m, map);
 	a = get_next_line(m.fd, &m.line);
 	ret = 0;
-	while (a && ret != -1)
+	while (a == 1 && ret != -1)
 	{
 		ret = ft_fillstruct(&m, map);
 		free(m.line);
 		a = get_next_line(m.fd, &m.line);
 	}
-	if (ret != -1)
+	if (ret != -1 && a != -1)
 		ret = map_parsor(&m, map);
+	if (a == -1)
+		failed_reading(&m, map);
 	free_malloc(&m);
 	return (ret);
 }

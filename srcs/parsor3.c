@@ -23,7 +23,6 @@ void	ft_fillmap(t_malloc *m, t_datas *map)
 	char *tmp2;
 
 	tmp = ft_strjoin(m->line, "-");
-	tmp = NULL;
 	if (!tmp)
 		failed_malloc(m, map);
 	tmp2 = ft_strjoin(m->line_map, tmp);
@@ -73,22 +72,22 @@ int		ft_fill_ceiling(t_datas *map, t_flags *flags, char **tmp)
 
 int		ft_rgb(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 {
-	char	**tmp;
 	int		k;
 
 	k = 0;
 	(*mapclearance)++;
-	tmp = ft_splits(m->line, " ,"); //CONTROLER LE MALLOC
-	if (!tmp)
+	free_tmp(m);
+	m->tmp = ft_splits(m->line, " ,"); //CONTROLER LE MALLOC
+	if (!m->tmp)
 		failed_malloc(m, map);
-	while (tmp[k])
+	while (m->tmp[k])
 		k++;
-	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(tmp))
+	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(m->tmp))
 		return (-1);
-	if (tmp[0][0] == 'F' && !flags->F)
-		return (ft_fill_floor(map, flags, tmp));
-	else if (tmp[0][0] == 'C' && !flags->C)
-		return (ft_fill_ceiling(map, flags, tmp));
+	if (m->tmp[0][0] == 'F' && !flags->F)
+		return (ft_fill_floor(map, flags, m->tmp));
+	else if (m->tmp[0][0] == 'C' && !flags->C)
+		return (ft_fill_ceiling(map, flags, m->tmp));
 	else
 		return (-1);
 }
