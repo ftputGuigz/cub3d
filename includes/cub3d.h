@@ -215,4 +215,11 @@ void	failed_malloc(t_malloc *m, t_datas *map);
 void	failed_reading(t_malloc *m, t_datas *map);
 void	free_tmp(t_malloc *m);
 
+int		primary_check(char *str, int k);
+int 	map_checkfirstline(char *firstline, char *underline);
+int 	map_checklastline(char *lastline, char *upperline);
+int 	map_checkmiddleline(char *middleline, char *upperline, char *underline);
+int		map_checkerror(char **map, int k);
+void	get_angle(t_datas *map);
+
 #endif
