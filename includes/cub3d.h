@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 20:13:41 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/28 20:11:13 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,26 @@ typedef struct s_malloc
 	int fd;
 }				t_malloc;
 
+typedef struct s_spr
+{
+	float spritx;
+	float sprity;
+	float invdet;
+	float transformx;
+	float transformy;
+	int spritescreenx;
+	int spriteheight;
+	int spritewidth;
+	int drawstarty;
+	int drawendy;
+	int drawstartx;
+	int drawendx;
+	int stripe;
+	int texx;
+	int texy;
+	int d;
+}				t_spr;
+
 typedef struct	s_datas
 {
 	int bmp;
@@ -183,6 +203,7 @@ void	right_rotation(float rot, t_datas *map);
 
 int		ft_fps(t_datas *map);
 void	ft_sprites(t_datas *map);
+void	get_order(t_datas *map);
 
 void	make_bmp(t_datas *map);
 void	initialize_struct(t_datas *map);
