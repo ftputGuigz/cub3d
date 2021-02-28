@@ -17,11 +17,11 @@ static int	ft_checkextension(char *str)
 	int z;
 
 	z = ft_strlen(str);
-	if (z >= 4 && str[z - 1] == 'b' && str[z - 2] == 'u' && str[z - 3] == 'c' && str[z - 4] == '.')
+	if (z >= 4 && str[z - 1] == 'b' && str[z - 2] == 'u' && str[z - 3] == 'c' &&
+	str[z - 4] == '.')
 		return (1);
 	else
 		return (0);
-	
 }
 
 static int	flag_check(char *str)
@@ -37,10 +37,34 @@ static int	flag_check(char *str)
 		return (0);
 }
 
+static void	check_args(int ac, char **av)
+{
+	if (ac == 2 || ac == 3)
+	{
+		if (!ft_checkextension(av[1]))
+		{
+			printf("Wrong type of file. ");
+			printf("Only [yourfile.cub] format is accepted.\n");
+			exit(0);
+		}
+		if (ac == 3 && flag_check(av[2]))
+		{
+			printf("Wrong argument. ");
+			printf("Only ./cub3D [yourmap.cub] --save is accepted.\n");
+			exit(0);
+		}
+	}
+	else
+	{
+		printf("Wrong number of arguments. 1 is required.\n");
+		exit(0);
+	}
+}
+
 static int	main2(int ac, char *av1)
 {
-	t_datas map;
-	int ret;
+	t_datas	map;
+	int		ret;
 
 	initialize_struct(&map);
 	if (ac == 3)
@@ -53,30 +77,13 @@ static int	main2(int ac, char *av1)
 	return (ret);
 }
 
-int main(int ac, char **av)
+int			main(int ac, char **av)
 {
-	int	check;
-	int	fd;
-	char buff[2];
+	int		check;
+	int		fd;
+	char	buff[2];
 
-	if (ac == 2 || ac == 3)
-	{
-		if (!ft_checkextension(av[1]))
-		{
-			printf("Wrong type of file. Only [yourfile.cub] format is accepted.\n");
-			return (0);
-		}
-		if (ac == 3 && flag_check(av[2]))
-		{
-			printf("Wrong argument. Only ./cub3D [yourmap.cub] --save is accepted");
-			return (0);
-		}
-	}
-	else
-	{
-		printf("Wrong number of arguments. 1 is required.\n");
-		return (0);
-	}
+	check_args(ac, av);
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1 || read(fd, buff, 1) < 0)
 	{
