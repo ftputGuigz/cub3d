@@ -6,7 +6,7 @@
 #    By: gpetit <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 17:14:39 by gpetit            #+#    #+#              #
-#    Updated: 2021/02/26 10:54:23 by gpetit           ###   ########.fr        #
+#    Updated: 2021/02/28 20:18:52 by gpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit
 MINILIBX_LINUX = -L ./minilibx-linux -lmlx -lXext -lX11
 
 SRCS_RAW = parsor parsor2 parsor3 parsor4 main map_parsor display movements display_fps \
-		display_sprites display_sprites2 bmp_maker initialize screen_size
+		display_sprites display_sprites2 bmp_maker initialize screen_size exit errors
 
 SRCS = $(addsuffix .c, $(addprefix srcs/, $(SRCS_RAW)))
 
