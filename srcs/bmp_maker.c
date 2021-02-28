@@ -52,7 +52,8 @@ static void	bmp_pixels(int fd, t_datas *map)
 		x = 0;
 		while (x < map->res_x)
 		{
-		 	color = map->fps.addr + (y * map->fps.line_length + x * (map->fps.bits_per_pixel / 8));
+			color = map->fps.addr +
+			(y * map->fps.line_length + x * (map->fps.bits_per_pixel / 8));
 			write(fd, &(*(unsigned int*)color), 4);
 			x++;
 		}
@@ -73,5 +74,5 @@ void		make_bmp(t_datas *map)
 	else
 		printf("error Fd is null");
 	close(fd);
-	ft_exit(map); //CLOSE PROPREMENT ET NETTOYER A COUP DE FREE ET DE MALLOC
+	ft_exit(map);
 }
