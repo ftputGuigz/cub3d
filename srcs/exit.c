@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 20:15:02 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/28 20:15:03 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/03/01 12:26:55 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	ft_kill_mlx(t_datas *map)
 		mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	if (map->mlx.wdw2)
 		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
-	mlx_destroy_display(map->mlx.ptr);
 	free(map->mlx.ptr);
 	exit(0);
 }

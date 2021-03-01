@@ -49,9 +49,9 @@ all: $(NAME)
 
 %.o: %.c
 ifeq ($(OS),Linux)
-	$(CC) $(CFLAGS) $(DEP) -o $@ -c $< -D LINUX=1 -D MAX_X=0 -D MAX_Y=0
+	$(CC) $(CFLAGS) $(DEP) -o $@ -c $< -D MAX_X=0 -D MAX_Y=0
 else
-	$(CC) $(CFLAGS) $(DEP) -o $@ -c $< -D LINUX=0 -D MAX_X=$(MAX_RESX) -D MAX_Y=$(MAX_RESY)
+	$(CC) $(CFLAGS) $(DEP) -o $@ -c $< -D MAX_X=$(MAX_RESX) -D MAX_Y=$(MAX_RESY)
 endif
 
 $(NAME): libs $(OBJS) 
