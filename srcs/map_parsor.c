@@ -81,32 +81,6 @@ static int	register_sprites(t_malloc *m, t_datas *map)
 	return (0);
 }
 
-static void	map_correction(t_datas *map)
-{
-	int k;
-	int i;
-	char *tmp;
-	char *tmp2;
-
-	k = 0;
-	while (map->map[k])
-	{
-		if ((int)(ft_strlen(map->map[k])) < map->columns)
-		{
-			tmp = malloc(sizeof(char) * (map->columns + 1));
-			i = 0;
-			while (i < map->columns)
-				tmp[i++] = ' ';
-			tmp[map->columns] = '\0';
-			tmp2 = map->map[k];
-			map->map[k] = ft_strjoin(tmp2, tmp);
-			free(tmp2);
-			free(tmp);
-		}
-		k++;
-	}
-}
-
 int			map_parsor(t_malloc *m, t_datas *map)
 {
 	static int	k = 0;
