@@ -48,6 +48,8 @@ void	ft_kill_map(t_datas *map)
 	}
 }
 
+#if __linux__
+
 void	ft_kill_mlx(t_datas *map)
 {
 	int i;
@@ -63,8 +65,34 @@ void	ft_kill_mlx(t_datas *map)
 		mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	if (map->mlx.wdw2)
 		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
+	mlx_destroy_display(map->mlx.ptr);
+	free(map->mlx.ptr);
 	exit(0);
 }
+
+#elif __APPLE__
+
+void	ft_kill_mlx(t_datas *map)
+{
+	int i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (map->txt[i].img)
+			mlx_destroy_image(map->mlx.ptr, map->txt[i].img);
+		i++;
+	}
+	if (map->fps.img)
+		mlx_destroy_image(map->mlx.ptr, map->fps.img);
+	if (map->mlx.wdw2)
+		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
+	mlx_destroy_display(map->mlx.ptr);
+	free(map->mlx.ptr);
+	exit(0);
+}
+
+#endif
 
 int		ft_exit(t_datas *map)
 {
