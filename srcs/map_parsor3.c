@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int		map_checkerror(char **map, int k)
+int			map_checkerror(char **map, int k)
 {
 	int i;
 	int ret;
@@ -36,7 +36,7 @@ int		map_checkerror(char **map, int k)
 	return (ret);
 }
 
-void	get_angle(t_datas *map)
+void		get_angle(t_datas *map)
 {
 	if (map->player.start == 'N')
 	{
@@ -60,28 +60,36 @@ void	get_angle(t_datas *map)
 	}
 }
 
-void	map_correction(t_datas *map)
+static void	map_correction2(t_malloc *m, t_datas *map, int k)
 {
-	int		k;
 	int		i;
 	char	*tmp;
 	char	*tmp2;
+
+	tmp = malloc(sizeof(char) * (map->columns + 1));
+	if (!tmp)
+		failed_malloc(m, map);
+	i = 0;
+	while (i < map->columns)
+		tmp[i++] = ' ';
+	tmp[map->columns] = '\0';
+	tmp2 = map->map[k];
+	map->map[k] = ft_strjoin(tmp2, tmp);
+	if (!map->map[k])
+		failed_malloc(m, map);
+	free(tmp2);
+	free(tmp);	
+}
+
+void		map_correction(t_malloc *m, t_datas *map)
+{
+	int		k;
 
 	k = 0;
 	while (map->map[k])
 	{
 		if ((int)(ft_strlen(map->map[k])) < map->columns)
-		{
-			tmp = malloc(sizeof(char) * (map->columns + 1));
-			i = 0;
-			while (i < map->columns)
-				tmp[i++] = ' ';
-			tmp[map->columns] = '\0';
-			tmp2 = map->map[k];
-			map->map[k] = ft_strjoin(tmp2, tmp);
-			free(tmp2);
-			free(tmp);
-		}
+			map_correction2(m, map, k);
 		k++;
 	}
 }

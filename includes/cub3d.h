@@ -222,5 +222,6 @@ int 	map_checkmiddleline(char *middleline, char *upperline, char *underline);
 int		map_checkerror(char **map, int k);
 void	get_angle(t_datas *map);
 void	init_double_array(t_malloc *m, t_datas *map);
+void	map_correction(t_malloc *m, t_datas *map);
 
 #endif

@@ -97,7 +97,7 @@ int			map_parsor(t_malloc *m, t_datas *map)
 	{
 		register_map_datas(map);
 		ret = register_sprites(m, map);
-		map_correction(map);
+		map_correction(m, map);
 		if (ret)
 			return (-1);
 	}
