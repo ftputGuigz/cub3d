@@ -93,14 +93,15 @@ static void	map_correction(t_datas *map)
 	{
 		if ((int)(ft_strlen(map->map[k])) < map->columns)
 		{
-			tmp = malloc(sizeof(char) * (map->columns - (int)(ft_strlen(map->map[k]))));
+			tmp = malloc(sizeof(char) * (map->columns + 1));
 			i = 0;
-			while (i < (map->columns - (int)(ft_strlen(map->map[k]))))
+			while (i < map->columns)
 				tmp[i++] = ' ';
-			tmp[i] = '\0';
+			tmp[map->columns] = '\0';
 			tmp2 = map->map[k];
 			map->map[k] = ft_strjoin(tmp2, tmp);
 			free(tmp2);
+			free(tmp);
 		}
 		k++;
 	}
