@@ -271,25 +271,25 @@ void compass(t_datas *map, float angle, t_ray *ray)
 {
 	if (cosf(angle) == 1 || cosf(angle) == -1 || sinf(angle) == 1 || sinf(angle) == -1)
 		straight_compass(map, ray, angle);
-	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > 0 && sinf(angle) < 1) //SUD-EST
+	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > 0 && sinf(angle) < 1)
 	{
 		ray->trix.angle = angle;
 		ray->triy.angle = M_PI_2 - ray->trix.angle;
 		SE_RAY(map, ray);
 	}
-	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > 0 && sinf(angle) < 1)//SUD-OUEST
+	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > 0 && sinf(angle) < 1)
 	{
 		ray->trix.angle = M_PI - angle;
 		ray->triy.angle = M_PI_2 - ray->trix.angle;	
 		SW_RAY(map, ray);
 	}
-	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-OUEST
+	if (cosf(angle) > -1 && cosf(angle) < 0 && sinf(angle) > -1 && sinf(angle) < 0)
 	{
 		ray->trix.angle = angle - M_PI;
 		ray->triy.angle = M_PI_2 - ray->trix.angle;
 		NW_RAY(map, ray);
 	}
-	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0) //NORD-EST
+	if (cosf(angle) > 0 && cosf(angle) < 1 && sinf(angle) > -1 && sinf(angle) < 0)
 	{
 		ray->triy.angle = angle - (3 * M_PI_2);
 		ray->trix.angle = M_PI_2 - ray->triy.angle;

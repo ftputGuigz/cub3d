@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int check_num_fc(char **tmp)
+int		check_num_fc(char **tmp)
 {
 	int i;
 	int j;
@@ -32,7 +32,7 @@ int check_num_fc(char **tmp)
 	return (0);
 }
 
-int	check_num_res(char **tmp)
+int		check_num_res(char **tmp)
 {
 	int i;
 	int j;
@@ -52,7 +52,7 @@ int	check_num_res(char **tmp)
 	return (0);
 }
 
-int	comma_count(char *line)
+int		comma_count(char *line)
 {
 	int	comma;
 	int	i;
@@ -74,4 +74,12 @@ int	comma_count(char *line)
 		i++;
 	}
 	return (comma);
+}
+
+void	init_double_array(t_malloc *m, t_datas *map)
+{
+	free_tmp(m);
+	m->tmp = ft_split(m->line, ' ');
+	if (m->tmp == NULL)
+		failed_malloc(m, map);
 }

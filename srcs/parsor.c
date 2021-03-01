@@ -12,11 +12,39 @@
 
 #include "cub3d.h"
 
-int	ft_filltexture(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
+int	ft_filltexture(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
 {
 	int	k;
 
 	k = 0;
+	(*mapclearance)++;
+	init_double_array(m, map);
+	while (m->tmp[k])
+		k++;
+	if (k != 2)
+		return (-1);
+	if (m->tmp[0][0] == 'N' && m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flg->NO)
+		ft_fill_no_path(m, map, flg, m->tmp[1]);
+	else if (m->tmp[0][0] == 'W' && m->tmp[0][1] == 'E' && !m->tmp[0][2] &&
+	!flg->WE)
+		ft_fill_we_path(m, map, flg, m->tmp[1]);
+	else if (m->tmp[0][0] == 'E' && m->tmp[0][1] == 'A' && !m->tmp[0][2] &&
+	!flg->EA)
+		ft_fill_ea_path(m, map, flg, m->tmp[1]);
+	else if (m->tmp[0][0] == 'S' && m->tmp[0][1] == 'O' && !m->tmp[0][2] &&
+	!flg->SO)
+		ft_fill_so_path(m, map, flg, m->tmp[1]);
+	else if (m->tmp[0][0] == 'S' && !m->tmp[0][1] && !flg->sprite)
+		ft_fillsprite_path(m, map, flg, m->tmp[1]);
+	else
+		return (-1);
+	return (0);
+}
+
+int	ft_fillres(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
+{
+	static int	k = 0;
+
 	(*mapclearance)++;
 	free_tmp(m);
 	m->tmp = ft_split(m->line, ' ');
@@ -24,42 +52,12 @@ int	ft_filltexture(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 		failed_malloc(m, map);
 	while (m->tmp[k])
 		k++;
-	if (k != 2)
-		return (-1);
-	if (m->tmp[0][0] == 'N' && m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flags->NO)
-		ft_fill_no_path(m, map, flags, m->tmp[1]);
-	else if (m->tmp[0][0] == 'W' && m->tmp[0][1] == 'E' && !m->tmp[0][2] && !flags->WE)
-		ft_fill_we_path(m, map, flags, m->tmp[1]);
-	else if (m->tmp[0][0] == 'E' && m->tmp[0][1] == 'A' && !m->tmp[0][2] && !flags->EA)
-		ft_fill_ea_path(m, map, flags, m->tmp[1]);
-	else if (m->tmp[0][0] == 'S' && ((m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flags->SO) || (!m->tmp[0][1] && !flags->sprite)))
-	{
-		if (m->tmp[0][1] == 'O')
-			ft_fill_so_path(m, map, flags, m->tmp[1]);
-		else
-			ft_fillsprite_path(m, map, flags, m->tmp[1]);
-	}
-	else
-		return (-1);
-	return (0);
-}
-
-int	ft_fillres(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
-{
-	static int	k = 0;
-
-	(*mapclearance)++;
-	free_tmp(m);
-	m->tmp = ft_split(m->line, ' '); //controller les mallocs
-	if (m->tmp == NULL)
-		failed_malloc(m, map);
-	while (m->tmp[k])
-		k++;
-	if (k != 3 || (m->tmp[0][0] == 'R' && m->tmp[0][1]) || flags->R || check_num_res(m->tmp))
+	if (k != 3 || (m->tmp[0][0] == 'R' && m->tmp[0][1]) || flg->R ||
+	check_num_res(m->tmp))
 		return (-1);
 	else
 	{
-		flags->R = 1;
+		flg->R = 1;
 		map->res_x = ft_atoi(m->tmp[1]);
 		map->res_y = ft_atoi(m->tmp[2]);
 	}
@@ -68,11 +66,13 @@ int	ft_fillres(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flags)
 	return (0);
 }
 
-int	ft_fillstruct2(t_malloc *m, t_datas *map, int i)
+int	ft_fillstruct2(t_malloc *m, t_datas *map, int i, int mapclearance)
 {
 	static int mapbegin = 0;
 	static int mapend = 0;
 
+	if (mapclearance != 8)
+		return (-1);
 	if (!mapbegin && !mapend)
 	{
 		if (m->line[i])
@@ -97,9 +97,9 @@ int	ft_fillstruct2(t_malloc *m, t_datas *map, int i)
 
 int	ft_fillstruct(t_malloc *m, t_datas *map)
 {
-	int			i;
-	static		t_flags flags;
-	static int	mapclearance = 0;
+	int				i;
+	static t_flags	flg;
+	static int		mapclearance = 0;
 
 	i = 0;
 	if (mapclearance < 8)
@@ -109,25 +109,25 @@ int	ft_fillstruct(t_malloc *m, t_datas *map)
 		if (!m->line[i])
 			return (0);
 		if (m->line[i] == 'R')
-			return (ft_fillres(&mapclearance, m, map, &flags));
-		else if (m->line[i] == 'N' || m->line[i] == 'S' || m->line[i] == 'W' || m->line[i] == 'E')
-			return (ft_filltexture(&mapclearance, m, map, &flags));
-		else if ((m->line[i] == 'F' || m->line[i] == 'C') && m->line[i + 1] == ' ')// se calquer sur méthode des textures juste au dessus !
-			return (ft_rgb(&mapclearance, m, map, &flags));
+			return (ft_fillres(&mapclearance, m, map, &flg));
+		else if (m->line[i] == 'N' || m->line[i] == 'S' || m->line[i] == 'W' ||
+		m->line[i] == 'E')
+			return (ft_filltexture(&mapclearance, m, map, &flg));
+		else if ((m->line[i] == 'F' || m->line[i] == 'C') &&
+		m->line[i + 1] == ' ')
+			return (ft_rgb(&mapclearance, m, map, &flg));
 		else
 			return (-1);
 	}
-	else if (mapclearance == 8)
-		return (ft_fillstruct2(m, map, i));
 	else
-		return (-1);
+		return (ft_fillstruct2(m, map, i, mapclearance));
 }
 
 int	ft_parsor(char *path, t_datas *map)
 {
-	int		a;
-	int		ret;
-	t_malloc m;
+	int			a;
+	int			ret;
+	t_malloc	m;
 
 	init_malloc(&m);
 	m.line_map = ft_strdup("");
