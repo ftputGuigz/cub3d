@@ -63,10 +63,10 @@ void	initialize_struct(t_datas *map)
 	map->bmp = 0;
 	map->res_x = 0;
 	map->res_y = 0;
-	map->NO_path = NULL;
-	map->SO_path = NULL;
-	map->EA_path = NULL;
-	map->WE_path = NULL;
+	map->no_path = NULL;
+	map->so_path = NULL;
+	map->ea_path = NULL;
+	map->we_path = NULL;
 	map->spr_path = NULL;
 	map->f_rgb = 0;
 	map->c_rgb = 0;

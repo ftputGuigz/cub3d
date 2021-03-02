@@ -43,13 +43,13 @@ int		wasd(int keycode, t_datas *map)
 
 int		load_textures(t_datas *map)
 {
-	map->txt[0].img = mlx_xpm_file_to_image(map->mlx.ptr, map->NO_path,
+	map->txt[0].img = mlx_xpm_file_to_image(map->mlx.ptr, map->no_path,
 	&map->txt[0].i, &map->txt[0].j);
-	map->txt[1].img = mlx_xpm_file_to_image(map->mlx.ptr, map->SO_path,
+	map->txt[1].img = mlx_xpm_file_to_image(map->mlx.ptr, map->so_path,
 	&map->txt[1].i, &map->txt[1].j);
-	map->txt[2].img = mlx_xpm_file_to_image(map->mlx.ptr, map->EA_path,
+	map->txt[2].img = mlx_xpm_file_to_image(map->mlx.ptr, map->ea_path,
 	&map->txt[2].i, &map->txt[2].j);
-	map->txt[3].img = mlx_xpm_file_to_image(map->mlx.ptr, map->WE_path,
+	map->txt[3].img = mlx_xpm_file_to_image(map->mlx.ptr, map->we_path,
 	&map->txt[3].i, &map->txt[3].j);
 	map->txt[4].img = mlx_xpm_file_to_image(map->mlx.ptr, map->spr_path,
 	&map->txt[4].i, &map->txt[4].j);

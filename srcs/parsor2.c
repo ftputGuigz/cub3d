@@ -15,32 +15,32 @@
 void	ft_fill_no_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
 	flg->no = 1;
-	map->NO_path = ft_strdup(str);
-	if (!map->NO_path)
+	map->no_path = ft_strdup(str);
+	if (!map->no_path)
 		failed_malloc(m, map);
 }
 
 void	ft_fill_we_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
 	flg->we = 1;
-	map->WE_path = ft_strdup(str);
-	if (!map->WE_path)
+	map->we_path = ft_strdup(str);
+	if (!map->we_path)
 		failed_malloc(m, map);
 }
 
 void	ft_fill_ea_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
 	flg->ea = 1;
-	map->EA_path = ft_strdup(str);
-	if (!map->EA_path)
+	map->ea_path = ft_strdup(str);
+	if (!map->ea_path)
 		failed_malloc(m, map);
 }
 
 void	ft_fill_so_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
 	flg->so = 1;
-	map->SO_path = ft_strdup(str);
-	if (!map->SO_path)
+	map->so_path = ft_strdup(str);
+	if (!map->so_path)
 		failed_malloc(m, map);
 }
 

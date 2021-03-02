@@ -14,14 +14,14 @@
 
 void	ft_kill_textures(t_datas *map)
 {
-	if (map->NO_path)
-		free(map->NO_path);
-	if (map->SO_path)
-		free(map->SO_path);
-	if (map->EA_path)
-		free(map->EA_path);
-	if (map->WE_path)
-		free(map->WE_path);
+	if (map->no_path)
+		free(map->no_path);
+	if (map->so_path)
+		free(map->so_path);
+	if (map->ea_path)
+		free(map->ea_path);
+	if (map->we_path)
+		free(map->we_path);
 	if (map->spr_path)
 		free(map->spr_path);
 	if (map->buff)

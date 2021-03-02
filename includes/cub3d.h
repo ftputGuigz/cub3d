@@ -155,10 +155,10 @@ typedef struct	s_datas
 	int			bmp;
 	int			res_x;
 	int			res_y;
-	char		*NO_path;
-	char		*SO_path;
-	char		*EA_path;
-	char		*WE_path;
+	char		*no_path;
+	char		*so_path;
+	char		*ea_path;
+	char		*we_path;
 	char		*spr_path;
 	int			f_rgb;
 	int			c_rgb;
