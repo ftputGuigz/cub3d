@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
@@ -77,6 +77,9 @@ int		ft_display(t_datas *map)
 		return (-1);
 	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
 	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel,
+	&map->fps.line_length, &map->fps.endian);
+	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
+	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel,
 	&map->fps.line_length, &map->fps.endian);
 	if (!map->bmp)
 	{

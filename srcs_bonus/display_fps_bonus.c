@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	ft_shootrays(t_datas *map, float ray_angle, t_ray *ray, int x)
 {
@@ -50,6 +50,7 @@ int		ft_fps(t_datas *map)
 	ft_sprites(map);
 	if (map->bmp)
 		make_bmp(map);
+	ft_minimap(map);
 	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw2, map->fps.img, 0, 0);
 	return (0);
 }

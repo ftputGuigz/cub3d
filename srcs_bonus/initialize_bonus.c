@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 void	free_tmp(t_malloc *m)
 {
@@ -56,6 +56,7 @@ void	init_mlx(t_datas *map)
 		map->txt[i++].img = NULL;
 	map->mlx.wdw2 = NULL;
 	map->fps.img = NULL;
+	map->minimap.img = NULL;
 }
 
 void	initialize_struct(t_datas *map)
