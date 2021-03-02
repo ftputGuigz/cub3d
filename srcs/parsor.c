@@ -23,16 +23,16 @@ int	ft_filltexture(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
 		k++;
 	if (k != 2)
 		return (-1);
-	if (m->tmp[0][0] == 'N' && m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flg->NO)
+	if (m->tmp[0][0] == 'N' && m->tmp[0][1] == 'O' && !m->tmp[0][2] && !flg->no)
 		ft_fill_no_path(m, map, flg, m->tmp[1]);
 	else if (m->tmp[0][0] == 'W' && m->tmp[0][1] == 'E' && !m->tmp[0][2] &&
-	!flg->WE)
+	!flg->we)
 		ft_fill_we_path(m, map, flg, m->tmp[1]);
 	else if (m->tmp[0][0] == 'E' && m->tmp[0][1] == 'A' && !m->tmp[0][2] &&
-	!flg->EA)
+	!flg->ea)
 		ft_fill_ea_path(m, map, flg, m->tmp[1]);
 	else if (m->tmp[0][0] == 'S' && m->tmp[0][1] == 'O' && !m->tmp[0][2] &&
-	!flg->SO)
+	!flg->so)
 		ft_fill_so_path(m, map, flg, m->tmp[1]);
 	else if (m->tmp[0][0] == 'S' && !m->tmp[0][1] && !flg->sprite)
 		ft_fillsprite_path(m, map, flg, m->tmp[1]);
@@ -52,12 +52,12 @@ int	ft_fillres(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
 		failed_malloc(m, map);
 	while (m->tmp[k])
 		k++;
-	if (k != 3 || (m->tmp[0][0] == 'R' && m->tmp[0][1]) || flg->R ||
+	if (k != 3 || (m->tmp[0][0] == 'R' && m->tmp[0][1]) || flg->r ||
 	check_num_res(m->tmp))
 		return (-1);
 	else
 	{
-		flg->R = 1;
+		flg->r = 1;
 		map->res_x = ft_atoi(m->tmp[1]);
 		map->res_y = ft_atoi(m->tmp[2]);
 	}

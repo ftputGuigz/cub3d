@@ -68,14 +68,14 @@ typedef struct	s_img
 
 typedef struct	s_flags
 {
-	int R;
-	int NO;
-	int SO;
-	int EA;
-	int WE;
+	int r;
+	int no;
+	int so;
+	int ea;
+	int we;
 	int sprite;
-	int F;
-	int C;
+	int f;
+	int c;
 }				t_flags;
 
 typedef struct	s_player

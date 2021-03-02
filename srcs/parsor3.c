@@ -44,7 +44,7 @@ int		ft_fill_floor(t_datas *map, t_flags *flg, char **tmp)
 	b = ft_atoi(tmp[3]);
 	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 	{
-		flg->F = 1;
+		flg->f = 1;
 		map->f_rgb = create_trgb(0, r, g, b);
 		return (0);
 	}
@@ -63,7 +63,7 @@ int		ft_fill_ceiling(t_datas *map, t_flags *flg, char **tmp)
 	b = ft_atoi(tmp[3]);
 	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 	{
-		flg->C = 1;
+		flg->c = 1;
 		map->c_rgb = create_trgb(0, r, g, b);
 		return (0);
 	}
@@ -85,9 +85,9 @@ int		ft_rgb(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
 		k++;
 	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(m->tmp))
 		return (-1);
-	if (m->tmp[0][0] == 'F' && !flg->F)
+	if (m->tmp[0][0] == 'F' && !flg->f)
 		return (ft_fill_floor(map, flg, m->tmp));
-	else if (m->tmp[0][0] == 'C' && !flg->C)
+	else if (m->tmp[0][0] == 'C' && !flg->c)
 		return (ft_fill_ceiling(map, flg, m->tmp));
 	else
 		return (-1);
