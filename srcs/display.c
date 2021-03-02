@@ -83,7 +83,7 @@ int		ft_display(t_datas *map)
 		map->mlx.wdw2 = mlx_new_window(map->mlx.ptr, map->res_x, map->res_y,
 		"FPS");
 		mlx_hook(map->mlx.wdw2, 2, 1L << 0, wasd, map);
-		mlx_hook(map->mlx.wdw2, RED_CROSS, RED_CROSS_MASK, ft_exit, map);
+		mlx_hook(map->mlx.wdw2, RED_CROSS, 1L << RED_CROSS_MASK, ft_exit, map);
 	}
 	else
 		ft_fps(map);
