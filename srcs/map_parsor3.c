@@ -65,14 +65,16 @@ static void	map_correction2(t_malloc *m, t_datas *map, int k)
 	int		i;
 	char	*tmp;
 	char	*tmp2;
+	int		size;
 
-	tmp = malloc(sizeof(char) * (map->columns + 1));
+	size = map->columns - ft_strlen(map->map[k]);	
+	tmp = malloc(sizeof(char) * (size + 1));
 	if (!tmp)
 		failed_malloc(m, map);
 	i = 0;
-	while (i < map->columns)
+	while (i < size)
 		tmp[i++] = ' ';
-	tmp[map->columns] = '\0';
+	tmp[size] = '\0';
 	tmp2 = map->map[k];
 	map->map[k] = ft_strjoin(tmp2, tmp);
 	if (!map->map[k])
