@@ -50,7 +50,7 @@ static void	ft_fill_tab(char *tab, const char *str, int i, int j)
 	tab[r] = '\0';
 }
 
-char	*ft_split2(char const *s, char c, int *i, int *j)
+char		*ft_split2(char const *s, char c, int *i, int *j)
 {
 	char	*tab;
 
@@ -65,7 +65,7 @@ char	*ft_split2(char const *s, char c, int *i, int *j)
 	return (tab);
 }
 
-char	**ft_split(char const *s, char c)
+char		**ft_split(char const *s, char c)
 {
 	int		i;
 	int		j;
@@ -90,22 +90,3 @@ char	**ft_split(char const *s, char c)
 	tab[k] = 0;
 	return (tab);
 }
-
-/*#include <stdio.h>
-**
-**int		main()
-**{
-**	char **tab;
-**	int i;
-**	char tab1[] = "   Hello    W o rld th is iS Me           098          ";
-**	char set = 'i';
-**
-**	i = 0;
-**	tab = ft_split(tab1, set);
-**	while (i < count_words(tab1, set))
-**	{
-**		printf("%s\n", tab[i]);
-**		i++;
-**	}
-**	return (0);
-}*/

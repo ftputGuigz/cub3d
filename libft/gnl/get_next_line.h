@@ -19,9 +19,9 @@
 # include <unistd.h>
 # include <string.h>
 
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 int		get_next_line(int fd, char **line);
 char	*ft_strchr2(const char *s, int c);

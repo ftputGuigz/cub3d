@@ -57,7 +57,7 @@ static void	ft_fill_tab(char *tab, char *str, int i, int j)
 	tab[r] = '\0';
 }
 
-char	**ft_splits(char *str, char *charset)
+char		**ft_splits(char *str, char *charset)
 {
 	char	**tab;
 	int		i;
