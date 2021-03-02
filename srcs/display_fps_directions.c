@@ -34,25 +34,25 @@ void	set_angle(int code, float angle, t_ray *ray, t_datas *map)
 	{
 		ray->trix.angle = angle;
 		ray->triy.angle = M_PI_2 - ray->trix.angle;
-		SE_RAY(map, ray);
+		se_ray(map, ray);
 	}
 	if (code == 2)
 	{
 		ray->trix.angle = M_PI - angle;
 		ray->triy.angle = M_PI_2 - ray->trix.angle;
-		SW_RAY(map, ray);
+		sw_ray(map, ray);
 	}
 	if (code == 3)
 	{
 		ray->trix.angle = angle - M_PI;
 		ray->triy.angle = M_PI_2 - ray->trix.angle;
-		NW_RAY(map, ray);
+		nw_ray(map, ray);
 	}
 	if (code == 4)
 	{
 		ray->triy.angle = angle - (3 * M_PI_2);
 		ray->trix.angle = M_PI_2 - ray->triy.angle;
-		NE_RAY(map, ray);
+		ne_ray(map, ray);
 	}
 }
 

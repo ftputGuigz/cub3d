@@ -29,7 +29,8 @@ MINILIBX = ./minilibx/libmlx.a -framework OpenGL -framework AppKit
 MINILIBX_LINUX = -L ./minilibx-linux -lmlx -lXext -lX11
 
 SRCS_RAW = parsor parsor2 parsor3 parsor4 main map_parsor map_parsor2 map_parsor3 display movements movements2 display_fps \
-		display_fps2 display_fps_directions display_fps_straight_ray display_sprites display_sprites2 bmp_maker initialize screen_size exit errors
+		display_fps_directions display_fps_straight_ray display_print_ray display_fps_north_east display_fps_north_west display_fps_south_east display_fps_south_west \
+		display_sprites display_sprites2 bmp_maker initialize screen_size exit errors
 
 SRCS = $(addsuffix .c, $(addprefix srcs/, $(SRCS_RAW)))
 

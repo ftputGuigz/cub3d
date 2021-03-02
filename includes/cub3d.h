@@ -226,9 +226,11 @@ void	init_double_array(t_malloc *m, t_datas *map);
 void	map_correction(t_malloc *m, t_datas *map);
 void	straight_compass(t_datas *map, t_ray *ray, float angle);
 void	compass(t_datas *map, float angle, t_ray *ray);
-void 	NE_RAY(t_datas *map, t_ray *ray);
-void 	SW_RAY(t_datas *map, t_ray *ray);
-void 	SE_RAY(t_datas *map, t_ray *ray);
-void 	NW_RAY(t_datas *map, t_ray *ray);
+void 	ne_ray(t_datas *map, t_ray *ray);
+void 	sw_ray(t_datas *map, t_ray *ray);
+void 	se_ray(t_datas *map, t_ray *ray);
+void 	nw_ray(t_datas *map, t_ray *ray);
+void	print_ray(t_datas *map, int x, float ray_p, t_ray *ray);
+void	stock_ray(t_ray *ray);
 
 #endif
