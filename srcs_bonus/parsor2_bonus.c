@@ -10,34 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
-void	ft_fill_no_path(t_datas *map, t_flags *flags, char *str)
+void	ft_fill_no_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
-	flags->NO = 1;
-	map->NO_path = ft_strdup(str);
+	flg->no = 1;
+	map->no_path = ft_strdup(str);
+	if (!map->no_path)
+		failed_malloc(m, map);
 }
 
-void	ft_fill_we_path(t_datas *map, t_flags *flags, char *str)
+void	ft_fill_we_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
-	flags->WE = 1;
-	map->WE_path = ft_strdup(str);
+	flg->we = 1;
+	map->we_path = ft_strdup(str);
+	if (!map->we_path)
+		failed_malloc(m, map);
 }
 
-void	ft_fill_ea_path(t_datas *map, t_flags *flags, char *str)
+void	ft_fill_ea_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
-	flags->EA = 1;
-	map->EA_path = ft_strdup(str);
+	flg->ea = 1;
+	map->ea_path = ft_strdup(str);
+	if (!map->ea_path)
+		failed_malloc(m, map);
 }
 
-void	ft_fill_so_path(t_datas *map, t_flags *flags, char *str)
+void	ft_fill_so_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
-	flags->SO = 1;
-	map->SO_path = ft_strdup(str);
+	flg->so = 1;
+	map->so_path = ft_strdup(str);
+	if (!map->so_path)
+		failed_malloc(m, map);
 }
 
-void	ft_fillsprite_path(t_datas *map, t_flags *flags, char *str)
+void	ft_fillsprite_path(t_malloc *m, t_datas *map, t_flags *flg, char *str)
 {
-	flags->sprite = 1;
+	flg->sprite = 1;
 	map->spr_path = ft_strdup(str);
+	if (!map->spr_path)
+		failed_malloc(m, map);
 }

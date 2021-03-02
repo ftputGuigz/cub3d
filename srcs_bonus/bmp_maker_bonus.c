@@ -6,11 +6,11 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:59:55 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/22 10:59:56 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/02/27 14:00:03 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
 void		bmp_header(int fd, t_datas *map)
 {
@@ -52,7 +52,8 @@ static void	bmp_pixels(int fd, t_datas *map)
 		x = 0;
 		while (x < map->res_x)
 		{
-		 	color = map->fps.addr + (y * map->fps.line_length + x * (map->fps.bits_per_pixel / 8));
+			color = map->fps.addr +
+			(y * map->fps.line_length + x * (map->fps.bits_per_pixel / 8));
 			write(fd, &(*(unsigned int*)color), 4);
 			x++;
 		}
@@ -69,10 +70,9 @@ void		make_bmp(t_datas *map)
 	{
 		bmp_header(fd, map);
 		bmp_pixels(fd, map);
-		map->bmp = 0;
 	}
 	else
 		printf("error Fd is null");
 	close(fd);
-	exit (0);  //CLOSE PROPREMENT ET NETTOYER A COUP DE FREE ET DE MALLOC
+	ft_exit(map);
 }

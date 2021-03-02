@@ -1,14 +1,14 @@
 R 500 500
 
-NO ./texturesMinecraft_hi/stone.xpm
+NO ./textures/wood_hi.xpm
 
-EA ./texturesMinecraft_hi/brick.xpm
+EA ./textures/wood_hi.xpm
 
-WE ./texturesMinecraft/wood.xpm
+WE ./textures/wood_hi.xpm
 
-SO ./texturesMinecraft/stone.xpm
+SO ./textures/wood_hi.xpm
 
-S ./texturesMinecraft/eagle.xpm
+S ./textures/vase.xpm
 
 F 250,205,211
 

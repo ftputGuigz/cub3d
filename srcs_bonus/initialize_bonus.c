@@ -1,79 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c       		                        :+:      :+:    :+:   */
+/*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 18:46:32 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/22 18:58:39 by gpetit           ###   ########.fr       */
+/*   Created: 2021/02/28 20:22:15 by gpetit            #+#    #+#             */
+/*   Updated: 2021/02/28 20:22:18 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
-void	ft_kill_textures(t_datas *map)
-{
-	if (map->NO_path)
-		free(map->NO_path);
-	if (map->SO_path)
-		free(map->SO_path);
-	if (map->EA_path)
-		free(map->EA_path);
-	if (map->WE_path)
-		free(map->WE_path);
-	if (map->spr_path)
-		free(map->spr_path);
-	if (map->buff)
-		free(map->buff);
-	if (map->spr)
-		free(map->spr);
-	if (map->spr_ordr)
-		free(map->spr_ordr);
-}
-
-void	ft_kill_map(t_datas *map)
+void	free_tmp(t_malloc *m)
 {
 	int i;
 
 	i = 0;
-	while (map->map[i])
+	if (m->tmp)
 	{
-		free(map->map[i]);
-		i++;
+		while (m->tmp[i])
+		{
+			free(m->tmp[i]);
+			i++;
+		}
+		free(m->tmp);
 	}
-	if (map->map)
-		free(map->map);
 }
 
-void	ft_kill_mlx(t_datas *map)
+void	free_malloc(t_malloc *m)
 {
-	int i;
-
-	i = 0;
-	while (i < 5)
-	{
-		if (map->txt[i].img)
-			mlx_destroy_image(map->mlx.ptr, map->txt[i].img);
-		i++;
-	}
-	if (map->fps.img)
-		mlx_destroy_image(map->mlx.ptr, map->fps.img);
-	if (map->minimap.img)
-		mlx_destroy_image(map->mlx.ptr, map->minimap.img);
-	if (map->mlx.wdw)
-		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw);
-	if (map->mlx.wdw2)
-		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
-	exit (0);
+	if (m->line)
+		free(m->line);
+	if (m->line_map)
+		free(m->line_map);
+	if (m->fd != -1)
+		close(m->fd);
+	free_tmp(m);
 }
 
-int	ft_exit(t_datas *map)
+void	init_malloc(t_malloc *m)
 {
-	ft_kill_textures(map);
-	ft_kill_map(map);
-	ft_kill_mlx(map);
-	return (0);
+	m->line = NULL;
+	m->line_map = NULL;
+	m->tmp = NULL;
+	m->fd = 0;
 }
 
 void	init_mlx(t_datas *map)
@@ -83,9 +54,7 @@ void	init_mlx(t_datas *map)
 	i = 0;
 	while (i < 5)
 		map->txt[i++].img = NULL;
-	map->mlx.wdw = NULL;
 	map->mlx.wdw2 = NULL;
-	map->minimap.img = NULL;
 	map->fps.img = NULL;
 }
 
@@ -94,10 +63,10 @@ void	initialize_struct(t_datas *map)
 	map->bmp = 0;
 	map->res_x = 0;
 	map->res_y = 0;
-	map->NO_path = NULL;
-	map->SO_path = NULL;
-	map->EA_path = NULL;
-	map->WE_path = NULL;
+	map->no_path = NULL;
+	map->so_path = NULL;
+	map->ea_path = NULL;
+	map->we_path = NULL;
 	map->spr_path = NULL;
 	map->f_rgb = 0;
 	map->c_rgb = 0;

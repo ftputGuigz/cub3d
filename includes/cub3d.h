@@ -168,7 +168,6 @@ typedef struct	s_datas
 	float		*buff;
 	t_player	player;
 	t_mlx		mlx;
-	t_img		minimap;
 	t_img		fps;
 	t_img		txt[5];
 	t_sprite	*spr;

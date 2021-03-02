@@ -10,120 +10,77 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
-static void calculate_distance(float **spr_dist, t_datas *map)
+void		spr_calculation(t_spr *s, t_datas *map, int i)
 {
-    int i;
-
-    i = 0;
-    while (i < map->sprites_nbr)
-    {
-        (*spr_dist)[i] = powf(map->player.rfx - (float)(map->spr[i].x + 0.5), 2) + powf(map->player.rfy - (float)(map->spr[i].y + 0.5), 2);
-        map->spr_ordr[i] = i;
-        i++;
-    }
+	s->spritx = (map->spr[map->spr_ordr[i]].x + 0.5) - map->player.rfx;
+	s->sprity = (map->spr[map->spr_ordr[i]].y + 0.5) - map->player.rfy;
+	s->invdet = 1.0 / (map->player.planx * map->player.diry - map->player.dirx *
+	map->player.plany);
+	s->transformx = s->invdet * (map->player.diry * s->spritx -
+	map->player.dirx * s->sprity);
+	s->transformy = s->invdet * (-map->player.plany * s->spritx +
+	map->player.planx * s->sprity);
+	s->spritescreenx = (int)((map->res_x / 2) *
+	(1 - s->transformx / s->transformy));
+	s->spriteheight = abs((int)(map->res_y / (s->transformy)));
+	s->spritewidth = abs((int)(map->res_y / (s->transformy)));
+	s->drawstarty = -s->spriteheight / 2 + map->res_y / 2;
+	if (s->drawstarty < 0)
+		s->drawstarty = 0;
+	s->drawendy = s->spriteheight / 2 + map->res_y / 2;
+	if (s->drawendy >= map->res_y)
+		s->drawendy = map->res_y - 1;
+	s->drawstartx = -s->spritewidth / 2 + s->spritescreenx;
+	if (s->drawstartx < 0)
+		s->drawstartx = 0;
+	s->drawendx = s->spritewidth / 2 + s->spritescreenx;
+	if (s->drawendx >= map->res_x)
+		s->drawendx = map->res_x - 1;
 }
 
-static void sort_sprites(float **spr_dist, t_datas *map)
+void		spr_draw(t_spr *s, t_datas *map, int *color)
 {
-    int i;
-    int j;
-    float tmp;
-    int tmp2;
+	int y;
 
-    i = 0;
-    while (i < map->sprites_nbr)
-    {
-        j = i + 1;
-        while (j < map->sprites_nbr)
-        {
-            if ((*spr_dist)[i] < (*spr_dist)[j])
-            {
-                tmp = (*spr_dist)[j];
-                (*spr_dist)[j] = (*spr_dist)[i];
-                (*spr_dist)[i] = tmp;
-                tmp2 = (map->spr_ordr)[j];
-                (map->spr_ordr)[j] = (map->spr_ordr)[i];
-                (map->spr_ordr)[i] = tmp2;
-            }
-            j++;
-        }
-        i++;
-    }
+	s->stripe = s->drawstartx;
+	while (s->stripe < s->drawendx)
+	{
+		s->texx = (int)((256 * (s->stripe - (-s->spritewidth /
+		2 + s->spritescreenx)) * map->txt[4].i / s->spritewidth)) / 256;
+		if (s->transformy > 0 && s->stripe > 0 && s->stripe < map->res_x &&
+		s->transformy < map->buff[s->stripe])
+		{
+			y = s->drawstarty;
+			while (y < s->drawendy)
+			{
+				s->d = y * 256 - map->res_y * 128 + s->spriteheight * 128;
+				s->texy = ((s->d * map->txt[4].j) / s->spriteheight) / 256;
+				*color = *(unsigned int *)(map->txt[4].addr + (s->texy *
+				map->txt[4].line_length + s->texx *
+				(map->txt[4].bits_per_pixel / 8)));
+				if (*color != 0x000000)
+					ft_mlx_pixel_put(&map->fps, s->stripe, y, *color);
+				y++;
+			}
+		}
+		s->stripe++;
+	}
 }
 
-static void get_order(t_datas *map)
+void		ft_sprites(t_datas *map)
 {
-    float *spr_dist;
-
-    spr_dist = malloc(sizeof(float) * map->sprites_nbr); //free propre
-    calculate_distance(&spr_dist, map);
-    sort_sprites(&spr_dist, map);
-    free(spr_dist);
-}
-
-void    ft_sprites(t_datas *map)
-{
-	int i;
-	float spritx;
-	float sprity;
-	float invDet;
-	char *color;
-	int color2;
+	int		i;
+	int		color;
+	t_spr	s;
 
 	i = 0;
-    get_order(map);
+	get_order(map);
 	while (i < map->sprites_nbr)
 	{
-		spritx = (map->spr[map->spr_ordr[i]].x + 0.5) - map->player.rfx;
-		sprity = (map->spr[map->spr_ordr[i]].y + 0.5) - map->player.rfy;
-
-		invDet = 1.0 / (map->player.planx * map->player.diry - map->player.dirx * map->player.plany);
-
-		float transformX = invDet * (map->player.diry * spritx - map->player.dirx * sprity);
-		float transformY = invDet * (-map->player.plany * spritx + map->player.planx * sprity);
-
-		int spriteScreenx = (int)((map->res_x / 2) * (1 - transformX / transformY));
-
-		int spriteHeight = abs((int)(map->res_y / (transformY)));
-		int spriteWidth = abs((int)(map->res_y / (transformY)));
-
-		int drawStartY = -spriteHeight / 2 + map->res_y / 2;
-		if(drawStartY < 0)
-			drawStartY = 0;
-
-		int drawEndY = spriteHeight / 2 + map->res_y / 2;
-      	if(drawEndY >= map->res_y) 
-			drawEndY = map->res_y - 1;
-
-      	int drawStartX = -spriteWidth / 2 + spriteScreenx;
-      	if(drawStartX < 0) 
-			drawStartX = 0;
-     	int drawEndX = spriteWidth / 2 + spriteScreenx;
-      	if(drawEndX >= map->res_x)
-			drawEndX = map->res_x - 1;
-		
-		int stripe = drawStartX;
-		while (stripe < drawEndX)
-		{
-			int texX = (int)((256 * (stripe - (-spriteWidth / 2 + spriteScreenx)) * map->txt[4].i / spriteWidth)) / 256;
-			if (transformY > 0 && stripe > 0 && stripe < map->res_x && transformY < map->buff[stripe])
-			{
-				int y = drawStartY;
-				while (y < drawEndY)
-				{
-					int d = y * 256 - map->res_y * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-					int texY = ((d * map->txt[4].j) / spriteHeight) / 256;
-					color = map->txt[4].addr + (texY * map->txt[4].line_length + texX * (map->txt[4].bits_per_pixel / 8));
-					color2 = *(unsigned int *)color;
-					if (color2 != 0x000000)
-						ft_mlx_pixel_put(&map->fps, stripe, y, color2);
-					y++;
-				}
-			}
-			stripe++;
-		}
+		spr_calculation(&s, map, i);
+		spr_draw(&s, map, &color);
 		i++;
 	}
 }

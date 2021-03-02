@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
-#if (LINUX)
+#if __linux__
 
 void	screen_size(t_datas *map)
 {
@@ -26,7 +26,7 @@ void	screen_size(t_datas *map)
 		map->res_y = sizey;
 }
 
-#else
+#elif __APPLE__
 
 void	screen_size(t_datas *map)
 {
