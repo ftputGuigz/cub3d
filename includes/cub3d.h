@@ -222,6 +222,13 @@ int 	map_checkmiddleline(char *middleline, char *upperline, char *underline);
 int		map_checkerror(char **map, int k);
 void	get_angle(t_datas *map);
 void	init_double_array(t_malloc *m, t_datas *map);
+
 void	map_correction(t_malloc *m, t_datas *map);
+void	straight_compass(t_datas *map, t_ray *ray, float angle);
+void	compass(t_datas *map, float angle, t_ray *ray);
+void 	NE_RAY(t_datas *map, t_ray *ray);
+void 	SW_RAY(t_datas *map, t_ray *ray);
+void 	SE_RAY(t_datas *map, t_ray *ray);
+void 	NW_RAY(t_datas *map, t_ray *ray);
 
 #endif
