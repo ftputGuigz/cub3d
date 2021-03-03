@@ -61,24 +61,24 @@ static void	check_args(int ac, char **av)
 	}
 }
 
-static int	main2(int ac, char *av1)
+static int	main2(int ac, char *av1, t_datas *map)
 {
-	t_datas	map;
 	int		ret;
 
-	initialize_struct(&map);
+	initialize_struct(map);
 	if (ac == 3)
-		map.bmp = 1;
-	ret = ft_parsor(av1, &map);
-	map.mlx.ptr = mlx_init();
-	screen_size(&map);
+		map->bmp = 1;
+	ret = ft_parsor(av1, map);
+	map->mlx.ptr = mlx_init();
+	screen_size(map);
 	if (ret != -1)
-		ret = ft_display(&map);
+		ret = ft_display(map);
 	return (ret);
 }
 
 int			main(int ac, char **av)
 {
+	t_datas map;
 	int		check;
 	int		fd;
 	char	buff[2];
@@ -91,12 +91,12 @@ int			main(int ac, char **av)
 		return (0);
 	}
 	close(fd);
-	check = main2(ac, av[1]);
+	check = main2(ac, av[1], &map);
 	if (check == -1)
 	{
 		printf("Error\n");
 		printf("Your <*.cub> file is not valid.\n");
-		return (0);
+		ft_exit(&map);
 	}
 	else
 		printf("Too Far.");
