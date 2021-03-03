@@ -50,7 +50,9 @@ void	ft_print_ray(t_datas *map)
 		{
 			x = map->player.fx + (ray * cosf(angle));
 			y = map->player.fy + (ray * sinf(angle));
-			ft_mlx_pixel_put(&map->fps, x, y, 0xFFF000);
+			if ((int)y >= 0 && (int)y < map->res_y &&
+					(int)x >= 0 && (int)x < map->res_x)
+				ft_mlx_pixel_put(&map->fps, x, y, 0xFFF000);
 			ray = ray + 0.2;
 		}
 		angle = angle + 0.08;
