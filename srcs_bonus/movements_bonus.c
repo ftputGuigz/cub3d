@@ -49,19 +49,43 @@ void	left_rotation(float rot, t_datas *map)
 void	movement(float i, t_datas *map)
 {
 	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i *
-	cosf(map->player.angle))] != '1')
+	cosf(map->player.angle))] != '1' &&
+	map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i *
+	cosf(map->player.angle))] != '2')
+	{
 		map->player.rfx = map->player.rfx + i * cosf(map->player.angle);
+		map->player.fx = ((float)map->player.rfx * (float)map->mini_x) /
+		(float)map->columns;
+	}
 	if (map->map[(int)(map->player.rfy + 2 * i *
-	sinf(map->player.angle))][(int)map->player.rfx] != '1')
+	sinf(map->player.angle))][(int)map->player.rfx] != '1' &&
+	map->map[(int)(map->player.rfy + 2 * i *
+	sinf(map->player.angle))][(int)map->player.rfx] != '2')
+	{
 		map->player.rfy = map->player.rfy + i * sinf(map->player.angle);
+		map->player.fy = ((float)map->player.rfy * (float)map->mini_y) /
+		(float)map->lines;
+	}
 }
 
 void	ortho_movement(float i, t_datas *map)
 {
 	if (map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i *
-	cosf(map->player.ortho))] != '1')
+	cosf(map->player.ortho))] != '1' &&
+	map->map[(int)map->player.rfy][(int)(map->player.rfx + 2 * i *
+	cosf(map->player.ortho))] != '2')
+	{
 		map->player.rfx = map->player.rfx + i * cosf(map->player.ortho);
+		map->player.fx = (float)map->player.rfx * (float)map->mini_x /
+		(float)map->columns;
+	}
 	if (map->map[(int)(map->player.rfy + 2 * i *
-	sinf(map->player.ortho))][(int)map->player.rfx] != '1')
+	sinf(map->player.ortho))][(int)map->player.rfx] != '1' &&
+	map->map[(int)(map->player.rfy + 2 * i *
+	sinf(map->player.ortho))][(int)map->player.rfx] != '2')
+	{
 		map->player.rfy = map->player.rfy + i * sinf(map->player.ortho);
+		map->player.fy = (float)map->player.rfy * (float)map->mini_y /
+		(float)map->lines;
+	}
 }

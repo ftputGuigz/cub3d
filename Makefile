@@ -34,7 +34,7 @@ SRCS_RAW = parsor parsor2 parsor3 parsor4 main map_parsor map_parsor2 map_parsor
 
 SRCS = $(addsuffix .c, $(addprefix srcs/, $(SRCS_RAW)))
 
-SRCS_BONUS = $(addsuffix _bonus.c, $(addprefix srcs_bonus/, $(SRCS_RAW) display_minimap))
+SRCS_BONUS = $(addsuffix _bonus.c, $(addprefix srcs_bonus/, $(SRCS_RAW) display_minimap display_minimap2))
 
 OBJS = $(SRCS:.c=.o)
 

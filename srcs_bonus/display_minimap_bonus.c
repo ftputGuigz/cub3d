@@ -12,131 +12,58 @@
 
 #include "cub3d_bonus.h"
 
-static void	ft_mlx_direction(t_datas *map, float c1)
+void		init_minimap(t_datas *map, int *k, float *y)
 {
-	float x;
-	float y;
-	float r;
-
-	r = c1;
-	while (r >= 0)
-	{
-		x = map->player.fx + (r * cosf(map->player.angle));
-		y = map->player.fy + (r * sinf(map->player.angle));
-		if ((int)y >= 0 && (int)y < map->res_y && (int)x >= 0 && (int)x < map->res_x && map->map[(int)(y * map->lines / map->res_y)][(int)(x * map->columns / map->res_x)] != '1')
-			ft_mlx_pixel_put(&map->minimap, x, y, 0xFF0000);
-		r = r - 0.1; //changer decrementation
-	}
+	*k = 0;
+	map->mini.start_x = 0;
+	map->mini.start_y = 0;
+	map->c1 = (float)map->mini_x / (float)map->columns;
+	map->c2 = (float)map->mini_y / (float)map->lines;
+	*y = map->mini.start_y;
 }
 
-static void	ft_print_ray(t_datas *map)
+static void	ft_fork(char c, float x, float y, t_datas *map)
 {
-	float x;
-	float y;
-	float ray;
-	float angle;
-
-	angle = map->player.angle - 0.575959;
-	//angle = map->player.angle - 2 * M_PI;
-	while (angle <= map->player.angle + 0.575959)		
-	{
-		x = map->player.fx;
-		y = map->player.fy;
-		ray = 0;
-		while ((int)y >= 0 && (int)y < map->res_y && (int)x >= 0 && (int)x < map->res_x && map->map[(int)(y * map->lines / map->res_y)][(int)(x * map->columns / map->res_x)] != '1')
-		{
-			x = map->player.fx + (ray * cosf(angle)); //remettre ANGLE
-			y = map->player.fy + (ray * sinf(angle)); //REMETTRE ANGLE
-			ft_mlx_pixel_put(&map->minimap, x, y, 0xFFF000);
-			ray = ray + 0.2; //changer decrementation
-		}
-		angle = angle + 0.08;
-	}
+	if (c == '1')
+		ft_mlx_cube(map, x, y, map->c_rgb);
+	else if (c == '0')
+		ft_mlx_cube(map, x, y, map->f_rgb);
+	else if (c == '2')
+		ft_mlx_cube(map, x, y, 0xF01120);
 }
 
-static void grid_print(t_datas *map)
+static void	ft_minimap2(t_datas *map)
 {
-	float x;
-	float x2;
-	float y2;
-	float y;
-	float c1;
-	float c2;
-
-	c1 = (float)map->res_x / (float)map->columns;
-	c2 = (float)map->res_y / (float)map->lines;
-	x = 0;
-	while (x < map->res_x)
-	{
-		y2 = 0;
-		while(y2 < map->res_y)
-		{
-			ft_mlx_pixel_put(&map->minimap, x, y2, 0xFF3599);
-			y2 += 0.1;
-		}
-		x += c1;
-	}
-	y = 0;
-	while (y < map->res_y)
-	{
-		x2 = 0;
-		while(x2 < map->res_x)
-		{
-			ft_mlx_pixel_put(&map->minimap, x2, y, 0xFF3599);
-			x2 += 0.1;
-		}
-		y += c2;
-	}
+	map->c1 = 5.0;
+	map->c2 = 5.0;
+	ft_mlx_cube(map, map->player.fx - 2.5, map->player.fy - 2.5, 0xFF5733);
+	ft_print_ray(map);
+	ft_mlx_direction(map, map->c1);
 }
 
-void	paint_it_black(t_datas *map)
+int			ft_minimap(t_datas *map)
 {
-	int x;
-	int y;
+	float	x;
+	float	y;
+	int		k;
+	int		i;
 
-	y = 0;
-	while (y < map->res_y)
-	{
-		x = 0;
-		while (x < map->res_x)
-		{
-			ft_mlx_pixel_put(&map->minimap, x, y, 0x000000);
-			x++;
-		}
-		y++;
-	}
-}
-
-int	ft_minimap(t_datas *map)
-{
-	float c1;
-	float c2;
-	float x;
-	float y = 0;
-	int k = 0;
-	int i;
-
-	paint_it_black(map);
-	c1 = (float)map->res_x / (float)map->columns;
-	c2 = (float)(map->res_y / (float)map->lines);
-	while (y <= map->res_y && map->map[k])
+	init_minimap(map, &k, &y);
+	while (y < (map->mini_y + map->mini.start_y) && y < map->res_y &&
+	map->map[k])
 	{
 		i = 0;
-		x = 0;
-		while (x <= map->res_x && map->map[k][i]) // <= peut etre responsable d'une SEGFAULT
+		x = map->mini.start_x;
+		while (x < (map->mini_x + map->mini.start_x) && x < map->res_x &&
+		map->map[k][i])
 		{
-			if (map->map[k][i] == '1')
-				ft_mlx_cube(&map->minimap, x, y, c1, c2, 0x00FF00);
-			x += c1;
+			ft_fork(map->map[k][i], x, y, map);
+			x += map->c1;
 			i++;
 		}
-		y += c2;
+		y += map->c2;
 		k++;
 	}
-	ft_mlx_cube(&map->minimap, map->player.fx - 2.5, map->player.fy - 2.5, 5.0, 5.0, 0xFF5733);
-	grid_print(map); //GRILLE
-	ft_print_ray(map); //RAYONS - FOV
-	ft_mlx_direction(map, c1); // RAYON - DIRECTION
-	mlx_put_image_to_window(map->mlx.ptr, map->mlx.wdw, map->minimap.img, 0, 0);
+	ft_minimap2(map);
 	return (0);
 }

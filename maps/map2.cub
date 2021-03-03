@@ -1,14 +1,14 @@
 R 1000 1000
 
-NO ./texturesMinecraft/stone.xpm
+NO ./textures/stone.xpm
 
-EA ./texturesMinecraft/brick.xpm
+EA ./textures/brick.xpm
 
-WE ./texturesMinecraft/wood.xpm
+WE ./textures/wood.xpm
 
-SO ./texturesMinecraft/grass.xpm
+SO ./textures/grass.xpm
 
-S ./texturesMinecraft/eagle.xpm
+S ./textures/vase2.xpm
 
 F 130,59,0
 

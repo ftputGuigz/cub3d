@@ -20,6 +20,26 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	ft_mlx_cube(t_datas *map, float x, float y, int color)
+{
+	float a;
+	float b;
+	float tmpx;
+
+	a = x + map->c1;
+	b = y + map->c2;
+	while (y >= 0 && y < b && y < map->res_y)
+	{
+		tmpx = x;
+		while (tmpx >= 0 && tmpx < a && tmpx < map->res_x)
+		{
+			ft_mlx_pixel_put(&map->fps, tmpx, y, color);
+			tmpx++;
+		}
+		y++;
+	}
+}
+
 int		wasd(int keycode, t_datas *map)
 {
 	if (keycode == FRONT)
@@ -77,9 +97,6 @@ int		ft_display(t_datas *map)
 		return (-1);
 	map->fps.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
 	map->fps.addr = mlx_get_data_addr(map->fps.img, &map->fps.bits_per_pixel,
-	&map->fps.line_length, &map->fps.endian);
-	map->minimap.img = mlx_new_image(map->mlx.ptr, map->res_x, map->res_y);
-	map->minimap.addr = mlx_get_data_addr(map->minimap.img, &map->minimap.bits_per_pixel,
 	&map->fps.line_length, &map->fps.endian);
 	if (!map->bmp)
 	{

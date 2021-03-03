@@ -59,6 +59,10 @@ void		ft_initposition(t_datas *map)
 {
 	map->player.rfx = (float)map->player.x + 0.5;
 	map->player.rfy = (float)map->player.y + 0.5;
+	map->mini_x = map->res_x / 6;
+	map->mini_y = map->res_y / 6;
+	map->player.fx = map->player.rfx * (float)map->mini_x / (float)map->columns;
+	map->player.fy = map->player.rfy * (float)map->mini_y / (float)map->lines;
 	lodev_positions1(map);
 	sprites_buffer(map);
 }

@@ -61,8 +61,6 @@ void	ft_kill_mlx(t_datas *map)
 			mlx_destroy_image(map->mlx.ptr, map->txt[i].img);
 		i++;
 	}
-	if (map->minimap.img)
-		mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	if (map->fps.img)
 		mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	if (map->mlx.wdw2)
@@ -85,8 +83,6 @@ void	ft_kill_mlx(t_datas *map)
 			mlx_destroy_image(map->mlx.ptr, map->txt[i].img);
 		i++;
 	}
-	if (map->minimap.img)
-		mlx_destroy_image(map->mlx.ptr, map->minimap.img);
 	if (map->fps.img)
 		mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	if (map->mlx.wdw2)

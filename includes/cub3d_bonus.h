@@ -87,6 +87,8 @@ typedef struct	s_player
 	int		y;
 	float	rfx;
 	float	rfy;
+	float	fx;
+	float	fy;
 	float	dirx;
 	float	diry;
 	float	planx;
@@ -150,11 +152,21 @@ typedef struct	s_spr
 	int		d;
 }				t_spr;
 
+typedef struct	s_mini
+{
+	int start_x;
+	int	start_y;
+}				t_mini;
+
 typedef struct	s_datas
 {
 	int			bmp;
 	int			res_x;
 	int			res_y;
+	int			mini_x;
+	int			mini_y;
+	float		c1;
+	float		c2;
 	char		*no_path;
 	char		*so_path;
 	char		*ea_path;
@@ -166,9 +178,9 @@ typedef struct	s_datas
 	int			columns;
 	int			lines;
 	float		*buff;
+	t_mini		mini;
 	t_player	player;
 	t_mlx		mlx;
-	t_img		minimap;
 	t_img		fps;
 	t_img		txt[5];
 	t_sprite	*spr;
@@ -239,5 +251,9 @@ void			se_ray(t_datas *map, t_ray *ray);
 void			nw_ray(t_datas *map, t_ray *ray);
 void			print_ray(t_datas *map, int x, float ray_p, t_ray *ray);
 void			stock_ray(t_ray *ray);
+int				ft_minimap(t_datas *map);
+void			ft_mlx_cube(t_datas *map, float x, float y, int color);
+void			ft_print_ray(t_datas *map);
+void			ft_mlx_direction(t_datas *map, float c1);
 
 #endif
