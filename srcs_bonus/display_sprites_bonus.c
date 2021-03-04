@@ -57,8 +57,8 @@ void		spr_draw(t_spr *s, t_datas *map, int *color)
 			{
 				s->d = y * 256 - map->res_y * 128 + s->spriteheight * 128;
 				s->texy = ((s->d * map->txt[4].j) / s->spriteheight) / 256;
-				*color = *(unsigned int *)(map->txt[4].addr + (s->texy *
-				map->txt[4].line_length + s->texx *
+				*color = *(unsigned int *)(map->txt[4].addr + (abs(s->texy) *
+				map->txt[4].line_length + abs(s->texx) *
 				(map->txt[4].bits_per_pixel / 8)));
 				if (*color != 0x000000)
 					ft_mlx_pixel_put(&map->fps, s->stripe, y, *color);

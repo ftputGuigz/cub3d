@@ -42,8 +42,8 @@ int		painter(t_datas *map, t_ray *ray, float y_tex)
 		x_tex = (1 - modff(ray->yc, &reste)) * map->txt[rank].i;
 	else
 		x_tex = modff(ray->xc, &reste) * map->txt[rank].i;
-	color = map->txt[rank].addr + ((int)y_tex * map->txt[rank].line_length +
-	(int)x_tex * (map->txt[rank].bits_per_pixel / 8));
+	color = map->txt[rank].addr + (abs((int)y_tex) * map->txt[rank].line_length
+	+ abs((int)x_tex) * (map->txt[rank].bits_per_pixel / 8));
 	color2 = *(unsigned int *)color;
 	return (color2);
 }

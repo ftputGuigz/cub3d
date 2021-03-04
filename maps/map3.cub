@@ -1,14 +1,14 @@
 R 700 700
 
-NO ./textures/wood_hi.xpm
+NO ./textures/wood.xpm
 
-EA ./textures/wood_hi.xpm
+EA ./textures/grass.xpm
 
-WE ./textures/wood_hi.xpm
+WE ./textures/metal.xpm
 
-SO ./textures/wood_hi.xpm
+SO ./textures/brick.xpm
 
-S ./textures/vase.xpm
+S ./textures/dog.xpm
 
 F 250,205,211
 

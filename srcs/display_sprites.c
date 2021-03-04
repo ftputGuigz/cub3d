@@ -48,8 +48,8 @@ static void	get_color(t_spr *s, t_datas *map, int *color)
 	unsigned char	g;
 	unsigned char	b;
 
-	tmp = map->txt[4].addr + (s->texy * map->txt[4].line_length +
-			s->texx * (map->txt[4].bits_per_pixel / 8));
+	tmp = map->txt[4].addr + (abs(s->texy) * map->txt[4].line_length +
+			abs(s->texx) * (map->txt[4].bits_per_pixel / 8));
 	b = (unsigned char)(*tmp);
 	g = (unsigned char)(*(tmp + 1));
 	r = (unsigned char)(*(tmp + 2));
