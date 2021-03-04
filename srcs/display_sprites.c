@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 10:25:48 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/13 10:26:01 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/03/04 11:32:39 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,23 @@ void		spr_calculation(t_spr *s, t_datas *map, int i)
 		s->drawendx = map->res_x - 1;
 }
 
+static void	get_color(t_spr *s, t_datas *map, int *color)
+{
+	char			*tmp;
+	unsigned char	t;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+
+	tmp = map->txt[4].addr + (s->texy * map->txt[4].line_length +
+			s->texx * (map->txt[4].bits_per_pixel / 8));
+	b = (unsigned char)(*tmp);
+	g = (unsigned char)(*(tmp + 1));
+	r = (unsigned char)(*(tmp + 2));
+	t = (unsigned char)(*(tmp + 3));
+	*color = create_trgb(t, r, g, b);
+}
+
 void		spr_draw(t_spr *s, t_datas *map, int *color)
 {
 	int y;
@@ -57,9 +74,7 @@ void		spr_draw(t_spr *s, t_datas *map, int *color)
 			{
 				s->d = y * 256 - map->res_y * 128 + s->spriteheight * 128;
 				s->texy = ((s->d * map->txt[4].j) / s->spriteheight) / 256;
-				*color = *(unsigned int *)(map->txt[4].addr + (s->texy *
-				map->txt[4].line_length + s->texx *
-				(map->txt[4].bits_per_pixel / 8)));
+				get_color(s, map, color);
 				if (*color != 0x000000)
 					ft_mlx_pixel_put(&map->fps, s->stripe, y, *color);
 				y++;
