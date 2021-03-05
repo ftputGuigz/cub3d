@@ -136,7 +136,7 @@ int	ft_parsor(char *path, t_datas *map)
 		failed_malloc(&m, map);
 	a = get_next_line(m.fd, &m.line);
 	ret = 0;
-	while (a == 1 && ret != -1)
+	while (a == 1)
 	{
 		ret = ft_fillstruct(&m, map);
 		free(m.line);
