@@ -10,7 +10,7 @@ SO ./textures/brick.xpm
 
 S ./textures/vase.xpm
 
-F 250,205,211
+F 250, 205 211,
 
 C 217,244,255
 

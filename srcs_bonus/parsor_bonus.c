@@ -126,7 +126,8 @@ int	ft_fillstruct(t_malloc *m, t_datas *map)
 int	ft_parsor(char *path, t_datas *map)
 {
 	int			a;
-	int			ret;
+	int			tmp;
+	static int	ret = 0;
 	t_malloc	m;
 
 	init_malloc(&m);
@@ -135,10 +136,11 @@ int	ft_parsor(char *path, t_datas *map)
 	if (!m.line_map || m.fd < 0)
 		failed_malloc(&m, map);
 	a = get_next_line(m.fd, &m.line);
-	ret = 0;
 	while (a == 1)
 	{
-		ret = ft_fillstruct(&m, map);
+		tmp = ft_fillstruct(&m, map);
+		if (tmp)
+				ret = tmp;
 		free(m.line);
 		a = get_next_line(m.fd, &m.line);
 	}

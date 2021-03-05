@@ -83,7 +83,7 @@ int		ft_rgb(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
 		failed_malloc(m, map);
 	while (m->tmp[k])
 		k++;
-	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(m->tmp))
+	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(m->tmp) || m->tmp[1][0] == ',' || m->tmp[3][(ft_strlen(m->tmp[3])) - 1] == ',')
 		return (-1);
 	if (m->tmp[0][0] == 'F' && !flg->f)
 		return (ft_fill_floor(map, flg, m->tmp));
