@@ -65,8 +65,11 @@ void	ft_kill_mlx(t_datas *map)
 		mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	if (map->mlx.wdw2)
 		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
-	mlx_destroy_display(map->mlx.ptr);
-	free(map->mlx.ptr);
+	if(map->mlx.ptr)
+	{
+		mlx_destroy_display(map->mlx.ptr);
+		free(map->mlx.ptr);
+	}
 	exit(0);
 }
 
@@ -87,7 +90,8 @@ void	ft_kill_mlx(t_datas *map)
 		mlx_destroy_image(map->mlx.ptr, map->fps.img);
 	if (map->mlx.wdw2)
 		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
-	free(map->mlx.ptr);
+	if (map->mlx.ptr)
+		free(map->mlx.ptr);
 	exit(0);
 }
 

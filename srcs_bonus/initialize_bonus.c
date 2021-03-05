@@ -56,6 +56,7 @@ void	init_mlx(t_datas *map)
 		map->txt[i++].img = NULL;
 	map->mlx.wdw2 = NULL;
 	map->fps.img = NULL;
+	map->mlx.ptr = NULL;
 }
 
 void	initialize_struct(t_datas *map)

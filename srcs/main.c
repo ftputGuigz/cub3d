@@ -69,10 +69,11 @@ static int	main2(int ac, char *av1, t_datas *map)
 	if (ac == 3)
 		map->bmp = 1;
 	ret = ft_parsor(av1, map);
+	if (ret == -1)
+		return (ret);
 	map->mlx.ptr = mlx_init();
 	screen_size(map);
-	if (ret != -1)
-		ret = ft_display(map);
+	ret = ft_display(map);
 	return (ret);
 }
 
