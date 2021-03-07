@@ -89,6 +89,8 @@ int			main(int ac, char **av)
 	if (fd == -1 || read(fd, buff, 1) < 0)
 	{
 		printf("Cannot find file.\n");
+		if (fd != -1)
+			close(fd);
 		return (0);
 	}
 	close(fd);
