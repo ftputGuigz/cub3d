@@ -1,14 +1,14 @@
 R 960 540
 
-NO ./texturesMinecraft_hi/stone.xpm
+NO ./textures/stone.xpm
 
-EA ./texturesMinecraft_hi/brick.xpm
+EA ./textures/brick.xpm
 
-WE ./texturesMinecraft_hi/wood.xpm
+WE ./textures/wood.xpm
 
-SO ./texturesMinecraft_hi/grass.xpm
+SO ./textures/grass.xpm
 
-S ./texturesMinecraft/eagle.xpm
+S ./textures/dog.xpm
 
 F 130,59,0
 
