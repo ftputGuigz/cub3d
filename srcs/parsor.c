@@ -140,7 +140,7 @@ int	ft_parsor(char *path, t_datas *map)
 	{
 		tmp = ft_fillstruct(&m, map);
 		if (tmp)
-				ret = tmp;
+			ret = tmp;
 		free(m.line);
 		a = get_next_line(m.fd, &m.line);
 	}

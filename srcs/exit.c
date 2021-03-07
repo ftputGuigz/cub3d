@@ -66,7 +66,7 @@ void	ft_kill_mlx(t_datas *map)
 	if (map->mlx.wdw2)
 		mlx_destroy_window(map->mlx.ptr, map->mlx.wdw2);
 	if (map->mlx.ptr)
-	{	
+	{
 		mlx_destroy_display(map->mlx.ptr);
 		free(map->mlx.ptr);
 	}

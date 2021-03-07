@@ -6,7 +6,7 @@
 /*   By: gpetit <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:43:05 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/28 20:11:13 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/03/07 10:15:54 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,5 +238,6 @@ void			se_ray(t_datas *map, t_ray *ray);
 void			nw_ray(t_datas *map, t_ray *ray);
 void			print_ray(t_datas *map, int x, float ray_p, t_ray *ray);
 void			stock_ray(t_ray *ray);
+int				check_comma_start_end(char *line);
 
 #endif

@@ -12,6 +12,23 @@
 
 #include "cub3d_bonus.h"
 
+int		check_comma_start_end(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == 'F' || line[i] == 'C'))
+		i++;
+	if (line[i] == ',')
+		return (-1);
+	i = ft_strlen(line) - 1;
+	while (i >= 0 && line[i] == ' ')
+		i--;
+	if (line[i] == ',')
+		return (-1);
+	return (0);
+}
+
 int		check_num_fc(char **tmp)
 {
 	int i;

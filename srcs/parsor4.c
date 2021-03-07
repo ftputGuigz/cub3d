@@ -6,11 +6,28 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:16:09 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/25 15:16:11 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/03/07 10:14:40 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		check_comma_start_end(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && (line[i] == ' ' || line[i] == 'F' || line[i] == 'C'))
+		i++;
+	if (line[i] == ',')
+		return (-1);
+	i = ft_strlen(line) - 1;
+	while (i >= 0 && line[i] == ' ')
+		i--;
+	if (line[i] == ',')
+		return (-1);
+	return (0);
+}
 
 int		check_num_fc(char **tmp)
 {

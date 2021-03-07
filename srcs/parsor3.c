@@ -6,7 +6,7 @@
 /*   By: gpetit <gpetit@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 20:10:15 by gpetit            #+#    #+#             */
-/*   Updated: 2021/02/24 20:12:14 by gpetit           ###   ########.fr       */
+/*   Updated: 2021/03/07 10:10:32 by gpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int		ft_rgb(int *mapclearance, t_malloc *m, t_datas *map, t_flags *flg)
 		failed_malloc(m, map);
 	while (m->tmp[k])
 		k++;
-	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(m->tmp) || m->tmp[1][0] == ',' || m->tmp[3][(ft_strlen(m->tmp[3])) - 1] == ',')
+	if (k != 4 || comma_count(m->line) != 2 || check_num_fc(m->tmp) ||
+	check_comma_start_end(m->line))
 		return (-1);
 	if (m->tmp[0][0] == 'F' && !flg->f)
 		return (ft_fill_floor(map, flg, m->tmp));

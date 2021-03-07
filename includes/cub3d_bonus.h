@@ -255,5 +255,6 @@ int				ft_minimap(t_datas *map);
 void			ft_mlx_cube(t_datas *map, float x, float y, int color);
 void			ft_print_ray(t_datas *map);
 void			ft_mlx_direction(t_datas *map, float c1);
+int				check_comma_start_end(char *line);
 
 #endif
